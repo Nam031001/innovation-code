@@ -1,0 +1,134 @@
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  font-family:
+    "Noto Sans KR",
+    "Apple SD Gothic Neo",
+    Pretendard,
+    -apple-system,
+    sans-serif;
+  color: #fff;
+  background: #000;
+}
+
+// ---------------------------------------------
+// Top bar
+// ---------------------------------------------
+.topbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 86px;
+  padding: 0 32px;
+  border-bottom: 6px solid #fff;
+}
+
+.topbar__back {
+  position: absolute;
+  top: 50%;
+  left: 32px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transform: translateY(-50%);
+
+  svg {
+    width: 26px;
+    height: 26px;
+    fill: #fff;
+  }
+}
+
+.topbar__logo {
+  display: flex;
+
+  img {
+    display: block;
+    width: auto;
+    height: 64px;
+  }
+}
+
+// ---------------------------------------------
+// Page body
+// ---------------------------------------------
+// Topbar is a fixed 86px, so the page body takes exactly what's left
+// of the viewport and never needs to scroll, no matter the viewport
+// size.
+.history {
+  display: flex;
+  max-width: 1800px;
+  height: calc(100dvh - 86px);
+  padding: clamp(16px, 3vh, 56px) 32px;
+  margin: 0 auto;
+}
+
+.history__grid {
+  display: grid;
+  flex: 1;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 3vh, 48px) clamp(16px, 3vw, 40px);
+  min-height: 0;
+  list-style: none;
+}
+
+.history__item {
+  min-width: 0;
+  min-height: 0;
+}
+
+.history__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-decoration: none;
+}
+
+.history__paper {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+
+  .history__link:hover & {
+    transform: scale(1.03);
+  }
+}
+
+.history__year {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 8px 16px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+  background: #111;
+  transform: translate(-50%, -50%);
+
+  &--light {
+    color: #000;
+    background: #fff;
+  }
+}

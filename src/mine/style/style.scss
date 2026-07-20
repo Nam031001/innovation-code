@@ -1,0 +1,292 @@
+@use 'sass:list';
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap';
+
+@font-face {
+  font-family: Tal-Black;
+  src: url('../../font/Tal-Black.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Tal-Black-Condensed;
+  src: url('../../font/TalCondensed-Black.woff2') format('woff2');
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  font-family:
+    'Noto Sans KR',
+    'Apple SD Gothic Neo',
+    Pretendard,
+    -apple-system,
+    sans-serif;
+  color: #000;
+  background: #f5f5f3;
+}
+
+// ---------------------------------------------
+// Top bar
+// ---------------------------------------------
+.topbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 86px;
+  padding: 0 32px;
+  border-bottom: 6px solid #000;
+}
+
+// Radial fan menu, same pattern as the other sub-pages: anchored
+// top-left, sweeping down-right into the page.
+$fan-positions: (
+  0: (
+    160px,
+    0px,
+    0deg,
+  ),
+  1: (
+    152px,
+    49px,
+    18deg,
+  ),
+  2: (
+    129px,
+    94px,
+    36deg,
+  ),
+  3: (
+    94px,
+    129px,
+    54deg,
+  ),
+  4: (
+    49px,
+    152px,
+    72deg,
+  ),
+  5: (
+    0px,
+    160px,
+    90deg,
+  ),
+);
+
+.topbar__menu {
+  position: absolute;
+  top: 20px;
+
+  // Extra room versus the toggle's own 32px inset: the last tag in
+  // the fan rotates to point straight down, so its short edge (the
+  // tag's own height) swings out to the *left* of the toggle and
+  // needs clearance from the viewport edge or it gets clipped.
+  left: 56px;
+  z-index: 10;
+}
+
+.topbar__menu-toggle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  img {
+    display: block;
+    width: 92px;
+    height: auto;
+    pointer-events: none;
+    transition: transform 0.25s ease;
+  }
+}
+
+.topbar__menu-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  // Invisible triangular hover bridge covering only the down-right
+  // sector the tags actually fan into (not a full square), so the
+  // pointer can travel from the icon to a tag without losing hover.
+  // Pointer-events stay off at rest so it never blocks page content
+  // underneath it; the rule below switches it on only while the menu
+  // is actually being engaged. A separate pseudo-element so it
+  // doesn't clip the tags themselves.
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 220px;
+    pointer-events: none;
+    content: '';
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+  }
+
+  li {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(0, 0) scale(0.3) rotate(0deg);
+
+    // Pivot rotation around the same corner the tag is anchored/
+    // translated from (its hinge point on the fan arc), matching the
+    // main page's menu so the tags fan out like real spokes instead of
+    // swinging around their own (label-width-dependent) centers.
+    transform-origin: 0 0;
+    transition:
+      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+      opacity 0.3s ease;
+    transition-delay: calc(var(--i) * 0.04s);
+
+    @each $i, $pos in $fan-positions {
+      &:nth-child(#{$i + 1}) {
+        --tx: #{list.nth($pos, 1)};
+        --ty: #{list.nth($pos, 2)};
+        --rot: #{list.nth($pos, 3)};
+      }
+    }
+  }
+
+  a {
+    display: inline-block;
+    padding: 6px 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #f9f9f9;
+    white-space: nowrap;
+    text-decoration: none;
+    background: #161616;
+    border: 2px solid #f9f9f9;
+  }
+}
+
+.topbar__menu-toggle:hover ~ .topbar__menu-list::before,
+.topbar__menu-list:hover::before,
+.topbar__menu:focus-within .topbar__menu-list::before,
+.topbar__menu.is-open .topbar__menu-list::before {
+  pointer-events: auto;
+}
+
+.topbar__menu-toggle:hover ~ .topbar__menu-list li,
+.topbar__menu-list:hover li,
+.topbar__menu:focus-within .topbar__menu-list li,
+.topbar__menu.is-open .topbar__menu-list li {
+  pointer-events: auto;
+  opacity: 1;
+  transform: translate(var(--tx), var(--ty)) scale(1) rotate(var(--rot));
+}
+
+// The fan-out itself is driven by :hover / .is-open on the tags;
+// the icon stays static rather than spinning into anything (there's
+// no X shape to morph into with a single static image).
+// .topbar__menu.is-open .topbar__menu-toggle img {
+//   transform: rotate(90deg);
+// }
+
+.topbar__logo {
+  display: flex;
+
+  img {
+    display: block;
+    width: auto;
+    height: 64px;
+  }
+}
+
+// ---------------------------------------------
+// Page body
+// ---------------------------------------------
+// Topbar is a fixed 86px, so the page body takes exactly what's left
+// of the viewport and never needs to scroll, no matter the viewport
+// size.
+.mine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1800px;
+  height: calc(100dvh - 86px);
+  padding: clamp(16px, 3vh, 48px) 32px;
+  margin: 0 auto;
+}
+
+.mine__title {
+  margin-bottom: clamp(16px, 3vh, 40px);
+  font-family: Tal-Black, sans-serif;
+  font-size: clamp(26px, 3.2vw, 70px);
+  font-weight: 800;
+  text-align: center;
+}
+
+.mine__flags {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+
+.mine__flag {
+  position: absolute;
+  top: 50%;
+  width: auto;
+  height: 85vh;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+
+  &:nth-child(1) {
+    left: 25%;
+    z-index: 1;
+  }
+
+  &:nth-child(2) {
+    left: 50%;
+    z-index: 2;
+  }
+
+  &:nth-child(3) {
+    left: 75%;
+    z-index: 3;
+  }
+}
+
+.mine__steps {
+  position: absolute;
+  bottom: 12%;
+  left: 0;
+  z-index: 4;
+  width: min(30%, 420px);
+  padding: 18px 22px;
+  font-size: clamp(12px, 1.1vw, 16px);
+  line-height: 1.7;
+  background: #fff;
+  border: 1px solid #000;
+
+  p + p {
+    margin-top: 4px;
+  }
+
+  strong {
+    font-weight: 800;
+  }
+}
