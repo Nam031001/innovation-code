@@ -8,12 +8,13 @@
   </head>
   <body>
     <header class="topbar">
-      <button class="topbar__back" type="button" aria-label="뒤로가기">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-        </svg>
+      <button class="topbar-back" type="button" aria-label="뒤로가기">
+        <img
+          src="../../../asset/leftArrow.png"
+          alt="arrow"
+          style="filter: brightness(0) invert(1)" />
       </button>
-      <div class="topbar__logo">
+      <div class="topbar-logo">
         <a href="../../../index.html">
           <img src="../../../asset/logoDark.png" alt="logo" />
         </a>
@@ -21,126 +22,66 @@
     </header>
 
     <main class="year">
-      <audio id="audio" preload="metadata"></audio>
+      <audio
+        id="audio"
+        preload="metadata"
+        loop
+        src="../../../music/national-anthem.mp3"></audio>
 
-      <aside class="player">
-        <div class="playerTop">
-          <p class="player__date">2024년 12월 3일</p>
-          <h1 class="player__title">Played list</h1>
+      <aside class="flags">
+        <div class="flag flag-1">
+          <span class="flag-song">애국가</span>
+          <button class="flag-btn" type="button" aria-label="애국가 재생">
+            <img src="../../../asset/history/playlist/깃발01.png" alt="" />
+          </button>
+        </div>
+        <div class="flag flag-2">
+          <span class="flag-song">애국가</span>
+          <button class="flag-btn" type="button" aria-label="애국가 재생">
+            <img src="../../../asset/history/playlist/깃발02.png" alt="" />
+          </button>
+        </div>
+        <div class="flag flag-3">
+          <span class="flag-song">애국가</span>
+          <button class="flag-btn" type="button" aria-label="애국가 재생">
+            <img src="../../../asset/history/playlist/깃발03.png" alt="" />
+          </button>
         </div>
 
-        <ul class="player__list">
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            1. 다시 만난 세계
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            2. 첫 만남은 계획대로 되지 않아
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            3. 한 페이지가 될 수 있게
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            4. 파이팅 해야지
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            5. 아모르파티
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            6. 위플래시
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            7. 헌법 제1조(대한민국은 민주공화국이다)
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            8. 임을 위한 행진곡
-          </li>
-        </ul>
-
-        <div class="player__controls">
-          <div class="player__buttons">
-            <button
-              class="player__btn player__prev"
-              type="button"
-              aria-label="이전 곡">
-              <svg viewBox="0 0 24 24">
-                <path d="M6 6h2v12H6zM20 6 10 12l10 6z" />
-              </svg>
-            </button>
-            <button
-              class="player__btn player__toggle"
-              type="button"
-              aria-label="재생">
-              <svg class="icon-play" viewBox="0 0 24 24">
-                <path d="M7 5v14l12-7z" />
-              </svg>
-              <svg class="icon-pause" viewBox="0 0 24 24">
-                <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
-              </svg>
-            </button>
-            <button
-              class="player__btn player__next"
-              type="button"
-              aria-label="다음 곡">
-              <svg viewBox="0 0 24 24">
-                <path d="M16 6h2v12h-2zM4 6l10 6-10 6z" />
-              </svg>
-            </button>
-          </div>
-
-          <input
-            class="player__seek"
-            type="range"
-            min="0"
-            max="100"
-            value="0"
-            step="0.1"
-            aria-label="재생 구간" />
-        </div>
+        <img
+          class="flags-truck"
+          src="../../../asset/history/playlist/푸드트럭.png"
+          alt="" />
       </aside>
 
       <div class="newspaper">
-        <article class="newspaper__page">
-          <div class="newspaper__scroll">
+        <article class="newspaper-page">
+          <div class="newspaper-scroll">
             <img
-              class="newspaper__scan"
+              class="newspaper-scan"
               src="../../../asset/history/newspaper/2024.png"
               alt="2024년 12월 3일 호외 신문 지면" />
           </div>
         </article>
       </div>
     </main>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span class="ticker-item">탄~핵탄핵 윤석열탄핵!(탄~핵탄핵 윤석열탄핵!)</span>
+        <span class="ticker-item">체~포체포 내란범 체포!(체~포체포 내란범 체포!)</span>
+        <span class="ticker-item">해~체해체 국힘당 해체!(해~체해체 국힘당 해체!)</span>
+        <span class="ticker-item">윤석열을 탄핵하라(윤석열을 탄핵하라!)</span>
+        <span class="ticker-item">탄~핵탄핵 윤석열탄핵!(탄~핵탄핵 윤석열탄핵!)</span>
+        <span class="ticker-item">체~포체포 내란범 체포!(체~포체포 내란범 체포!)</span>
+        <span class="ticker-item">해~체해체 국힘당 해체!(해~체해체 국힘당 해체!)</span>
+        <span class="ticker-item">윤석열을 탄핵하라(윤석열을 탄핵하라!)</span>
+        <span class="ticker-item">탄~핵탄핵 윤석열탄핵!(탄~핵탄핵 윤석열탄핵!)</span>
+        <span class="ticker-item">체~포체포 내란범 체포!(체~포체포 내란범 체포!)</span>
+        <span class="ticker-item">해~체해체 국힘당 해체!(해~체해체 국힘당 해체!)</span>
+        <span class="ticker-item">윤석열을 탄핵하라(윤석열을 탄핵하라!)</span>
+      </div>
+    </div>
 
     <script src="./script/script.js"></script>
   </body>

@@ -1,4 +1,4 @@
-@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap";
+@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap';
 
 * {
   box-sizing: border-box;
@@ -6,56 +6,488 @@
   margin: 0;
 }
 
+// ---------------------------------------------
+// Global cursors — every state uses custom art, with `none` as the
+// fallback so a failed image never drops back to the OS cursor.
+//   default → general areas        pointer → clickable elements
+//   wait    → while the page loads  (disabled falls back to default)
+// grab / grabbing / ew-resize are set on their own components below.
+// ---------------------------------------------
+:where(html) {
+  cursor: url('../../../../asset/cursor/default.png'), none;
+}
+
+:where(
+  a[href], button, summary, label[for], select,
+  [role='button'], [role='menuitem'], [role='link'], [role='tab'],
+  input[type='button'], input[type='submit'], input[type='reset'],
+  input[type='checkbox'], input[type='radio'], input[type='file']
+) {
+  cursor: url('../../../../asset/cursor/pointer.png'), none;
+}
+
+:where(:disabled, [aria-disabled='true']) {
+  cursor: url('../../../../asset/cursor/default.png'), none;
+}
+
+html:not(.is-loaded),
+html:not(.is-loaded) * {
+  cursor: url('../../../../asset/cursor/wait.png'), none !important;
+}
+
 html,
 body {
   height: 100%;
   overflow: hidden;
-  font-family:
-    "Noto Sans KR",
-    "Apple SD Gothic Neo",
-    Pretendard,
-    -apple-system,
-    sans-serif;
-  color: #fff;
-  background: #000;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #000;
+  background: #f5f5f3;
 }
 
+// ---------------------------------------------
+// Top bar
+// ---------------------------------------------
 .topbar {
+  position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   height: 86px;
   padding: 0 32px;
-  border-bottom: 3px solid #fff;
+  border-bottom: 6px solid #000;
 }
 
-.topbar__back {
-  font-size: 14px;
-  color: #fff;
-  text-decoration: none;
-  opacity: 0.7;
+.topbar-menu {
+  position: absolute;
+  top: 20px;
+  left: 56px;
+  z-index: 10;
+}
 
-  &:hover {
-    opacity: 1;
+.topbar-menu-toggle {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // Hit area matches the full 92px-wide icon (it used to be a 44px box
+  // with the icon overflowing it, so hovering the sides of the icon did
+  // nothing); the negative margin keeps the icon visually in place.
+  width: 92px;
+  height: 46px;
+  margin-left: -24px;
+  padding: 0;
+  cursor: url('../../../../asset/cursor/pointer.png'), none;
+  background: none;
+  border: none;
+
+  img {
+    display: block;
+    flex-shrink: 0;
+    width: 92px;
+    height: auto;
+    pointer-events: none;
+
+    // The hamburger art is near-white; force it black so it reads on
+    // the light top bar.
+    filter: brightness(0);
+    transition: transform 0.25s ease;
   }
 }
 
+// The items drop straight down from the icon in a single column,
+// staggered by --i, the same reveal the main page's menu uses.
+.topbar-menu-list {
+  position: absolute;
+  top: 46px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
+
+  // Off at rest so the (tall, invisible) collapsed column never blocks
+  // the page. Switched on whenever the menu is engaged (rules below) so
+  // the whole column — gaps included — keeps the pointer "inside" the
+  // menu while moving from the button to an item.
+  pointer-events: none;
+  list-style: none;
+
+  li {
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      transform 0.28s cubic-bezier(0.34, 1.4, 0.64, 1),
+      opacity 0.16s ease;
+    transition-delay: calc(var(--i) * 0.025s);
+  }
+
+  a {
+    display: inline-block;
+    padding: 6px 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #f9f9f9;
+    white-space: nowrap;
+    text-decoration: none;
+    background: #161616;
+    border: 2px solid #f9f9f9;
+  }
+}
+
+.topbar-menu-toggle:hover ~ .topbar-menu-list,
+.topbar-menu-list:hover,
+.topbar-menu:focus-within .topbar-menu-list,
+.topbar-menu.is-open .topbar-menu-list {
+  pointer-events: auto;
+}
+
+.topbar-menu-toggle:hover ~ .topbar-menu-list li,
+.topbar-menu-list:hover li,
+.topbar-menu:focus-within .topbar-menu-list li,
+.topbar-menu.is-open .topbar-menu-list li {
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.topbar-logo {
+  display: flex;
+
+  img {
+    display: block;
+    width: auto;
+    height: 64px;
+  }
+}
+
+// ---------------------------------------------
+// Year page
+// ---------------------------------------------
 .year {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
   height: calc(100dvh - 86px);
-  padding: 48px;
-  gap: 16px;
 }
 
-.year__title {
-  margin: 0;
-  font-size: clamp(40px, 8vw, 96px);
+.year-back {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 14px;
+  align-items: center;
+  align-self: flex-start;
+  padding: 16px 32px;
+  margin-inline: 50px;
+  margin-top: 30px;
+  margin-bottom: 86px;
+  font-family: Tal-Black, sans-serif;
+  font-size: 60px;
   font-weight: 800;
+  color: #000;
+  text-decoration: none;
+  border: 6px solid #000;
+
+  &:hover {
+    background: #fff;
+  }
 }
 
-.year__desc {
+.year-grid {
+  display: grid;
+  padding: 18px;
+  flex: 1;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 28px 24px;
+  min-height: 0;
+  overflow-y: auto;
+  list-style: none;
+  border-top: 6px solid #000;
+}
+
+.year-item {
+  button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    text-align: left;
+    cursor: url('../../../../asset/cursor/pointer.png'), none;
+    background: none;
+    border: none;
+
+    &:hover img {
+      transform: scale(1.02);
+    }
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.05);
+    transition: transform 0.2s ease;
+  }
+}
+
+.year-caption {
+  display: block;
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.year.is-detail-open .year-back,
+.year.is-detail-open .year-grid {
+  pointer-events: none;
+  filter: blur(2px);
+}
+
+// ---------------------------------------------
+// Detail modal
+// ---------------------------------------------
+.detail {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.detail-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgb(20 20 20 / 55%);
+  backdrop-filter: blur(3px);
+}
+
+// Echoes .year-back so it reads as that same box swapping into a
+// close control rather than a separate element. Lives above
+// .detail-backdrop so it stays clickable while the modal is open.
+.detail-close {
+  position: absolute;
+  top: calc(86px + clamp(16px, 3vh, 40px));
+  left: 32px;
+  z-index: 2;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 14px 28px;
+  font-family: Tal-Black, sans-serif;
+  font-size: clamp(22px, 2.6vw, 60px);
+  font-weight: 800;
+  color: #000;
+  cursor: url('../../../../asset/cursor/pointer.png'), none;
+  background: #f5f5f3;
+  border: 6px solid #000;
+
+  &:hover {
+    background: #fff;
+  }
+}
+
+// A long strip of the current photo, repeated to either side of
+// center, peeking from behind the card. Built and filled in by
+// renderFilmstrip() in script.js.
+.detail-filmstrip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  transform: translate(-50%, -50%);
+}
+
+// One tile's full footprint (220px + 10px margin either side), so a
+// shift moves the row by exactly one photo. Triggered by scrolling the
+// modal: down nudges the strip left (next photo), up nudges it right
+// (previous photo).
+$filmstrip-tile-pitch: 240px;
+
+@keyframes filmstrip-shift-next {
+  50% {
+    transform: translate(calc(-50% - #{$filmstrip-tile-pitch}), -50%);
+  }
+}
+
+@keyframes filmstrip-shift-prev {
+  50% {
+    transform: translate(calc(-50% + #{$filmstrip-tile-pitch}), -50%);
+  }
+}
+
+.detail-filmstrip.is-shift-next {
+  animation: filmstrip-shift-next 0.35s ease;
+}
+
+.detail-filmstrip.is-shift-prev {
+  animation: filmstrip-shift-prev 0.35s ease;
+}
+
+.detail-filmstrip-item {
+  flex: none;
+  width: 220px;
+  margin: 0 10px;
+  text-align: center;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+  }
+
+  figcaption {
+    text-align: left;
+    margin-top: 6px;
+    font-size: 17px;
+    color: #f9f9f9;
+  }
+}
+
+.detail-card {
+  position: relative;
+  z-index: 1;
+  width: min(46vw, 880px);
+  height: min(94vh, 990px);
+}
+
+.detail-card-border {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #000;
+  clip-path: polygon(100% 0, 95% 52%, 100% 100%, 0 100%, 5% 47%, 0 0);
+}
+
+.detail-card-inner {
+  position: absolute;
+  inset: 10px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 44px;
+  background: #f5f5f3;
+  clip-path: polygon(100% 0, 95% 52%, 100% 100%, 0 100%, 5% 47%, 0 0);
+}
+
+.detail-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  button {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font: inherit;
+    font-family: Tal-Black, sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: url('../../../../asset/cursor/pointer.png'), none;
+    background: none;
+    border: none;
+    opacity: 0.85;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.detail-hint {
+  margin-bottom: 8px;
+  font-family: Tal-Black, sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #242424;
+  text-align: center;
+}
+
+.detail-year {
+  align-self: center;
+  padding: 8px 22px;
+  margin-bottom: 84px;
+  font-family: Tal-Black, sans-serif;
+  font-size: clamp(18px, 2vw, 50px);
+  color: #fff;
+  background: #111;
+}
+
+.detail-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgb(0 0 0 / 20%);
+  }
+}
+
+// Absolutely centered on the card (which is itself centered on the
+// viewport) instead of sitting in normal flow, so the main photo
+// lands in the exact same spot on screen no matter how tall the
+// header above or the write-up below happen to be.
+.detail-figure {
+  position: absolute;
+  top: 50%;
+  right: 44px;
+  left: 44px;
   margin: 0;
+  transform: translateY(-50%);
+}
+
+.detail-photo {
+  display: block;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.detail-figure figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
   opacity: 0.6;
+}
+
+.detail-text {
+  padding: 20px 24px 32px;
+  margin-top: auto;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #737373;
+  text-align: center;
+}
+
+.detail-index {
+  font-size: 17px;
+  color: #1c1b1f;
+}
+
+.detail-source {
+  font-size: 14px;
+  color: #bab9bc;
 }

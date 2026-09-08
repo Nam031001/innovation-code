@@ -8,12 +8,13 @@
   </head>
   <body>
     <header class="topbar">
-      <button class="topbar__back" type="button" aria-label="뒤로가기">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-        </svg>
+      <button class="topbar-back" type="button" aria-label="뒤로가기">
+        <img
+          src="../../../asset/leftArrow.png"
+          alt="arrow"
+          style="filter: brightness(0) invert(1)" />
       </button>
-      <div class="topbar__logo">
+      <div class="topbar-logo">
         <a href="../../../index.html">
           <img src="../../../asset/logoDark.png" alt="logo" />
         </a>
@@ -21,84 +22,81 @@
     </header>
 
     <main class="year">
-      <audio id="audio" preload="metadata"></audio>
+      <audio
+        id="audio"
+        preload="metadata"
+        loop
+        src="../../../music/national-anthem.mp3"></audio>
 
-      <aside class="player">
-        <div class="playerTop">
-          <p class="player__date">1980년 5월 18일</p>
-          <h1 class="player__title">Played list</h1>
-        </div>
+      <aside class="tapes">
 
-        <ul class="player__list">
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            1. 임을 위한 행진곡
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            2. 오월의 노래
-          </li>
-        </ul>
+        <button
+          class="tape tape-1 is-playable"
+          type="button"
+          aria-label="임을 위한 행진곡 재생"
+          aria-pressed="false">
+          <img src="../../../asset/history/playlist/카세트테이프.png" alt="" />
+          <span class="tape-song">임을 위한 행진곡</span>
+        </button>
+        <button style="margin-bottom: -20px"
+          class="tape tape-2 is-playable"
+          type="button"
+          aria-label="오월의 노래 재생"
+          aria-pressed="false">
+          <img src="../../../asset/history/playlist/카세트테이프.png" alt="" />
+          <span class="tape-song">오월의 노래</span>
+        </button>
+        <img
+          class="tape tape-3"
+          src="../../../asset/history/playlist/카세트테이프.png"
+          alt="" />
+        <img
+          class="tape tape-4"
+          src="../../../asset/history/playlist/카세트테이프.png"
+          alt="" />
+        <img
+          class="tape tape-5"
+          src="../../../asset/history/playlist/카세트테이프.png"
+          alt="" />
+        <img
+          class="tape tape-6"
+          src="../../../asset/history/playlist/카세트테이프.png"
+          alt="" />
 
-        <div class="player__controls">
-          <div class="player__buttons">
-            <button
-              class="player__btn player__prev"
-              type="button"
-              aria-label="이전 곡">
-              <svg viewBox="0 0 24 24">
-                <path d="M6 6h2v12H6zM20 6 10 12l10 6z" />
-              </svg>
-            </button>
-            <button
-              class="player__btn player__toggle"
-              type="button"
-              aria-label="재생">
-              <svg class="icon-play" viewBox="0 0 24 24">
-                <path d="M7 5v14l12-7z" />
-              </svg>
-              <svg class="icon-pause" viewBox="0 0 24 24">
-                <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
-              </svg>
-            </button>
-            <button
-              class="player__btn player__next"
-              type="button"
-              aria-label="다음 곡">
-              <svg viewBox="0 0 24 24">
-                <path d="M16 6h2v12h-2zM4 6l10 6-10 6z" />
-              </svg>
-            </button>
-          </div>
-
-          <input
-            class="player__seek"
-            type="range"
-            min="0"
-            max="100"
-            value="0"
-            step="0.1"
-            aria-label="재생 구간" />
-        </div>
+        <img
+          class="tapes-radio"
+          src="../../../asset/history/playlist/518라디오.png"
+          alt="" />
       </aside>
 
       <div class="newspaper">
-        <article class="newspaper__page">
-          <div class="newspaper__scroll">
+        <article class="newspaper-page">
+          <div class="newspaper-scroll">
             <img
-              class="newspaper__scan"
+              class="newspaper-scan"
               src="../../../asset/history/newspaper/1980.png"
               alt="1980년 5월 18일 호외 신문 지면" />
           </div>
         </article>
       </div>
     </main>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span class="ticker-item">비상계엄 해제하라!</span>
+        <span class="ticker-item">계엄군은 물러가라!</span>
+        <span class="ticker-item">김대중 석방하라!</span>
+        <span class="ticker-item">전두환 물러가라!</span>
+        <span class="ticker-item">비상계엄 해제하라!</span>
+        <span class="ticker-item">계엄군은 물러가라!</span>
+        <span class="ticker-item">김대중 석방하라!</span>
+        <span class="ticker-item">전두환 물러가라!</span>
+        <span class="ticker-item">비상계엄 해제하라!</span>
+        <span class="ticker-item">계엄군은 물러가라!</span>
+        <span class="ticker-item">김대중 석방하라!</span>
+        <span class="ticker-item">전두환 물러가라!</span>
+      </div>
+    </div>
 
     <script src="./script/script.js"></script>
   </body>

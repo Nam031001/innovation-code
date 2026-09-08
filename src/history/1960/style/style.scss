@@ -6,6 +6,35 @@
   margin: 0;
 }
 
+// ---------------------------------------------
+// Global cursors — every state uses custom art, with `none` as the
+// fallback so a failed image never drops back to the OS cursor.
+//   default → general areas        pointer → clickable elements
+//   wait    → while the page loads  (disabled falls back to default)
+// grab / grabbing / ew-resize are set on their own components below.
+// ---------------------------------------------
+:where(html) {
+  cursor: url('../../../../asset/cursor/default.png'), none;
+}
+
+:where(
+  a[href], button, summary, label[for], select,
+  [role='button'], [role='menuitem'], [role='link'], [role='tab'],
+  input[type='button'], input[type='submit'], input[type='reset'],
+  input[type='checkbox'], input[type='radio'], input[type='file']
+) {
+  cursor: url('../../../../asset/cursor/pointer.png'), none;
+}
+
+:where(:disabled, [aria-disabled='true']) {
+  cursor: url('../../../../asset/cursor/default.png'), none;
+}
+
+html:not(.is-loaded),
+html:not(.is-loaded) * {
+  cursor: url('../../../../asset/cursor/wait.png'), none !important;
+}
+
 html,
 body {
   height: 100%;
@@ -20,19 +49,25 @@ body {
   background: #000;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 // topbar
 
 .topbar {
   position: relative;
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   height: 86px;
   padding: 0 32px;
-  border-bottom: 3px solid #fff;
+  border-bottom: 8px solid #fff;
 }
 
-.topbar__back {
+.topbar-back {
   position: absolute;
   top: 50%;
   left: 32px;
@@ -43,19 +78,18 @@ body {
   width: 40px;
   height: 40px;
   padding: 0;
-  cursor: pointer;
+  cursor: url('../../../../asset/cursor/pointer.png'), none;
   background: none;
   border: none;
   transform: translateY(-50%);
 
-  svg {
-    width: 26px;
-    height: 26px;
-    fill: #fff;
+ img {
+    width: 52px;
+    height: 52px;
   }
 }
 
-.topbar__logo {
+.topbar-logo {
   display: flex;
 
   img {
@@ -66,160 +100,128 @@ body {
 }
 
 // ---------------------------------------------
-// Page: playlist sidebar + newspaper page, both
-// floating on a dimmed halftone crowd photo. Only
-// the article text scrolls; nothing else does.
+// Page: speaker + newspaper page, both floating
+// on a dimmed halftone crowd photo. Only the
+// article text scrolls; nothing else does.
 // ---------------------------------------------
 .year {
+  position: relative;
   display: flex;
+  flex: 1;
   gap: 30px;
   justify-content: center;
-  height: calc(100dvh - 86px);
+  min-height: 0;
   background:
     linear-gradient(#090909 30%, transparent 100%),
     url('../../../../asset/history/newspaper/background.png') center/cover;
 }
 
 // ---------------------------------------------
-// Playlist sidebar
+// Speaker: click to play / stop the anthem
 // ---------------------------------------------
-.player {
+.speaker {
   display: flex;
-  flex: 0 0 300px;
+  flex: 0 0 auto;
   flex-direction: column;
-
-  // padding: 22px 16px;
-  color: #161208;
-  background:
-    url('../../../../asset/history/newspaper/paperTexture.png') center/cover,
-    #dbcdaa;
-  background-blend-mode: color-burn;
-}
-
-.playerTop {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   align-items: center;
-  margin-top: 22px;
+  justify-content: flex-end;
+  width: 355px;
 }
 
-.player__date {
-  margin-bottom: 6px;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-}
-
-.player__title {
-  margin-bottom: 28px;
-  font-size: clamp(26px, 2.6vw, 36px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-.player__list {
-  margin-bottom: auto;
-  list-style: none;
-}
-
-.player__track {
+.speaker-bubble {
   position: relative;
-  padding: 14px 16px;
-  font-size: 14px;
+  padding: 12px 18px;
+  margin-bottom: 14px;
+  font-size: 24px;
+  font-family: Tal-Black;
   font-weight: 700;
-  cursor: pointer;
-
-  &::after {
-    position: absolute;
-    inset: 0 20px;
-    pointer-events: none;
-    content: '';
-    border-block: 1px solid #000;
-  }
-
-  &:hover {
-    color: white;
-    background: #4b4538 100%;
-  }
+  color: #000;
+  white-space: nowrap;
+  background: #fff;
+  border: 3px solid black;
+  transition: opacity 0.2s ease;
 }
 
-.player__controls {
-  padding: 22px 16px;
-  padding-top: 20px;
-}
-
-.player__buttons {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-}
-
-.player__btn {
-  display: flex;
-  padding: 4px;
-  cursor: pointer;
+.speaker-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  cursor: url('../../../../asset/cursor/pointer.png'), none;
   background: none;
   border: none;
+  transition: transform 0.15s ease;
 
-  svg {
-    width: 24px;
-    height: 24px;
-    fill: #161208;
+  &:hover {
+    transform: scale(1.04);
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 }
 
-.player__toggle {
-  svg {
-    width: 40px;
-    height: 40px;
+.speaker-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: filter 0.18s ease;
+
+  // Hover blacks the whole speaker out so the song title reads on top.
+  .speaker-btn:hover &,
+  .speaker-btn:focus-visible & {
+    filter: brightness(0);
+  }
+}
+
+// Song title that fades in over the blacked-out speaker on hover.
+.speaker-song {
+  position: absolute;
+  top: 42%;
+  left: 55%;
+  z-index: 2;
+  padding: 8px 16px;
+  font-family: Tal-Black, 'Noto Sans KR', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease;
+
+  .speaker-btn:hover &,
+  .speaker-btn:focus-visible & {
+    opacity: 1;
+  }
+}
+
+// The click hint steps aside while the song title is showing.
+.speaker:hover .speaker-bubble,
+.speaker:focus-within .speaker-bubble {
+  opacity: 0;
+}
+
+// A gentle pulse while the anthem plays.
+.speaker.is-playing {
+  .speaker-btn {
+    animation: speaker-pulse 0.9s ease-in-out infinite;
   }
 
-  .icon-pause {
+  .speaker-bubble {
     display: none;
   }
-
-  &.is-playing {
-    .icon-play {
-      display: none;
-    }
-
-    .icon-pause {
-      display: block;
-    }
-  }
 }
 
-.player__seek {
-  width: 100%;
-  height: 2px;
-  appearance: none;
-  cursor: pointer;
-  outline: none;
-  background: #161208;
-
-  &::-webkit-slider-thumb {
-    width: 13px;
-    height: 13px;
-    margin-top: -5.5px;
-    appearance: none;
-    background: #161208;
-    border-radius: 50%;
+@keyframes speaker-pulse {
+  0%,
+  100% {
+    transform: scale(1) rotate(-1deg);
   }
 
-  &::-moz-range-track {
-    height: 2px;
-    background: #161208;
-    border: none;
-  }
-
-  &::-moz-range-thumb {
-    width: 13px;
-    height: 13px;
-    background: #161208;
-    border: none;
-    border-radius: 50%;
+  50% {
+    transform: scale(1.05) rotate(1deg);
   }
 }
 
@@ -235,12 +237,13 @@ body {
   max-width: 1012px;
 }
 
-.newspaper__page {
+.newspaper-page {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 1320px;
   height: 100%;
+  overflow: hidden;
   color: #161208;
   background:
     url('../../../../asset/history/newspaper/paperTexture.png') center/cover,
@@ -249,14 +252,22 @@ body {
   background-blend-mode: color-burn;
 }
 
-.newspaper__scroll {
+.newspaper-scroll {
   flex: 1;
   min-height: 0;
-  padding-bottom: 36px;
   overflow-y: auto;
+  -ms-overflow-style: none;
+
+  // Without its own background, this scrolling layer is transparent,
+  // so once the scan image is scrolled past, the dark page backdrop
+  // behind .newspaper-page showed through the leftover padding.
+  // Mirroring the parent's paper background here keeps that gap
+  // covered no matter how far the article scrolls.
+  background: inherit;
+  background-blend-mode: inherit;
 
   &::-webkit-scrollbar {
-    width: 6px;
+    display: none;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -264,7 +275,54 @@ body {
   }
 }
 
-.newspaper__scan {
+.newspaper-scan {
   display: block;
   width: 100%;
+}
+
+// ---------------------------------------------
+// Bottom ticker: slogans scrolling to the left
+// ---------------------------------------------
+.ticker {
+  flex: 0 0 auto;
+  overflow: hidden;
+  font-family: Tal-Black;
+  color: #fff;
+  background: #000;
+  border-top: 3px solid #fff;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  padding: 9px 0;
+  white-space: nowrap;
+  animation: ticker-scroll 32s linear infinite;
+}
+
+.ticker-item {
+  padding: 0 2.6vw;
+  font-size: clamp(14px, 1.15vw, 18px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
+
+  .speaker.is-playing .speaker-btn {
+    animation: none;
+  }
 }

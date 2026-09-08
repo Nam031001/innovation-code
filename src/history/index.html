@@ -8,56 +8,69 @@
   </head>
   <body>
     <header class="topbar">
-      <button class="topbar__back" type="button" aria-label="뒤로가기">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-        </svg>
-      </button>
-      <div class="topbar__logo">
-        <a href="../../index.html"><img src="../../asset/logoDark.png" alt="logo" /></a>
+      <nav class="topbar-menu">
+        <button class="topbar-menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false">
+          <img src="../../asset/Jhamburger.png" alt="" />
+        </button>
+        <ul class="topbar-menu-list" role="menu">
+          <li role="none" style="--i: 0"><a role="menuitem" href="../library/index.html">라이브러리</a></li>
+          <li role="none" style="--i: 1"><a role="menuitem" href="../history/index.html">호외요 호외(민주시위 모음)</a></li>
+          <li role="none" style="--i: 2"><a role="menuitem" href="../object/index.html">도구 아카이브</a></li>
+          <li role="none" style="--i: 3"><a role="menuitem" href="../future/index.html">미래의 시위</a></li>
+          <li role="none" style="--i: 4"><a role="menuitem" href="../mine/index.html">나만의 깃발 만들기</a></li>
+          <li role="none" style="--i: 5"><a role="menuitem" href="../supplies/index.html">시위 준비물</a></li>
+        </ul>
+      </nav>
+      <div class="topbar-logo">
+        <a href="../../index.html">
+          <img src="../../asset/logoDark.png" alt="logo" />
+        </a>
       </div>
     </header>
 
     <main class="history">
-      <ul class="history__grid">
-        <li class="history__item">
-          <a class="history__link" href="./1960/index.html">
-            <img class="history__paper" src="../../asset/history/1.png" alt="" />
-            <span class="history__year">1960</span>
+      <ul class="history-grid">
+        <li class="history-item">
+          <a class="history-link" href="./1960/index.html">
+            <img class="history-paper" src="../../asset/history/1.png" alt="" />
+            <span class="history-year">1960</span>
           </a>
         </li>
-        <li class="history__item">
-          <a class="history__link" href="./1979/index.html">
-            <img class="history__paper" src="../../asset/history/3.png" alt="" />
-            <span class="history__year">1979</span>
+        <li class="history-item">
+          <a class="history-link" href="./1979/index.html">
+            <img class="history-paper" src="../../asset/history/3.png" alt="" />
+            <span class="history-year">1979</span>
           </a>
         </li>
-        <li class="history__item">
-          <a class="history__link" href="./1980/index.html">
-            <img class="history__paper" src="../../asset/history/4.png" alt="" />
-            <span class="history__year history__year--light">1980</span>
+        <li class="history-item">
+          <a class="history-link" href="./1980/index.html">
+            <img class="history-paper" src="../../asset/history/4.png" alt="" />
+            <span class="history-year history-year--light">1980</span>
           </a>
         </li>
-        <li class="history__item">
-          <a class="history__link" href="./1987/index.html">
-            <img class="history__paper" src="../../asset/history/2.png" alt="" />
-            <span class="history__year">1987</span>
+        <li class="history-item">
+          <a class="history-link" href="./1987/index.html">
+            <img class="history-paper" src="../../asset/history/2.png" alt="" />
+            <span class="history-year">1987</span>
           </a>
         </li>
-        <li class="history__item">
-          <a class="history__link" href="./2016/index.html">
-            <img class="history__paper" src="../../asset/history/5.png" alt="" />
-            <span class="history__year">2016</span>
+        <li class="history-item">
+          <a class="history-link" href="./2016/index.html">
+            <img class="history-paper" src="../../asset/history/5.png" alt="" />
+            <span class="history-year">2016</span>
           </a>
         </li>
-        <li class="history__item">
-          <a class="history__link" href="./2024/index.html">
-            <img class="history__paper" src="../../asset/history/6.png" alt="" />
-            <span class="history__year">2024</span>
+        <li class="history-item">
+          <a class="history-link" href="./2024/index.html">
+            <img class="history-paper" src="../../asset/history/6.png" alt="" />
+            <span class="history-year">2024</span>
           </a>
         </li>
       </ul>
     </main>
+
+    <div class="lens" aria-hidden="true"></div>
+    <div class="lens-ring" aria-hidden="true"></div>
 
     <script src="./script/script.js"></script>
   </body>

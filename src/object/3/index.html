@@ -3,20 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style/style.css" />
-    <title>주먹밥 · 도구 아카이브 · 다시쓰는 빛의 연대</title>
+    <link rel="stylesheet" href="../style/tool.css" />
+    <link rel="stylesheet" href="../1/style.css" />
+    <title>손글씨 대자보 · 도구 아카이브 · 다시쓰는 빛의 연대</title>
   </head>
   <body>
     <header class="topbar">
-      <nav class="topbar__menu">
+      <nav class="topbar-menu">
         <button
-          class="topbar__menu-toggle"
+          class="topbar-menu-toggle"
           type="button"
           aria-label="메뉴 열기"
           aria-expanded="false">
-          <img src="../../../asset/hamburger.png" alt="" />
+          <img src="../../../asset/Jhamburger.png" alt="" />
         </button>
-        <ul class="topbar__menu-list" role="menu">
+        <ul class="topbar-menu-list" role="menu">
           <li role="none" style="--i: 0">
             <a role="menuitem" href="../../library/index.html">라이브러리</a>
           </li>
@@ -41,117 +42,109 @@
           </li>
         </ul>
       </nav>
-      <div class="topbar__logo">
+      <div class="topbar-logo">
         <a href="../../../index.html">
           <img src="../../../asset/logo.png" alt="logo" />
         </a>
       </div>
     </header>
 
-    <main class="tool">
-      <section class="tool__hero">
-        <a class="tool__back" href="../index.html">뒤로가기</a>
+    <main class="doc">
+      <nav class="doc-nav" aria-label="도구 목록">
+        <ul class="doc-nav-list">
+          <li><a href="../1/index.html">손글씨 대자보</a></li>
+          <li><a href="../2/index.html">횃불</a></li>
+          <li><a href="../3/index.html" aria-current="page">주먹밥</a></li>
+          <li><a href="../4/index.html">버스</a></li>
+          <li><a href="../5/index.html">손수건</a></li>
+          <li><a href="../6/index.html">넥타이</a></li>
+          <li><a href="../7/index.html">택시</a></li>
+          <li><a href="../8/index.html">촛불</a></li>
+          <li><a href="../9/index.html">종이컵</a></li>
+          <li><a href="../10/index.html">LED촛불</a></li>
+          <li><a href="../11/index.html">응원봉</a></li>
+          <li><a href="../12/index.html">깃발</a></li>
+          <li><a href="../13/index.html">트랙터</a></li>
+          <li><a href="../14/index.html">푸드트럭</a></li>
+          <li><a href="../15/index.html">총</a></li>
+          <li><a href="../16/index.html">최루탄</a></li>
+          <li><a href="../17/index.html">군복</a></li>
+          <li><a href="../18/index.html">몽둥이</a></li>
+          <li><a href="../19/index.html">군헬멧</a></li>
+          <li><a href="../20/index.html">군화</a></li>
+          <li><a href="../21/index.html">물대포</a></li>
+          <li><a href="../22/index.html">장갑차</a></li>
+          <li><a href="../23/index.html">태극기</a></li>
+        </ul>
+      </nav>
 
-        <div class="tool__poster-wrap">
-          <img
-            class="tool__poster"
-            src="../../../asset/history/object/riceball_2%202.png"
-            alt="주먹밥" />
-        </div>
-      </section>
+      <article class="doc-main">
+        <h1 class="doc-title">주먹밥</h1>
+        <hr class="doc-rule" style="margin-bottom: 0" />
+        <hr class="doc-rule" style="border: 1px solid black; margin-top: 6px" />
 
-      <section class="tool__info">
-        <h1 class="tool__title">주먹밥</h1>
-        <p class="tool__subtitle">
-          각종 곡식으로 지은 밥과 함께 고기, 채소, 김가루 등 여러 재료를
-          넣거나 다양한 양념을 한 밥을 뭉쳐 만든 음식
+        <p class="doc-lead">
+          각종 곡식으로 지은 밥과 함께 고기, 채소, 김가루 등 여러 재료를 넣거나 다양한 양념을 한 밥을 뭉쳐 만든 음식
         </p>
+        <hr class="doc-rule" />
 
-        <dl class="tool__specs">
-          <div class="tool__specs-row">
+        <dl class="doc-meta">
+          <div>
             <dt>크기</dt>
             <dd>지름 3.5cm부터 성인 여자 주먹 크기까지 다양하다.</dd>
           </div>
-          <div class="tool__specs-row">
+          <div>
             <dt>재료</dt>
             <dd>쌀</dd>
           </div>
         </dl>
+        <hr
+          class="doc-rule"
+          style="border: 1px solid black; margin-bottom: 6px" />
+        <hr class="doc-rule" style="margin-top: 0" />
 
-        <div class="tool__desc-row">
-          <h2 class="tool__desc-label">설명</h2>
-
-          <div class="tool__body">
-            <section class="tool__section">
-              <h3>1. 5·18과 고립된 섬, 광주의 비극</h3>
-              <p>
-                1980년 5월 18일부터 27일까지 전개된 5·18 광주민주화운동은
-                신군부의 비상계엄 전국 확대에 맞선 처절한 민중 항쟁이었다.
-                전남대학교 진입을 저지당한 학생들과 계엄군의 충돌로
-                시작된 항쟁은, 대검을 사용한 계엄군의 잔혹한 진압 방식이
-                목격되면서 일반 시민들의 거대한 분노로 번졌다. 5월 21일
-                전남도청 앞 집단 발포 이후, 시민들은 스스로를 무장한
-                '시민군'을 조직했고 계엄군은 광주 외곽으로 철수하며
-                도시를 완전히 차단했다. 이로 인해 광주는 생필품과
-                식량이 끊긴 '고립된 섬'이 되었다. 당시 광주의 참상을
-                세계에 알린 독일 언론인 위르겐 힌츠페터는 "사람들이
-                차라리 함께 죽자'였던 것으로 기억한다"고 회상했을 만큼,
-                현장은 죽음과 항전의 기운이 가득했다. 하지만 이
-                공포스러운 고립 속에서도 시민들은 무너지지 않았으며,
-                오히려 주먹밥을 통해 유례없는 자치 공동체를 형성했다.
-              </p>
-            </section>
-
-            <section class="tool__section">
-              <h3>2. 아주머니들과 주먹밥의 탄생 배경</h3>
-              <p>
-                완전히 고립된 10일간은 공포와 두려움이 지배하는
-                시간이었으나, 광주 시민들은 이를 '나눔'으로 극복했다.
-                전통시장인 양동시장과 대인시장에서 장사를 하던
-                아주머니들은 누가 먼저랄 것도 없이 대로변과 주택가
-                골목에 솥을 걸고 주먹밥을 짓기 시작했다. 흰 쌀밥에
-                소금으로 간을 한 단순한 형태였으나, 이는 계엄군에 맞서
-                싸우던 시민군들에게는 '생명' 그 자체였다. 이 주먹밥은
-                단순히 허기를 달래는 음식이 아니라, 시민군과 일반
-                시민이 하나로 연결되어 있음을 증명하는 상징이었던
-                것이다.
-              </p>
-            </section>
-
-            <section class="tool__section">
-              <h3>3. 공동체 정신의 계승</h3>
-              <p>
-                1980년 5월 광주에서 피어난 주먹밥과 헌혈, 그리고 자치
-                공동체의 경험은 훗날 한국 사회의 위기 때마다 반복되는
-                연대 정신의 뿌리가 되었다. 국가의 폭력으로 인해
-                물리적으로 고립되었을 때, 시민들이 오히려 서로를
-                보살피며 완성한 이 도덕적 승리는 5·18 민주화운동이
-                단순한 희생의 기록을 넘어 승리의 기록으로 평가받는
-                이유이다. 오늘날 광주 주먹밥은 단순한 음식을 넘어
-                '나눔'과 '자치'라는 광주 정신(Gwangju Spirit)을
-                상징하는 시각적·미식적 유산으로 보존되고 있으며, 이는
-                시민들의 연대가 세상을 어떻게 바꿀 수 있는지를 보여주는
-                살아있는 증거로 남아 있다.
-              </p>
-            </section>
-          </div>
+        <div class="doc-body">
+          <img src="../../../asset/text/text3.png" alt="" />
         </div>
-      </section>
+      </article>
+
+      <aside class="doc-aside">
+        <figure
+          class="doc-figure"
+          data-popup-open
+          role="button"
+          tabindex="0"
+          aria-label="관련 자료 크게 보기">
+          <span class="doc-figure-frame">
+            <img
+              src="../../../asset/history/object/riceball_2 2.png"
+              alt="횃불" />
+          </span>
+          <figcaption>▶ Pic1. 손글씨 대자보</figcaption>
+        </figure>
+      </aside>
+
+      <a class="doc-back" href="../index.html">뒤로가기</a>
     </main>
 
+    <!--
+      Opens on load (no `hidden`). The close button re-adds `hidden`,
+      and the Pic1 figure below still reopens it via [data-popup-open].
+    -->
     <div class="popup" id="popup">
-      <div class="popup__card">
+      <div class="popup-card">
         <img
-          class="popup__image"
-          src="../../../asset/history/popup/6.png"
-          alt="광주 양동시장 및 주먹밥 종류" />
+          class="popup-image"
+          src="../../../asset/history/popup/2.png"
+          alt="국회의사당 일대 대자보 부착 경로" />
+        <div class="popup-drag" aria-hidden="true"></div>
         <button
-          class="popup__close"
+          class="popup-close"
           type="button"
           aria-label="팝업 끄기"></button>
       </div>
     </div>
 
-    <script src="./script/script.js"></script>
+    <script src="../script/tool.js"></script>
   </body>
 </html>

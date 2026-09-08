@@ -1,9 +1,16 @@
+// Global cursors: drop the `wait` state once the page is fully loaded.
+(function () {
+  var done = function () { document.documentElement.classList.add("is-loaded"); };
+  if (document.readyState === "complete") done();
+  else window.addEventListener("load", done);
+})();
+
 const menu = document.querySelector(".menu");
 const toggle = document.querySelector(".menu__toggle");
 const scribble = document.querySelector(".hero__scribble");
 const hotspot = document.querySelector(".hero__hotspot");
 
-const SCRIBBLE_SRC = "asset/움짤.gif";
+const SCRIBBLE_SRC = "asset/scribble.gif";
 const SCRIBBLE_HOVER_SRC = "asset/GifPeople.png";
 
 hotspot.addEventListener("mouseenter", () => {

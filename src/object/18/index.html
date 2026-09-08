@@ -3,19 +3,148 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style/style.css" />
-    <title>18 · 도구 아카이브 · 다시쓰는 빛의 연대</title>
+    <link rel="stylesheet" href="../style/tool.css" />
+    <link rel="stylesheet" href="../1/style.css" />
+    <title>몽둥이 · 도구 아카이브 · 다시쓰는 빛의 연대</title>
   </head>
   <body>
     <header class="topbar">
-      <a class="topbar__back" href="../index.html">← 도구 아카이브로</a>
+      <nav class="topbar-menu">
+        <button
+          class="topbar-menu-toggle"
+          type="button"
+          aria-label="메뉴 열기"
+          aria-expanded="false">
+          <img src="../../../asset/Jhamburger.png" alt="" />
+        </button>
+        <ul class="topbar-menu-list" role="menu">
+          <li role="none" style="--i: 0">
+            <a role="menuitem" href="../../library/index.html">라이브러리</a>
+          </li>
+          <li role="none" style="--i: 1">
+            <a role="menuitem" href="../../history/index.html">
+              호외요 호외(민주시위 모음)
+            </a>
+          </li>
+          <li role="none" style="--i: 2">
+            <a role="menuitem" href="../index.html">도구 아카이브</a>
+          </li>
+          <li role="none" style="--i: 3">
+            <a role="menuitem" href="../../future/index.html">미래의 시위</a>
+          </li>
+          <li role="none" style="--i: 4">
+            <a role="menuitem" href="../../mine/index.html">
+              나만의 깃발 만들기
+            </a>
+          </li>
+          <li role="none" style="--i: 5">
+            <a role="menuitem" href="../../supplies/index.html">시위 준비물</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="topbar-logo">
+        <a href="../../../index.html">
+          <img src="../../../asset/logo.png" alt="logo" />
+        </a>
+      </div>
     </header>
 
-    <main class="tool">
-      <h1 class="tool__title">18</h1>
-      <p class="tool__desc">이 페이지는 준비 중입니다.</p>
+    <main class="doc">
+      <nav class="doc-nav" aria-label="도구 목록">
+        <ul class="doc-nav-list">
+          <li><a href="../1/index.html">손글씨 대자보</a></li>
+          <li><a href="../2/index.html">횃불</a></li>
+          <li><a href="../3/index.html">주먹밥</a></li>
+          <li><a href="../4/index.html">버스</a></li>
+          <li><a href="../5/index.html">손수건</a></li>
+          <li><a href="../6/index.html">넥타이</a></li>
+          <li><a href="../7/index.html">택시</a></li>
+          <li><a href="../8/index.html">촛불</a></li>
+          <li><a href="../9/index.html">종이컵</a></li>
+          <li><a href="../10/index.html">LED촛불</a></li>
+          <li><a href="../11/index.html">응원봉</a></li>
+          <li><a href="../12/index.html">깃발</a></li>
+          <li><a href="../13/index.html">트랙터</a></li>
+          <li><a href="../14/index.html">푸드트럭</a></li>
+          <li><a href="../15/index.html">총</a></li>
+          <li><a href="../16/index.html">최루탄</a></li>
+          <li><a href="../17/index.html">군복</a></li>
+          <li><a href="../18/index.html" aria-current="page">몽둥이</a></li>
+          <li><a href="../19/index.html">군헬멧</a></li>
+          <li><a href="../20/index.html">군화</a></li>
+          <li><a href="../21/index.html">물대포</a></li>
+          <li><a href="../22/index.html">장갑차</a></li>
+          <li><a href="../23/index.html">태극기</a></li>
+        </ul>
+      </nav>
+
+      <article class="doc-main">
+        <h1 class="doc-title">몽둥이</h1>
+        <hr class="doc-rule" style="margin-bottom: 0" />
+        <hr class="doc-rule" style="border: 1px solid black; margin-top: 6px" />
+
+        <p class="doc-lead">
+          경찰봉 중 기다란 것들을 지칭한다
+        </p>
+        <hr class="doc-rule" />
+
+        <dl class="doc-meta">
+          <div>
+            <dt>크기</dt>
+            <dd>중봉 약 105cm, 장봉 약 120cm</dd>
+          </div>
+          <div>
+            <dt>재질</dt>
+            <dd>강화 플라스틱</dd>
+          </div>
+        </dl>
+        <hr
+          class="doc-rule"
+          style="border: 1px solid black; margin-bottom: 6px" />
+        <hr class="doc-rule" style="margin-top: 0" />
+
+        <div class="doc-body">
+          <img src="../../../asset/text/text18.png" alt="" />
+        </div>
+      </article>
+
+      <aside class="doc-aside">
+        <figure
+          class="doc-figure"
+          data-popup-open
+          role="button"
+          tabindex="0"
+          aria-label="관련 자료 크게 보기">
+          <span class="doc-figure-frame">
+            <img
+              src="../../../asset/history/object/riot-baton_2 2.png"
+              alt="몽둥이" />
+          </span>
+          <figcaption>▶ Pic18. 몽둥이</figcaption>
+        </figure>
+      </aside>
+
+      <a class="doc-back" href="../index.html">뒤로가기</a>
     </main>
 
-    <script src="./script/script.js"></script>
+    <!--
+      Opens on load (no `hidden`). The close button re-adds `hidden`,
+      and the Pic1 figure below still reopens it via [data-popup-open].
+    -->
+    <div class="popup" id="popup">
+      <div class="popup-card">
+        <img
+          class="popup-image"
+          src="../../../asset/history/popup/17.png"
+          alt="몽둥이 관련 자료" />
+        <div class="popup-drag" aria-hidden="true"></div>
+        <button
+          class="popup-close"
+          type="button"
+          aria-label="팝업 끄기"></button>
+      </div>
+    </div>
+
+    <script src="../script/tool.js"></script>
   </body>
 </html>

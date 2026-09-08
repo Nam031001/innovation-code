@@ -1,5 +1,12 @@
-const menu = document.querySelector(".topbar__menu");
-const toggle = document.querySelector(".topbar__menu-toggle");
+// Global cursors: drop the `wait` state once the page is fully loaded.
+(function () {
+  var done = function () { document.documentElement.classList.add("is-loaded"); };
+  if (document.readyState === "complete") done();
+  else window.addEventListener("load", done);
+})();
+
+const menu = document.querySelector(".topbar-menu");
+const toggle = document.querySelector(".topbar-menu-toggle");
 
 toggle.addEventListener("click", () => {
   const isOpen = menu.classList.toggle("is-open");
@@ -11,4 +18,29 @@ document.addEventListener("click", (event) => {
     menu.classList.remove("is-open");
     toggle.setAttribute("aria-expanded", "false");
   }
+});
+
+const ruleNavItems = document.querySelectorAll(".rule-nav-item");
+
+ruleNavItems.forEach((navItem) => {
+  navItem.addEventListener("click", () => {
+    const target = navItem.dataset.target;
+    const slot = document.querySelector(`.rule-slot[data-slot="${target}"]`);
+
+    if (!slot) return;
+
+    if (navItem.classList.contains("is-active")) {
+      slot.replaceChildren();
+      slot.classList.remove("is-filled");
+      navItem.classList.remove("is-active");
+      return;
+    }
+
+    const template = document.getElementById(`rule-template-${target}`);
+    if (!template) return;
+
+    slot.replaceChildren(template.content.cloneNode(true));
+    slot.classList.add("is-filled");
+    navItem.classList.add("is-active");
+  });
 });

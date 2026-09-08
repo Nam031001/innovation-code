@@ -3,20 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style/style.css" />
-    <title>촛불 · 도구 아카이브 · 다시쓰는 빛의 연대</title>
+    <link rel="stylesheet" href="../style/tool.css" />
+    <link rel="stylesheet" href="../1/style.css" />
+    <title>손글씨 대자보 · 도구 아카이브 · 다시쓰는 빛의 연대</title>
   </head>
   <body>
     <header class="topbar">
-      <nav class="topbar__menu">
+      <nav class="topbar-menu">
         <button
-          class="topbar__menu-toggle"
+          class="topbar-menu-toggle"
           type="button"
           aria-label="메뉴 열기"
           aria-expanded="false">
-          <img src="../../../asset/hamburger.png" alt="" />
+          <img src="../../../asset/Jhamburger.png" alt="" />
         </button>
-        <ul class="topbar__menu-list" role="menu">
+        <ul class="topbar-menu-list" role="menu">
           <li role="none" style="--i: 0">
             <a role="menuitem" href="../../library/index.html">라이브러리</a>
           </li>
@@ -41,131 +42,107 @@
           </li>
         </ul>
       </nav>
-      <div class="topbar__logo">
+      <div class="topbar-logo">
         <a href="../../../index.html">
           <img src="../../../asset/logo.png" alt="logo" />
         </a>
       </div>
     </header>
 
-    <main class="tool">
-      <section class="tool__hero">
-        <a class="tool__back" href="../index.html">뒤로가기</a>
+    <main class="doc">
+      <nav class="doc-nav" aria-label="도구 목록">
+        <ul class="doc-nav-list">
+          <li><a href="../1/index.html">손글씨 대자보</a></li>
+          <li><a href="../2/index.html">횃불</a></li>
+          <li><a href="../3/index.html">주먹밥</a></li>
+          <li><a href="../4/index.html">버스</a></li>
+          <li><a href="../5/index.html">손수건</a></li>
+          <li><a href="../6/index.html">넥타이</a></li>
+          <li><a href="../7/index.html">택시</a></li>
+          <li><a href="../8/index.html" aria-current="page">촛불</a></li>
+          <li><a href="../9/index.html">종이컵</a></li>
+          <li><a href="../10/index.html">LED촛불</a></li>
+          <li><a href="../11/index.html">응원봉</a></li>
+          <li><a href="../12/index.html">깃발</a></li>
+          <li><a href="../13/index.html">트랙터</a></li>
+          <li><a href="../14/index.html">푸드트럭</a></li>
+          <li><a href="../15/index.html">총</a></li>
+          <li><a href="../16/index.html">최루탄</a></li>
+          <li><a href="../17/index.html">군복</a></li>
+          <li><a href="../18/index.html">몽둥이</a></li>
+          <li><a href="../19/index.html">군헬멧</a></li>
+          <li><a href="../20/index.html">군화</a></li>
+          <li><a href="../21/index.html">물대포</a></li>
+          <li><a href="../22/index.html">장갑차</a></li>
+          <li><a href="../23/index.html">태극기</a></li>
+        </ul>
+      </nav>
 
-        <div class="tool__poster-wrap">
-          <img
-            class="tool__poster"
-            src="../../../asset/history/object/candle_2%202.png"
-            alt="촛불" />
-        </div>
-      </section>
+      <article class="doc-main">
+        <h1 class="doc-title">촛불</h1>
+        <hr class="doc-rule" style="margin-bottom: 0" />
+        <hr class="doc-rule" style="border: 1px solid black; margin-top: 6px" />
 
-      <section class="tool__info">
-        <h1 class="tool__title">촛불</h1>
-        <p class="tool__subtitle">심지에 불을 붙이면 초가 타면서 내는 불</p>
+        <p class="doc-lead">
+          심지에 불을 붙이면 초가 타면서 내는 불
+        </p>
+        <hr class="doc-rule" />
 
-        <dl class="tool__specs">
-          <div class="tool__specs-row">
-            <dt>크기</dt>
-            <dd>높이 약 2~4cm, 폭 1cm 내외</dd>
-          </div>
-          <div class="tool__specs-row">
-            <dt>재질</dt>
-            <dd>파라핀 왁스, 밀랍(비즈왁스), 소이 왁스(콩) 등</dd>
-          </div>
+        <dl class="doc-meta">
+            <div>
+              <dt>크기</dt>
+              <dd>높이 약 2~4cm, 폭 1cm 내외</dd>
+            </div>
+            <div style="border-bottom: 3px solid #f9f9f9">
+              <dt>재질</dt>
+              <dd>파라핀 왁스, 밀랍(비즈왁스), 소이 왁스(콩) 등</dd>
+            </div>
         </dl>
+        <hr
+          class="doc-rule"
+          style="border: 1px solid black; margin-bottom: 6px" />
+        <hr class="doc-rule" style="margin-top: 0" />
 
-        <div class="tool__desc-row">
-          <h2 class="tool__desc-label">설명</h2>
-
-          <div class="tool__body">
-            <section class="tool__section">
-              <h3>1. 저항의 새로운 패러다임</h3>
-              <p>
-                2016년 '박근혜-최순실 게이트'를 기점으로 시작된
-                촛불 집회는 대한민국 민주주의 역사상 가장 세련되고
-                평화적인 방법으로 정권을 교체한 '촛불 혁명'의
-                시작이었다. 이전 세대의 시위가 최루탄과 보도블록으로
-                대변되는 격렬한 양상을 띠었다면, 2016년의 촛불은
-                비폭력 평화 원칙 아래 주권자의 뜻을 명확히 전달하는
-                고도의 시민 의식을 시각화했다. 촛불 한 자루는 여리고
-                나약한 목소리를 의미하지만, 광장에 모인 수백만 개의
-                촛불은 거대한 물결을 이루며 불의한 권력을 심판하는
-                도덕적 권위로 작용했다.
-              </p>
-            </section>
-
-            <section class="tool__section">
-              <h3>2. 촛불집회의 확산과 명칭의 기록</h3>
-              <p>
-                집회가 거듭됨에 따라 집회의 명칭과 목표는 더욱
-                구체화되었다. 1차부터 3차까지는 "모이자! 분노하자!
-                #내려와라_박근혜"라는 슬로건을 사용하며 정권 퇴진을
-                요구하는 초기 동력을 확보했다. 그러나 대통령의
-                대국민 담화가 민심을 잠재우지 못하자, 4차 집회부터는
-                "밝히자! 전국에서!"라는 구호 아래 광화문뿐만 아니라
-                전국 각지로 촛불의 불길이 번져나갔다. 특히 6차
-                '박근혜 즉각 퇴진의 날'에는 주최 측 추산 역대 최다
-                인원인 232만 명이 모여 헌정 사상 유례없는 민심의
-                압박을 기록했다. 촛불은 단순히 정권 퇴진을 넘어
-                구속 수사와 적폐 청산이라는 실질적인 법적·정치적
-                목표를 향해 나아갔다.
-              </p>
-            </section>
-
-            <section class="tool__section">
-              <h3>3. 광장 문화 축제와 자발적 질서</h3>
-              <p>
-                촛불 집회의 가장 큰 특징은 시위를 하나의 거대한
-                '광장 문화 축제'로 변모시켰다는 점이다. 시민들은
-                가족, 친구와 함께 촛불을 들고 나와 자유발언에
-                참여하였으며, 이는 시위에 대한 심리적 장벽을 낮추어
-                노소(老少)를 불문한 전 세대의 참여를 이끌어냈다.
-                특히 수백만 명이 모인 현장에서 집회가 끝난 후
-                스스로 쓰레기를 수거하고 질서를 유지하는 모습은
-                세계를 경악하게 한 성숙한 시민 의식의 증거였다.
-                촛불은 권위주의적 명령이 아닌 자발적인 연대를 통해
-                공동체가 어떻게 작동해야 하는지를 보여주는 살아있는
-                시각적 교과서가 되었다.
-              </p>
-            </section>
-
-            <section class="tool__section">
-              <h3>4. 헌법 수호의 등불</h3>
-              <p>
-                20차 집회가 개시되기 하루 전인 2017년 3월 10일,
-                헌법재판소의 대통령 파면 결정은 촛불 민심이 거둔
-                역사적인 승리였다. 촛불 혁명은 총 누적인원 1,700만
-                명에 달하는 시민들이 전반적으로 평화로운 방식으로
-                진행되었으며 주권자로서의 권리를 행사하여 민주적
-                질서를 회복한 세계적으로 주목받은 사례로 평가받는다.
-                현재 당시의 촛불 집회 기록물들은 그 가치를 인정받아
-                국가적 아카이브로 보존되고 있으며, 광화문 광장은
-                한국 민주주의의 성지로 상징된다. 촛불은 오늘날에도
-                권력이 국민의 뜻을 배반할 때 언제든 다시 켜질 수
-                있는 헌법 수호의 등불이자, 깨어 있는 시민들의
-                조직된 힘을 상징하는 영구적인 시각적 기록으로 남아
-                있다.
-              </p>
-            </section>
-          </div>
+        <div class="doc-body">
+          <img src="../../../asset/text/text8.png" alt="" />
         </div>
-      </section>
+      </article>
+
+      <aside class="doc-aside">
+        <figure
+          class="doc-figure"
+          data-popup-open
+          role="button"
+          tabindex="0"
+          aria-label="관련 자료 크게 보기">
+          <span class="doc-figure-frame">
+            <img src="../../../asset/history/object/candle_2 2.png" alt="횃불" />
+          </span>
+          <figcaption>▶ Pic8. 촛불</figcaption>
+        </figure>
+      </aside>
+
+      <a class="doc-back" href="../index.html">뒤로가기</a>
     </main>
 
+    <!--
+      Opens on load (no `hidden`). The close button re-adds `hidden`,
+      and the Pic1 figure below still reopens it via [data-popup-open].
+    -->
     <div class="popup" id="popup">
-      <div class="popup__card">
+      <div class="popup-card">
         <img
-          class="popup__image"
-          src="../../../asset/history/popup/4.png"
-          alt="광화문 전경 및 촛불 종류" />
+          class="popup-image"
+          src="../../../asset/history/popup/7.png"
+          alt="국회의사당 일대 대자보 부착 경로" />
+        <div class="popup-drag" aria-hidden="true"></div>
         <button
-          class="popup__close"
+          class="popup-close"
           type="button"
           aria-label="팝업 끄기"></button>
       </div>
     </div>
 
-    <script src="./script/script.js"></script>
+    <script src="../script/tool.js"></script>
   </body>
 </html>

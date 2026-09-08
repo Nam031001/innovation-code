@@ -1,10 +1,38 @@
-@use 'sass:list';
 @import 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap';
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+// ---------------------------------------------
+// Global cursors — every state uses custom art, with `none` as the
+// fallback so a failed image never drops back to the OS cursor.
+//   default → general areas        pointer → clickable elements
+//   wait    → while the page loads  (disabled falls back to default)
+// grab / grabbing / ew-resize are set on their own components below.
+// ---------------------------------------------
+:where(html) {
+  cursor: url('../../../asset/cursor/default.png'), none;
+}
+
+:where(
+  a[href], button, summary, label[for], select,
+  [role='button'], [role='menuitem'], [role='link'], [role='tab'],
+  input[type='button'], input[type='submit'], input[type='reset'],
+  input[type='checkbox'], input[type='radio'], input[type='file']
+) {
+  cursor: url('../../../asset/cursor/pointer.png'), none;
+}
+
+:where(:disabled, [aria-disabled='true']) {
+  cursor: url('../../../asset/cursor/default.png'), none;
+}
+
+html:not(.is-loaded),
+html:not(.is-loaded) * {
+  cursor: url('../../../asset/cursor/wait.png'), none !important;
 }
 
 html,
@@ -34,128 +62,73 @@ body {
   border-bottom: 6px solid #000;
 }
 
-// Radial fan menu, same pattern as the other sub-pages: anchored
-// top-left, sweeping down-right into the page.
-$fan-positions: (
-  0: (
-    160px,
-    0px,
-    0deg,
-  ),
-  1: (
-    152px,
-    49px,
-    18deg,
-  ),
-  2: (
-    129px,
-    94px,
-    36deg,
-  ),
-  3: (
-    94px,
-    129px,
-    54deg,
-  ),
-  4: (
-    49px,
-    152px,
-    72deg,
-  ),
-  5: (
-    0px,
-    160px,
-    90deg,
-  ),
-);
-
-.topbar__menu {
+.topbar-menu {
   position: absolute;
   top: 20px;
-
-  // Extra room versus the toggle's own 32px inset: the last tag in
-  // the fan rotates to point straight down, so its short edge (the
-  // tag's own height) swings out to the *left* of the toggle and
-  // needs clearance from the viewport edge or it gets clipped.
   left: 56px;
   z-index: 10;
 }
 
-.topbar__menu-toggle {
-  position: absolute;
-  top: 0;
-  left: 0;
+.topbar-menu-toggle {
+  position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+
+  // Hit area matches the full 92px-wide icon (it used to be a 44px box
+  // with the icon overflowing, so hovering the sides of the icon did
+  // nothing); the negative margin keeps the icon visually in place.
+  width: 92px;
+  height: 46px;
+  margin-left: -24px;
   padding: 0;
-  cursor: pointer;
+  cursor: url('../../../asset/cursor/pointer.png'), none;
   background: none;
   border: none;
 
   img {
     display: block;
+    flex-shrink: 0;
     width: 92px;
     height: auto;
     pointer-events: none;
+
+    // The hamburger art is near-white; force it black so it reads on
+    // the light top bar.
+    filter: brightness(0);
     transition: transform 0.25s ease;
   }
 }
 
-.topbar__menu-list {
+// The items drop straight down from the icon in a single column,
+// staggered by --i, the same reveal the main page's menu uses.
+.topbar-menu-list {
   position: absolute;
-  top: 0;
+  top: 46px;
   left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
   padding: 0;
   margin: 0;
+
+  // Off at rest so the (tall, invisible) collapsed column never blocks
+  // the page. Switched on whenever the menu is engaged (rules below) so
+  // the whole column — gaps included — keeps the pointer "inside" the
+  // menu while travelling from the button to an item.
+  pointer-events: none;
   list-style: none;
 
-  // Invisible triangular hover bridge covering only the down-right
-  // sector the tags actually fan into (not a full square), so the
-  // pointer can travel from the icon to a tag without losing hover.
-  // Pointer-events stay off at rest so it never blocks page content
-  // underneath it; the rule below switches it on only while the menu
-  // is actually being engaged. A separate pseudo-element so it
-  // doesn't clip the tags themselves.
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 220px;
-    height: 220px;
-    pointer-events: none;
-    content: '';
-    clip-path: polygon(0 0, 100% 0, 0 100%);
-  }
-
   li {
-    position: absolute;
-    top: 0;
-    left: 0;
     pointer-events: none;
     opacity: 0;
-    transform: translate(0, 0) scale(0.3) rotate(0deg);
-
-    // Pivot rotation around the same corner the tag is anchored/
-    // translated from (its hinge point on the fan arc), matching the
-    // main page's menu so the tags fan out like real spokes instead of
-    // swinging around their own (label-width-dependent) centers.
-    transform-origin: 0 0;
+    transform: translateY(-8px);
     transition:
-      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-      opacity 0.3s ease;
-    transition-delay: calc(var(--i) * 0.04s);
-
-    @each $i, $pos in $fan-positions {
-      &:nth-child(#{$i + 1}) {
-        --tx: #{list.nth($pos, 1)};
-        --ty: #{list.nth($pos, 2)};
-        --rot: #{list.nth($pos, 3)};
-      }
-    }
+      transform 0.28s cubic-bezier(0.34, 1.4, 0.64, 1),
+      opacity 0.16s ease;
+    transition-delay: calc(var(--i) * 0.025s);
   }
 
   a {
@@ -171,30 +144,23 @@ $fan-positions: (
   }
 }
 
-.topbar__menu-toggle:hover ~ .topbar__menu-list::before,
-.topbar__menu-list:hover::before,
-.topbar__menu:focus-within .topbar__menu-list::before,
-.topbar__menu.is-open .topbar__menu-list::before {
+.topbar-menu-toggle:hover ~ .topbar-menu-list,
+.topbar-menu-list:hover,
+.topbar-menu:focus-within .topbar-menu-list,
+.topbar-menu.is-open .topbar-menu-list {
   pointer-events: auto;
 }
 
-.topbar__menu-toggle:hover ~ .topbar__menu-list li,
-.topbar__menu-list:hover li,
-.topbar__menu:focus-within .topbar__menu-list li,
-.topbar__menu.is-open .topbar__menu-list li {
+.topbar-menu-toggle:hover ~ .topbar-menu-list li,
+.topbar-menu-list:hover li,
+.topbar-menu:focus-within .topbar-menu-list li,
+.topbar-menu.is-open .topbar-menu-list li {
   pointer-events: auto;
   opacity: 1;
-  transform: translate(var(--tx), var(--ty)) scale(1) rotate(var(--rot));
+  transform: translateY(0);
 }
 
-// The fan-out itself is driven by :hover / .is-open on the tags;
-// the icon stays static rather than spinning into anything (there's
-// no X shape to morph into with a single static image).
-// .topbar__menu.is-open .topbar__menu-toggle img {
-//   transform: rotate(90deg);
-// }
-
-.topbar__logo {
+.topbar-logo {
   display: flex;
 
   img {
@@ -205,195 +171,254 @@ $fan-positions: (
 }
 
 // ---------------------------------------------
-// Page body: symbolism / resistance / threat / tool-use chart
+// Page body — flat coordinate map
 // ---------------------------------------------
-// Topbar is a fixed 86px, so the page body takes exactly what's left
-// of the viewport and never needs to scroll, no matter the viewport
-// size. The canvas is height-driven (not width-driven) and capped by
-// max-width, so it shrinks to fit whichever dimension is tighter.
+// The plane fills the page (inside the shared margin); every tool sits
+// at a percentage --x / --y within it and --w is a percentage of the
+// plane width, so the map grows with the viewport. The dotted axis
+// cross is one image (Union.png): 저항성 ↔ 위협성 horizontal,
+// 도구적 ↕ 상징성 vertical.
 .object {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: calc(100dvh - 86px);
-  padding: 30px 50px;
-}
-
-.object__canvas {
   position: relative;
-  width: 100vw;
-  max-width: 100%;
-  height: 100%;
-  max-height: 1000px;
-  aspect-ratio: 1920 / 985;
-}
+  display: grid;
+  place-items: center;
+  height: calc(100dvh - 86px);
 
-.object__title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  padding: 12px 24px;
-  font-family: Tal-Black, sans-serif;
-  font-size: clamp(22px, 2.6vw, 40px);
-  border: 6px solid #000;
-}
+  // Same page margin as the other title screens; the map fills the rest.
+  padding: 34px 50px;
+  overflow: hidden;
 
-// ---------------------------------------------
-// Legend
-// ---------------------------------------------
-.object__legend {
-  position: absolute;
-  top: 84px;
-  right: 0;
-  z-index: 3;
-  width: min(34%, 650px);
-  padding: 14px 20px;
-  font-size: clamp(11px, 1vw, 15px);
-  line-height: 1.6;
-  color: #fff;
-  background: #232323;
+  // 3D viewport: the tools sit at varying --d depths under this
+  // perspective, and script.js pans / zooms / orbits the whole volume.
+  // The visual design (Union axes, tool art, title, colours) is
+  // unchanged — only depth + interaction are added back.
+  touch-action: none;
+  cursor: url('../../../asset/cursor/hand-on.png'), grab;
+  background: #f5f5f3;
+  perspective: 1800px;
+  perspective-origin: 50% 45%;
 
-  div {
-    display: flex;
-    gap: 6px;
+  &.is-panning {
+    cursor: url('../../../asset/cursor/hand-off.png'), grabbing;
   }
 
-  dt {
-    flex-shrink: 0;
-    font-weight: 800;
-  }
-
-  dd {
-    margin: 0;
-    opacity: 0.9;
+  &.is-rotating {
+    cursor: url('../../../asset/cursor/arrow.png'), ew-resize;
   }
 }
 
-// ---------------------------------------------
-// Axes
-// ---------------------------------------------
-.object__axis {
-  position: absolute;
-  z-index: 1;
-  background: #000;
-}
+.object-plane {
+  position: relative;
+  top: 40px;
 
-.object__axis--y {
-  top: 10%;
-  left: 50%;
-  width: 8px;
-  height: 83%;
+  // Locked aspect ratio + fit-to-whichever-runs-out-first sizing: the
+  // whole composition scales as one unit, so it looks identical at every
+  // viewport instead of stretching.
+  width: min(100%, calc((100dvh - 86px - 68px) * 1.96));
+  aspect-ratio: 1.96;
 
+  // pan → zoom → orbit, driven by script.js. preserve-3d so the tools'
+  // own --d depth reads under the scene perspective (no `container-type`
+  // here — it would flatten the 3D).
+  transform: translate3d(var(--px, 0), var(--py, 0), 0) scale(var(--z, 1))
+    rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  will-change: transform;
+
+  // Faint, dense graph-paper grid — the coordinate "paper" the map sits
+  // on. Oversized so it still fills the frame when panned / zoomed out,
+  // and it turns with the volume on orbit.
   &::before {
     position: absolute;
-    top: -25px;
-    left: 50%;
-    width: 0;
-    height: 0;
+    inset: -150%;
+    z-index: -1;
+    pointer-events: none;
     content: '';
-    border-right: 18px solid transparent;
-    border-bottom: 28px solid #000;
-    border-left: 18px solid transparent;
-    transform: translateX(-50%);
+    background:
+      repeating-linear-gradient(rgb(20 30 55 / 6%) 0 1px, transparent 1px 10px),
+      repeating-linear-gradient(
+        90deg,
+        rgb(20 30 55 / 6%) 0 1px,
+        transparent 1px 10px
+      );
   }
 }
 
-.object__axis--x {
-  top: 50%;
-  left: 4%;
-  width: 90%;
-  height: 8px;
+// The dotted cross. Inset so the arrow tips stop short of the frame,
+// leaving a clear band around each end for the labels to sit beside the
+// lines rather than on top of them.
+.object-axes {
+  position: absolute;
+
+  // Explicit top/left/width/height (not `inset`) — an abspos <img> with
+  // only `inset` set falls back to its intrinsic pixel size. Top/height
+  // trim the vertical (y) axis a little at each end; the full 88% width
+  // keeps the horizontal axis long.
+  top: 4%;
+  left: 6%;
+  width: 88%;
+  height: 87%;
+  pointer-events: none;
+  user-select: none;
+  object-fit: fill;
+}
+
+// Z (depth) axis — drawn on the paper the oblique-projection way: a
+// dotted diagonal from the origin (where Union's x and y cross) heading
+// down-left "into" the grid, with an arrowhead.
+.object-axis-z {
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  width: 16%;
+  height: 0;
+  pointer-events: none;
+  border-top: 2.5px dotted rgb(20 30 55 / 46%);
+  transform: rotate(150deg);
+  transform-origin: left center;
 
   &::after {
     position: absolute;
     top: 50%;
-    width: 0;
-    height: 0;
+    right: -5px;
     content: '';
-    border-top: 18px solid transparent;
-    border-bottom: 18px solid transparent;
-    border-left: 28px solid #000;
+    border: 8px solid transparent;
+    border-left-color: rgb(20 30 55 / 46%);
     transform: translateY(-50%);
-  }
-
-  &::after {
-    right: -14px;
-    border-top: 18px solid transparent;
-    border-bottom: 18px solid transparent;
-    border-left: 28px solid #000;
   }
 }
 
-.object__axis-label {
+.object-axis-label {
   position: absolute;
-  font-size: clamp(12px, 1.2vw, 20px);
+  font-family: Tal-Black, 'Noto Sans KR', sans-serif;
+  font-size: clamp(13px, 1.35vw, 20px);
   font-weight: 800;
+  color: #1c1c1c;
   white-space: nowrap;
+  pointer-events: none;
 
-  &--top {
-    top: -70px;
+  // Un-yaw so the label stays readable as the volume orbits.
+  --unyaw: rotateY(calc(-1 * var(--ry, 0deg)));
+
+  // 상징성 / 도구적 — centred on the vertical axis, in the clear band
+  // past each of its tips.
+  &--up {
+    top: 1%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%) var(--unyaw);
   }
 
-  &--bottom {
-    bottom: 10px;
+  &--down {
+    top: 95%;
     left: 50%;
-    z-index: 3;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%) var(--unyaw);
   }
 
+  // 저항성 / 위협성 — resting just above the horizontal line at its ends.
   &--left {
-    top: -12px;
-    left: -64px;
+    top: 51%;
+    left: 1%;
+    transform: translateY(-100%) var(--unyaw);
   }
 
   &--right {
-    top: -12px;
-    right: -80px;
+    top: 51%;
+    right: 1%;
+    transform: translateY(-100%) var(--unyaw);
+  }
+
+  // 깊이 — tucked into the gap just above the z axis arrowhead.
+  &--depth {
+    top: 58%;
+    left: 35%;
+    color: rgb(20 30 55 / 62%);
+    transform: translate(-50%, -50%) var(--unyaw);
   }
 }
 
 // ---------------------------------------------
-// Object items
+// Title row — plate on the left, controls hint on the right
 // ---------------------------------------------
-.object__items {
+
+// Pinned across the top of .object's content box (matching the 34px /
+// 50px page padding), independent of where the plane centres vertically.
+.title {
   position: absolute;
-  inset: 0;
-  z-index: 2;
-  list-style: none;
+  top: 34px;
+  right: 50px;
+  left: 50px;
+  z-index: 5;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  pointer-events: none;
 }
 
-.object__item {
+.object-title {
+  padding: 10px 22px 12px;
+  font-family: Tal-Black, 'Noto Sans KR', sans-serif;
+  font-size: clamp(24px, 3vw, 54px);
+  font-weight: 800;
+  color: #000;
+  white-space: nowrap;
+  background: #f5f5f3;
+  border: 5px solid #000;
+}
+
+.sub {
+  font-family: Tal-Black, 'Noto Sans KR', sans-serif;
+  font-size: clamp(14px, 1.3vw, 20px);
+  line-height: 1.35;
+  color: rgb(20 30 55 / 62%);
+  text-align: right;
+}
+
+// ---------------------------------------------
+// Scattered tools
+// ---------------------------------------------
+.object-items {
   position: absolute;
-  top: var(--y, 30%);
+  inset: 0;
+  list-style: none;
+  transform-style: preserve-3d;
+}
+
+.object-item {
+  position: absolute;
+  top: var(--y);
   left: var(--x);
   width: var(--w);
-  transform: translate(-50%, -50%);
 
-  .object__link {
+  // --d pushes the tool through depth (parallax under the scene
+  // perspective); the trailing rotateY billboards it back to face the
+  // camera as the volume orbits.
+  transform: translate(-50%, -50%) translateZ(calc(var(--d, 0) * 26px))
+    rotateY(calc(-1 * var(--ry, 0deg)));
+  transform-style: preserve-3d;
+
+  .object-link {
     display: block;
     text-decoration: none;
+    -webkit-user-drag: none;
   }
 
   img {
     display: block;
     width: 90%;
-    transition: transform 0.2s ease;
+    height: auto;
+    transition: transform 0.18s ease;
+    -webkit-user-drag: none;
   }
 
-  .object__link:hover img {
-    transform: scale(1.05);
+  .object-link:hover img,
+  .object-link:focus-visible img {
+    transform: translateY(-6px) scale(1.05);
   }
+}
 
-  span {
-    position: absolute;
-    top: 46%;
-    left: 41%;
-    font-size: clamp(11px, 1.3vw, 22px);
-    font-weight: 800;
-    color: #000;
-    transform: translate(-50%, -50%);
+@media (prefers-reduced-motion: reduce) {
+  .object-item img {
+    transition: none;
   }
 }

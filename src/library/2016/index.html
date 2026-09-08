@@ -8,13 +8,70 @@
   </head>
   <body>
     <header class="topbar">
-      <a class="topbar__back" href="../index.html">← 라이브러리로</a>
+      <nav class="topbar-menu">
+        <button class="topbar-menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false">
+          <img src="../../../asset/hamburger.png" alt="" />
+        </button>
+        <ul class="topbar-menu-list" role="menu">
+          <li role="none" style="--i: 0"><a role="menuitem" href="../index.html">라이브러리</a></li>
+          <li role="none" style="--i: 1"><a role="menuitem" href="../../history/index.html">호외요 호외(민주시위 모음)</a></li>
+          <li role="none" style="--i: 2"><a role="menuitem" href="../../object/index.html">도구 아카이브</a></li>
+          <li role="none" style="--i: 3"><a role="menuitem" href="../../future/index.html">미래의 시위</a></li>
+          <li role="none" style="--i: 4"><a role="menuitem" href="../../mine/index.html">나만의 깃발 만들기</a></li>
+          <li role="none" style="--i: 5"><a role="menuitem" href="../../supplies/index.html">시위 준비물</a></li>
+        </ul>
+      </nav>
+      <div class="topbar-logo">
+        <a href="../../../index.html"><img src="../../../asset/logo.png" alt="logo" /></a>
+      </div>
     </header>
 
     <main class="year">
-      <h1 class="year__title">2016</h1>
-      <p class="year__desc">이 페이지는 준비 중입니다.</p>
+      <a class="year-back" href="../index.html">
+        <img src="../../../asset/leftArrow.png" alt="arrow"> 2016
+      </a>
+
+      <ul class="year-grid"></ul>
     </main>
+
+    <div class="detail" id="detail" hidden>
+      <div class="detail-backdrop"></div>
+
+      <button class="detail-close" type="button" aria-label="닫기">
+        <img src="../../../asset/leftArrow.png" alt="arrow"> 2016
+      </button>
+
+      <div class="detail-filmstrip" aria-hidden="true"></div>
+
+      <div class="detail-card">
+        <div class="detail-card-border" aria-hidden="true"></div>
+
+        <div class="detail-card-inner">
+          <div class="detail-nav">
+            <button class="detail-prev" type="button">
+              <span aria-hidden="true">‹</span> 이전 사진
+            </button>
+            <button class="detail-next" type="button">
+              다음 사진 <span aria-hidden="true">›</span>
+            </button>
+          </div>
+
+          <p class="detail-hint">[화면을 스크롤해보세요]</p>
+          <h2 class="detail-year">2016년도</h2>
+
+          <div class="detail-scroll">
+            <figure class="detail-figure">
+              <img class="detail-photo" src="" alt="" />
+              <figcaption>
+                <span class="detail-index"></span>
+                <span class="detail-source">출처 : 민주화운동기념사업회</span>
+              </figcaption>
+            </figure>
+            <p class="detail-text"></p>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="./script/script.js"></script>
   </body>

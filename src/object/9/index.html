@@ -3,20 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style/style.css" />
-    <title>종이컵 · 도구 아카이브 · 다시쓰는 빛의 연대</title>
+    <link rel="stylesheet" href="../style/tool.css" />
+    <link rel="stylesheet" href="../1/style.css" />
+    <title>손글씨 대자보 · 도구 아카이브 · 다시쓰는 빛의 연대</title>
   </head>
   <body>
     <header class="topbar">
-      <nav class="topbar__menu">
+      <nav class="topbar-menu">
         <button
-          class="topbar__menu-toggle"
+          class="topbar-menu-toggle"
           type="button"
           aria-label="메뉴 열기"
           aria-expanded="false">
-          <img src="../../../asset/hamburger.png" alt="" />
+          <img src="../../../asset/Jhamburger.png" alt="" />
         </button>
-        <ul class="topbar__menu-list" role="menu">
+        <ul class="topbar-menu-list" role="menu">
           <li role="none" style="--i: 0">
             <a role="menuitem" href="../../library/index.html">라이브러리</a>
           </li>
@@ -41,128 +42,109 @@
           </li>
         </ul>
       </nav>
-      <div class="topbar__logo">
+      <div class="topbar-logo">
         <a href="../../../index.html">
           <img src="../../../asset/logo.png" alt="logo" />
         </a>
       </div>
     </header>
 
-    <main class="tool">
-      <section class="tool__hero">
-        <a class="tool__back" href="../index.html">뒤로가기</a>
+    <main class="doc">
+      <nav class="doc-nav" aria-label="도구 목록">
+        <ul class="doc-nav-list">
+          <li><a href="../1/index.html">손글씨 대자보</a></li>
+          <li><a href="../2/index.html">횃불</a></li>
+          <li><a href="../3/index.html">주먹밥</a></li>
+          <li><a href="../4/index.html">버스</a></li>
+          <li><a href="../5/index.html">손수건</a></li>
+          <li><a href="../6/index.html">넥타이</a></li>
+          <li><a href="../7/index.html">택시</a></li>
+          <li><a href="../8/index.html" >촛불</a></li>
+          <li><a href="../9/index.html" aria-current="page">종이컵</a></li>
+          <li><a href="../10/index.html">LED촛불</a></li>
+          <li><a href="../11/index.html">응원봉</a></li>
+          <li><a href="../12/index.html">깃발</a></li>
+          <li><a href="../13/index.html">트랙터</a></li>
+          <li><a href="../14/index.html">푸드트럭</a></li>
+          <li><a href="../15/index.html">총</a></li>
+          <li><a href="../16/index.html">최루탄</a></li>
+          <li><a href="../17/index.html">군복</a></li>
+          <li><a href="../18/index.html">몽둥이</a></li>
+          <li><a href="../19/index.html">군헬멧</a></li>
+          <li><a href="../20/index.html">군화</a></li>
+          <li><a href="../21/index.html">물대포</a></li>
+          <li><a href="../22/index.html">장갑차</a></li>
+          <li><a href="../23/index.html">태극기</a></li>
+        </ul>
+      </nav>
 
-        <div class="tool__poster-wrap">
-          <img
-            class="tool__poster"
-            src="../../../asset/history/object/paper-cup_2%203.png"
-            alt="종이컵" />
-        </div>
-      </section>
+      <article class="doc-main">
+        <h1 class="doc-title">종이컵</h1>
+        <hr class="doc-rule" style="margin-bottom: 0" />
+        <hr class="doc-rule" style="border: 1px solid black; margin-top: 6px" />
 
-      <section class="tool__info">
-        <h1 class="tool__title">종이컵</h1>
-        <p class="tool__subtitle">종이로 만들어진 일회용 컵</p>
+        <p class="doc-lead">
+          종이로 만들어진 일회용 컵
+        </p>
+        <hr class="doc-rule" />
 
-        <dl class="tool__specs">
-          <div class="tool__specs-row">
-            <dt>크기</dt>
-            <dd>대중적으로 사용하는 6.5온스부터 2.5온스까지 다양하다.</dd>
-          </div>
-          <div class="tool__specs-row">
-            <dt>재질</dt>
-            <dd>종이</dd>
-          </div>
+        <dl class="doc-meta">
+            <div>
+              <dt>크기</dt>
+              <dd>대중적으로 사용하는 6.5온스부터 2.5온스까지 다양하다.</dd>
+            </div>
+            <div style="border-bottom: 3px solid #f9f9f9">
+              <dt>재질</dt>
+              <dd>종이</dd>
+            </div>
         </dl>
+        <hr
+          class="doc-rule"
+          style="border: 1px solid black; margin-bottom: 6px" />
+        <hr class="doc-rule" style="margin-top: 0" />
 
-        <div class="tool__desc-row">
-          <h2 class="tool__desc-label">설명</h2>
-
-          <div class="tool__body">
-            <section class="tool__section">
-              <h3>1. 촛불의 보호막으로서의 종이컵</h3>
-              <p>
-                2016년 촛불 혁명에서 '종이컵'은 광장을 가득 메운
-                촛불이 꺼지지 않도록 보호하는 가장 상징적이고
-                필수적인 방어 기구였다. 흔히 일상에서 일회용품으로
-                취급되던 종이컵은 시위 현장에서 하단에 구멍을 뚫어
-                양초를 끼우는 방식으로 활용되었는데, 이는 겨울바람
-                으로부터 가냘픈 촛불을 보호하는 외벽이자, 촛농이나
-                화상을 입는 것을 방지하는 안전장치였다. 종이컵이라는
-                작고 흔한 사물은 광장에 모인 개개인의 목소리가
-                외부의 압력에 의해 사그라지지 않도록 지키는 물리적
-                보루인 동시에, 평화 시위의 지속 가능성을 담보하는
-                상징으로 정의되었다.
-              </p>
-            </section>
-
-            <section class="tool__section">
-              <h3>2. 나눔과 연대의 매개</h3>
-              <p>
-                종이컵은 시위 현장에서 시민들 사이의 자발적인
-                연대를 시각화하는 매개체였다. 미처 양초와 종이컵을
-                준비하지 못한 시민들에게 주최 측 혹은 주변 시민들이
-                자신의 여분을 대가 없이 나누어 주는 모습은 촛불
-                혁명 전반을 관통하는 '나눔·공유'의 문화를
-                상징했다. 특히 노점상이나 자원봉사자들이 대량으로
-                준비하여 시민들에게 배포하던 행위는, 시위가 단순한
-                정치적 의사표현을 넘어 거대한 공동체적 의례로
-                승화되는 과정의 일부였다. 종이컵 한 잔의 정신은
-                광장에 모인 1,700만 명의 시민을 하나의 질서정연한
-                물결로 이어내는 보이지 않는 끈이 되었다.
-              </p>
-            </section>
-
-            <section class="tool__section">
-              <h3>3. 요구를 담은 작은 캔버스</h3>
-              <p>
-                촛불 보호라는 실용적 요구를 넘어 종이컵은 시민들의
-                요구를 담아내는 '작은 캔버스'의 역할도 했다.
-                시민들은 종이컵 외벽에 직접 "박근혜 퇴진", "이게
-                나라냐" 등의 구호를 적어 넣거나, 주최 측에서 인쇄한
-                공식 슬로건이 담긴 종이컵을 사용하여 통일된
-                메시지를 전달했다. 이는 과거의 대자보가 수행했던
-                정보 전달 기능을 손안의 작은 오브젝트로 압축한
-                결과다. 수백만 개의 종이컵에 적힌 각기 다른 서체의
-                요구 사항들은, 민주주의의 가치가 거대 담론에
-                그치지 않고 시민 개개인의 일상적 언어로 체득되었음을
-                증명하는 시각적 기록물로 남았다.
-              </p>
-            </section>
-
-            <section class="tool__section">
-              <h3>4. 성숙한 시민 의식의 잔해</h3>
-              <p>
-                촛불 집회가 끝난 후, 광장에 산더미처럼 쌓일 수
-                있었던 종이컵들은 시민들의 자발적인 수거 활동을
-                통해 정연하게 분리 배출되었다. 이는 '쓰레기 없는
-                시위'라는 성숙한 시민 의식의 실체적 증거가 되었다.
-                사용된 종이컵은 단순히 폐기물이 아닌, 민주적 절차를
-                통해 정권을 교체한 위대한 여정의 '잔해'이자
-                '훈장'으로 기억된다. 현재 촛불 혁명의 유물로 보존된
-                종이컵들은 대한민국 민주주의가 가장 낮고 평범한
-                물건으로부터 시작되어 거대한 역사를 바꾸었음을
-                상징하는 자료로 오늘날까지 소중히 다뤄지고 있다.
-              </p>
-            </section>
-          </div>
+        <div class="doc-body">
+          <img src="../../../asset/text/text9.png" alt="" />
         </div>
-      </section>
+      </article>
+
+      <aside class="doc-aside">
+        <figure
+          class="doc-figure"
+          data-popup-open
+          role="button"
+          tabindex="0"
+          aria-label="관련 자료 크게 보기">
+          <span class="doc-figure-frame">
+            <img src="../../../asset/history/object/paper-cup_2 3.png" alt="횃불" />
+          </span>
+          <figcaption>▶ Pic9. 종이컵</figcaption>
+        </figure>
+      </aside>
+
+      <a class="doc-back" href="../index.html">뒤로가기</a>
     </main>
 
+    <!--
+      Opens on load (no `hidden`). The close button re-adds `hidden`,
+      and the Pic1 figure below still reopens it via [data-popup-open].
+    -->
     <div class="popup" id="popup">
-      <div class="popup__card">
+      <div class="popup-card">
         <img
-          class="popup__image"
-          src="../../../asset/history/popup/1.png"
-          alt="광화문 전경 및 종이컵 종류" />
+          class="popup-image"
+          src="../../../asset/history/popup/8.png"
+          alt="국회의사당 일대 대자보 부착 경로" />
+        <div class="popup-drag" aria-hidden="true"></div>
         <button
-          class="popup__close"
+          class="popup-close"
           type="button"
           aria-label="팝업 끄기"></button>
       </div>
     </div>
 
-    <script src="./script/script.js"></script>
+    <script src="../script/tool.js"></script>
   </body>
 </html>
+
+

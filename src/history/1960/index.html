@@ -8,12 +8,13 @@
   </head>
   <body>
     <header class="topbar">
-      <button class="topbar__back" type="button" aria-label="뒤로가기">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-        </svg>
+      <button class="topbar-back" type="button" aria-label="뒤로가기">
+        <img
+          src="../../../asset/leftArrow.png"
+          alt="arrow"
+          style="filter: brightness(0) invert(1)" />
       </button>
-      <div class="topbar__logo">
+      <div class="topbar-logo">
         <a href="../../../index.html">
           <img src="../../../asset/logoDark.png" alt="logo" />
         </a>
@@ -21,77 +22,55 @@
     </header>
 
     <main class="year">
-      <audio id="audio" preload="metadata"></audio>
+      <audio
+        id="audio"
+        preload="metadata"
+        loop
+        src="../../../music/national-anthem.mp3"></audio>
 
-      <aside class="player">
-        <div class="playerTop">
-          <p class="player__date">1960년 4월 19일</p>
-          <h1 class="player__title">Played list</h1>
-        </div>
-
-        <ul class="player__list">
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            1. 사월의 노래
-          </li>
-        </ul>
-
-        <div class="player__controls">
-          <div class="player__buttons">
-            <button
-              class="player__btn player__prev"
-              type="button"
-              aria-label="이전 곡">
-              <svg viewBox="0 0 24 24">
-                <path d="M6 6h2v12H6zM20 6 10 12l10 6z" />
-              </svg>
-            </button>
-            <button
-              class="player__btn player__toggle"
-              type="button"
-              aria-label="재생">
-              <svg class="icon-play" viewBox="0 0 24 24">
-                <path d="M7 5v14l12-7z" />
-              </svg>
-              <svg class="icon-pause" viewBox="0 0 24 24">
-                <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
-              </svg>
-            </button>
-            <button
-              class="player__btn player__next"
-              type="button"
-              aria-label="다음 곡">
-              <svg viewBox="0 0 24 24">
-                <path d="M16 6h2v12h-2zM4 6l10 6-10 6z" />
-              </svg>
-            </button>
-          </div>
-
-          <input
-            class="player__seek"
-            type="range"
-            min="0"
-            max="100"
-            value="0"
-            step="0.1"
-            aria-label="재생 구간" />
-        </div>
+      <aside class="speaker">
+        <p class="speaker-bubble">클릭하면 음악이 재생됩니다</p>
+        <button
+          class="speaker-btn"
+          type="button"
+          aria-label="애국가 재생 / 정지"
+          aria-pressed="false">
+          <img
+            src="../../../asset/history/playlist/혼스피커.png"
+            alt=""
+            class="speaker-img" />
+          <span class="speaker-song">애국가</span>
+        </button>
       </aside>
 
       <div class="newspaper">
-        <article class="newspaper__page">
-          <div class="newspaper__scroll">
+        <article class="newspaper-page">
+          <div class="newspaper-scroll">
             <img
-              class="newspaper__scan"
+              class="newspaper-scan"
               src="../../../asset/history/newspaper/1960.png"
               alt="1960년 4월 19일 호외 신문 지면" />
           </div>
         </article>
       </div>
     </main>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span class="ticker-item">부정선거 다시 하자!</span>
+        <span class="ticker-item">학생의 피에 보답하라!</span>
+        <span class="ticker-item">폭행 경찰관 물러가라!</span>
+        <span class="ticker-item">민주 역적 몰아내자!</span>
+        <span class="ticker-item">자유, 정의, 진리 드높이자!</span>
+        <span class="ticker-item">마산 학생 사건 규명하라!</span>
+        <span class="ticker-item">부정선거 다시 하자!</span>
+        <span class="ticker-item">학생의 피에 보답하라!</span>
+        <span class="ticker-item">폭행 경찰관 물러가라!</span>
+        <span class="ticker-item">민주 역적 몰아내자!</span>
+        <span class="ticker-item">자유, 정의, 진리 드높이자!</span>
+        <span class="ticker-item">마산 학생 사건 규명하라!</span>
+      </div>
+    </div>
 
     <script src="./script/script.js"></script>
   </body>

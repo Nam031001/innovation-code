@@ -1,9 +1,44 @@
 @import 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap';
 
+@font-face {
+  font-family: Tal-Black;
+  src: url('../../../../font/Tal-Black.woff2') format('woff2');
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+// ---------------------------------------------
+// Global cursors — every state uses custom art, with `none` as the
+// fallback so a failed image never drops back to the OS cursor.
+//   default → general areas        pointer → clickable elements
+//   wait    → while the page loads  (disabled falls back to default)
+// grab / grabbing / ew-resize are set on their own components below.
+// ---------------------------------------------
+:where(html) {
+  cursor: url('../../../../asset/cursor/default.png'), none;
+}
+
+:where(
+  a[href], button, summary, label[for], select,
+  [role='button'], [role='menuitem'], [role='link'], [role='tab'],
+  input[type='button'], input[type='submit'], input[type='reset'],
+  input[type='checkbox'], input[type='radio'], input[type='file']
+) {
+  cursor: url('../../../../asset/cursor/pointer.png'), none;
+}
+
+:where(:disabled, [aria-disabled='true']) {
+  cursor: url('../../../../asset/cursor/default.png'), none;
+}
+
+html:not(.is-loaded),
+html:not(.is-loaded) * {
+  cursor: url('../../../../asset/cursor/wait.png'), none !important;
 }
 
 html,
@@ -20,19 +55,25 @@ body {
   background: #000;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 // topbar
 
 .topbar {
   position: relative;
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   height: 86px;
   padding: 0 32px;
-  border-bottom: 3px solid #fff;
+  border-bottom: 8px solid #fff;
 }
 
-.topbar__back {
+.topbar-back {
   position: absolute;
   top: 50%;
   left: 32px;
@@ -43,10 +84,15 @@ body {
   width: 40px;
   height: 40px;
   padding: 0;
-  cursor: pointer;
+  cursor: url('../../../../asset/cursor/pointer.png'), none;
   background: none;
   border: none;
   transform: translateY(-50%);
+
+   img {
+    width: 52px;
+    height: 52px;
+  }
 
   svg {
     width: 26px;
@@ -55,7 +101,7 @@ body {
   }
 }
 
-.topbar__logo {
+.topbar-logo {
   display: flex;
 
   img {
@@ -66,159 +112,72 @@ body {
 }
 
 // ---------------------------------------------
-// Page: playlist sidebar + newspaper page, both
-// floating on a dimmed halftone crowd photo. Only
-// the article text scrolls; nothing else does.
+// Page: a candle carrying the playlist + the
+// newspaper page, both floating on a dimmed
+// halftone crowd photo. Only the article scrolls.
 // ---------------------------------------------
 .year {
+  position: relative;
   display: flex;
-  gap: 30px;
+  flex: 1;
   justify-content: center;
-  height: calc(100dvh - 86px);
+  min-height: 0;
   background:
     linear-gradient(#090909 30%, transparent 100%),
     url('../../../../asset/history/newspaper/background.png') center/cover;
 }
 
 // ---------------------------------------------
-// Playlist sidebar
+// Candle: wax body holds the playlist, the flame
+// keeps flickering above it.
 // ---------------------------------------------
-.player {
-  display: flex;
-  flex: 0 0 300px;
-  flex-direction: column;
-
-  // padding: 22px 16px;
-  color: #161208;
-  background:
-    url('../../../../asset/history/newspaper/paperTexture.png') center/cover, #f9f9f9;
-  // background-blend-mode: color-burn;
-}
-
-.playerTop {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  margin-top: 22px;
-}
-
-.player__date {
-  margin-bottom: 6px;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-}
-
-.player__title {
-  margin-bottom: 28px;
-  font-size: clamp(26px, 2.6vw, 36px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-.player__list {
-  margin-bottom: auto;
-  list-style: none;
-}
-
-.player__track {
+.candle {
   position: relative;
-  padding: 14px 16px;
+  display: flex;
+  flex: 0 0 440px;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8px;
+  overflow: hidden;
+}
+
+.candle-img {
+  display: block;
+  width: 350px;
+  height: auto;
+  margin-top: -90px;
+}
+
+// ---------------------------------------------
+// Playlist sitting on the wax
+// ---------------------------------------------
+.player-list {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 4;
+  width: 260px;
+  list-style: none;
+  transform: translateX(-50%);
+}
+
+.player-track {
+  padding: 10px 4px;
+  font-family: Tal-Black;
   font-size: 14px;
   font-weight: 700;
-  cursor: pointer;
+  color: #000;
+  cursor: url('../../../../asset/cursor/pointer.png'), none;
+  border-bottom: 2px solid #000;
+  transition: background 0.15s ease;
 
-  &::after {
-    position: absolute;
-    inset: 0 20px;
-    pointer-events: none;
-    content: '';
-    border-block: 1px solid #000;
+  &:first-child {
+    border-top: 1px solid rgb(255 255 255 / 22%);
   }
 
   &:hover {
-    color: white;
-    background: #1C1B1F 100%;
-  }
-}
-
-.player__controls {
-  padding: 22px 16px;
-  padding-top: 20px;
-}
-
-.player__buttons {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-}
-
-.player__btn {
-  display: flex;
-  padding: 4px;
-  cursor: pointer;
-  background: none;
-  border: none;
-
-  svg {
-    width: 24px;
-    height: 24px;
-    fill: #161208;
-  }
-}
-
-.player__toggle {
-  svg {
-    width: 40px;
-    height: 40px;
-  }
-
-  .icon-pause {
-    display: none;
-  }
-
-  &.is-playing {
-    .icon-play {
-      display: none;
-    }
-
-    .icon-pause {
-      display: block;
-    }
-  }
-}
-
-.player__seek {
-  width: 100%;
-  height: 2px;
-  appearance: none;
-  cursor: pointer;
-  outline: none;
-  background: #161208;
-
-  &::-webkit-slider-thumb {
-    width: 13px;
-    height: 13px;
-    margin-top: -5.5px;
-    appearance: none;
-    background: #161208;
-    border-radius: 50%;
-  }
-
-  &::-moz-range-track {
-    height: 2px;
-    background: #161208;
-    border: none;
-  }
-
-  &::-moz-range-thumb {
-    width: 13px;
-    height: 13px;
-    background: #161208;
-    border: none;
-    border-radius: 50%;
+    color: #fff;
+    background: #000;
   }
 }
 
@@ -234,12 +193,13 @@ body {
   max-width: 1012px;
 }
 
-.newspaper__page {
+.newspaper-page {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 1320px;
   height: 100%;
+  overflow: hidden;
   color: #161208;
   background:
     url('../../../../asset/history/newspaper/paperTexture.png') center/cover,
@@ -248,14 +208,21 @@ body {
   background-blend-mode: color-burn;
 }
 
-.newspaper__scroll {
+.newspaper-scroll {
   flex: 1;
   min-height: 0;
-  padding-bottom: 36px;
   overflow-y: auto;
+  -ms-overflow-style: none;
+
+  // Without its own background, this scrolling layer is transparent,
+  // so once the scan image is scrolled past, the dark page backdrop
+  // behind .newspaper-page showed through the leftover padding.
+  // Mirroring the parent's paper background here keeps that gap
+  // covered no matter how far the article scrolls.
+  background: inherit;
 
   &::-webkit-scrollbar {
-    width: 6px;
+    display: none;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -263,7 +230,50 @@ body {
   }
 }
 
-.newspaper__scan {
+.newspaper-scan {
   display: block;
   width: 100%;
+}
+
+// ---------------------------------------------
+// Bottom ticker: slogans scrolling to the left
+// ---------------------------------------------
+.ticker {
+  flex: 0 0 auto;
+  overflow: hidden;
+  font-family: Tal-Black, 'Noto Sans KR', sans-serif;
+  color: #fff;
+  background: #000;
+  border-top: 3px solid #fff;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  padding: 9px 0;
+  white-space: nowrap;
+  animation: ticker-scroll 30s linear infinite;
+}
+
+.ticker-item {
+  padding: 0 2.6vw;
+  font-size: clamp(14px, 1.15vw, 18px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
 }

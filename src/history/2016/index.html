@@ -8,12 +8,13 @@
   </head>
   <body>
     <header class="topbar">
-      <button class="topbar__back" type="button" aria-label="뒤로가기">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-        </svg>
+      <button class="topbar-back" type="button" aria-label="뒤로가기">
+        <img
+          src="../../../asset/leftArrow.png"
+          alt="arrow"
+          style="filter: brightness(0) invert(1)" />
       </button>
-      <div class="topbar__logo">
+      <div class="topbar-logo">
         <a href="../../../index.html">
           <img src="../../../asset/logoDark.png" alt="logo" />
         </a>
@@ -21,140 +22,68 @@
     </header>
 
     <main class="year">
-      <audio id="audio" preload="metadata"></audio>
+      <audio
+        id="audio"
+        preload="metadata"
+        loop
+        src="../../../music/national-anthem.mp3"></audio>
 
-      <aside class="player">
-        <div class="playerTop">
-          <p class="player__date">2016년 10월 29일</p>
-          <h1 class="player__title">Played list</h1>
-        </div>
+      <aside class="candle">
+        <img
+          class="candle-img"
+          src="../../../asset/history/playlist/양초.png"
+          alt="" />
 
-        <ul class="player__list">
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            1. 이게나라냐ㅅㅂ
+        <ul class="player-list">
+          <li class="player-track is-active" tabindex="0" role="button">
+            1. 이게나라냐 ㅅㅂ
           </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
+          <li class="player-track" tabindex="0" role="button">
             2. 진실은 침몰하지 않는다
           </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
+          <li class="player-track" tabindex="0" role="button">
             3. 임을 위한 행진곡
           </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            4. 격문1
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            5. 진격의 촛불가
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            6. 국민이 갑이다
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            7. 민주승리가
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            8. 다시 한 번
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
-            9. 경고
-          </li>
-          <li
-            class="player__track is-active"
-            data-index="0"
-            tabindex="0"
-            role="button">
+          <li class="player-track" tabindex="0" role="button">4. 격문 1</li>
+          <li class="player-track" tabindex="0" role="button">5. 진격의 촛불가</li>
+          <li class="player-track" tabindex="0" role="button">6. 국민이 갑이다</li>
+          <li class="player-track" tabindex="0" role="button">7. 민주승리가</li>
+          <li class="player-track" tabindex="0" role="button">8. 다시 한 번</li>
+          <li class="player-track" tabindex="0" role="button">9. 경고</li>
+          <li class="player-track" tabindex="0" role="button">
             10. 우리는 승리하리라
           </li>
         </ul>
-
-        <div class="player__controls">
-          <div class="player__buttons">
-            <button
-              class="player__btn player__prev"
-              type="button"
-              aria-label="이전 곡">
-              <svg viewBox="0 0 24 24">
-                <path d="M6 6h2v12H6zM20 6 10 12l10 6z" />
-              </svg>
-            </button>
-            <button
-              class="player__btn player__toggle"
-              type="button"
-              aria-label="재생">
-              <svg class="icon-play" viewBox="0 0 24 24">
-                <path d="M7 5v14l12-7z" />
-              </svg>
-              <svg class="icon-pause" viewBox="0 0 24 24">
-                <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
-              </svg>
-            </button>
-            <button
-              class="player__btn player__next"
-              type="button"
-              aria-label="다음 곡">
-              <svg viewBox="0 0 24 24">
-                <path d="M16 6h2v12h-2zM4 6l10 6-10 6z" />
-              </svg>
-            </button>
-          </div>
-
-          <input
-            class="player__seek"
-            type="range"
-            min="0"
-            max="100"
-            value="0"
-            step="0.1"
-            aria-label="재생 구간" />
-        </div>
       </aside>
 
       <div class="newspaper">
-        <article class="newspaper__page">
-          <div class="newspaper__scroll">
+        <article class="newspaper-page">
+          <div class="newspaper-scroll">
             <img
-              class="newspaper__scan"
+              class="newspaper-scan"
               src="../../../asset/history/newspaper/2016.png"
               alt="2016년 10월 29일 호외 신문 지면" />
           </div>
         </article>
       </div>
     </main>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span class="ticker-item">어둠은 빛을 이길 수 없다</span>
+        <span class="ticker-item">거짓은 참을 이길 수 없다</span>
+        <span class="ticker-item">진실은 침몰하지 않는다</span>
+        <span class="ticker-item">우리는 포기하지 않는다</span>
+        <span class="ticker-item">어둠은 빛을 이길 수 없다</span>
+        <span class="ticker-item">거짓은 참을 이길 수 없다</span>
+        <span class="ticker-item">진실은 침몰하지 않는다</span>
+        <span class="ticker-item">우리는 포기하지 않는다</span>
+        <span class="ticker-item">어둠은 빛을 이길 수 없다</span>
+        <span class="ticker-item">거짓은 참을 이길 수 없다</span>
+        <span class="ticker-item">진실은 침몰하지 않는다</span>
+        <span class="ticker-item">우리는 포기하지 않는다</span>
+      </div>
+    </div>
 
     <script src="./script/script.js"></script>
   </body>

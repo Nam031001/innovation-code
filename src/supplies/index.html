@@ -8,131 +8,68 @@
   </head>
   <body>
     <header class="topbar">
-      <nav class="topbar__menu">
-        <button class="topbar__menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false">
-          <img src="../../asset/hamburger.png" alt="" />
+      <nav class="topbar-menu">
+        <button
+          class="topbar-menu-toggle"
+          type="button"
+          aria-label="메뉴 열기"
+          aria-expanded="false">
+          <img src="../../asset/Jhamburger.png" alt="" />
         </button>
-        <ul class="topbar__menu-list" role="menu">
-          <li role="none" style="--i: 0"><a role="menuitem" href="../library/index.html">라이브러리</a></li>
-          <li role="none" style="--i: 1"><a role="menuitem" href="../history/index.html">호외요 호외(민주시위 모음)</a></li>
-          <li role="none" style="--i: 2"><a role="menuitem" href="../object/index.html">도구 아카이브</a></li>
-          <li role="none" style="--i: 3"><a role="menuitem" href="../future/index.html">미래의 시위</a></li>
-          <li role="none" style="--i: 4"><a role="menuitem" href="../mine/index.html">나만의 깃발 만들기</a></li>
-          <li role="none" style="--i: 5"><a role="menuitem" href="index.html">시위 준비물</a></li>
+        <ul class="topbar-menu-list" role="menu">
+          <li role="none" style="--i: 0">
+            <a role="menuitem" href="../library/index.html">라이브러리</a>
+          </li>
+          <li role="none" style="--i: 1">
+            <a role="menuitem" href="../history/index.html">
+              호외요 호외(민주시위 모음)
+            </a>
+          </li>
+          <li role="none" style="--i: 2">
+            <a role="menuitem" href="../object/index.html">도구 아카이브</a>
+          </li>
+          <li role="none" style="--i: 3">
+            <a role="menuitem" href="../future/index.html">미래의 시위</a>
+          </li>
+          <li role="none" style="--i: 4">
+            <a role="menuitem" href="../mine/index.html">나만의 깃발 만들기</a>
+          </li>
+          <li role="none" style="--i: 5">
+            <a role="menuitem" href="index.html">시위 준비물</a>
+          </li>
         </ul>
       </nav>
-      <div class="topbar__logo">
-        <a href="../../index.html"><img src="../../asset/logo.png" alt="logo" /></a>
+      <div class="topbar-logo">
+        <a href="../../index.html">
+          <img src="../../asset/logo.png" alt="logo" />
+        </a>
       </div>
     </header>
 
     <main class="supplies">
-      <h1 class="supplies__title">시위 준비물</h1>
+      <div class="supplies-scene" id="scene"></div>
 
-      <section class="supplies__section">
-        <div class="supplies__headers supplies__headers--top">
-          <h2 class="supplies__label">필수준비물</h2>
-          <h2 class="supplies__label">무력진압대비</h2>
+      <div class="supplies-overlay">
+        <h1 class="supplies-title">시위 준비물</h1>
+        <p class="supplies-count" id="count">제대로 담은 준비물&nbsp;&nbsp;0 / 9</p>
+
+        <div class="bin bin--left" id="binLeft">
+          <p class="bin-label">필수준비물<br />은 이곳에!</p>
+          <ul class="bin-tags">
+            <img src="../../asset/supplies/supplies-1.png" alt="">
+          </ul>
         </div>
 
-        <ul class="supplies__grid supplies__grid--top">
-          <li class="item">
-            <span class="item__no">01</span>
-            <div class="item__frame">
-              <img
-                class="item__img"
-                src="../../asset/supplies/mask.png"
-                alt="마스크" />
-              <span class="item__label">마스크</span>
-            </div>
-          </li>
-          <li class="item">
-            <span class="item__no">02</span>
-            <div class="item__frame">
-              <img
-                class="item__img"
-                src="../../asset/supplies/sneakers.png"
-                alt="운동화" />
-              <span class="item__label">운동화</span>
-            </div>
-          </li>
-          <li class="item">
-            <span class="item__no">03</span>
-            <div class="item__frame">
-              <img
-                class="item__img"
-                src="../../asset/supplies/gogle_color.png"
-                alt="고글" />
-              <span class="item__label">고글</span>
-            </div>
-          </li>
-          <li class="item">
-            <span class="item__no">04</span>
-            <div class="item__frame">
-              <img
-                class="item__img"
-                src="../../asset/supplies/raincoat.png"
-                alt="우비" />
-              <span class="item__label">우비</span>
-            </div>
-          </li>
-        </ul>
-
-        <ul class="supplies__grid supplies__grid--bottom">
-          <li class="item">
-            <span class="item__no">05</span>
-            <div class="item__frame">
-              <img
-                class="item__img"
-                src="../../asset/supplies/water_color%203.png"
-                alt="작은 생수" />
-              <span class="item__label">작은 생수</span>
-            </div>
-          </li>
-          <li class="item">
-            <span class="item__no">06</span>
-            <div class="item__frame">
-              <img
-                class="item__img"
-                src="../../asset/supplies/hotpack.png"
-                alt="방한용품(ex. 핫팩)" />
-              <span class="item__label">방한용품(ex. 핫팩)</span>
-            </div>
-          </li>
-          <li class="item">
-            <span class="item__no">07</span>
-            <div class="item__frame">
-              <img
-                class="item__img"
-                src="../../asset/supplies/mat.png"
-                alt="매트" />
-              <span class="item__label">매트</span>
-            </div>
-          </li>
-          <li class="item">
-            <span class="item__no">08</span>
-            <div class="item__frame">
-              <img
-                class="item__img"
-                src="../../asset/supplies/phone.png"
-                alt="핸드폰 방수팩" />
-              <span class="item__label">핸드폰 방수팩</span>
-            </div>
-          </li>
-          <li class="item">
-            <span class="item__no">09</span>
-            <div class="item__frame">
-              <img
-                class="item__img"
-                src="../../asset/supplies/saline.png"
-                alt="식염수" />
-              <span class="item__label">식염수</span>
-            </div>
-          </li>
-        </ul>
-      </section>
+        <div class="bin bin--right" id="binRight">
+          <p class="bin-label">선택준비물<br />은 이곳에!</p>
+          <ul class="bin-tags">
+            <img src="../../asset/supplies/supplies-2.png" alt="">
+          </ul>
+        </div>
+      </div>
     </main>
 
-    <script src="../supplies/script/script.js"></script>
+    <script src="./script/matter.min.js"></script>
+    <script src="./script/script.js"></script>
   </body>
 </html>
