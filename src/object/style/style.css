@@ -9,10 +9,21 @@
   cursor: url("../../../asset/cursor/default.png"), none;
 }
 
-:where(a[href], button, summary, label[for], select,
-[role=button], [role=menuitem], [role=link], [role=tab],
-input[type=button], input[type=submit], input[type=reset],
-input[type=checkbox], input[type=radio], input[type=file]) {
+:where(a[href],
+button,
+summary,
+label[for],
+select,
+[role=button],
+[role=menuitem],
+[role=link],
+[role=tab],
+input[type=button],
+input[type=submit],
+input[type=reset],
+input[type=checkbox],
+input[type=radio],
+input[type=file]) {
   cursor: url("../../../asset/cursor/pointer.png"), none;
 }
 
@@ -59,8 +70,8 @@ body {
   justify-content: center;
   width: 92px;
   height: 46px;
-  margin-left: -24px;
   padding: 0;
+  margin-left: -24px;
   cursor: url("../../../asset/cursor/pointer.png"), none;
   background: none;
   border: none;
@@ -157,6 +168,7 @@ body {
   top: 40px;
   width: min(100%, (100dvh - 86px - 68px) * 1.96);
   aspect-ratio: 1.96;
+  pointer-events: none;
   transform: translate3d(var(--px, 0), var(--py, 0), 0) scale(var(--z, 1)) rotateY(var(--ry, 0deg));
   transform-style: preserve-3d;
   will-change: transform;
@@ -167,7 +179,8 @@ body {
   z-index: -1;
   pointer-events: none;
   content: "";
-  background: repeating-linear-gradient(rgba(20, 30, 55, 0.06) 0 1px, transparent 1px 10px), repeating-linear-gradient(90deg, rgba(20, 30, 55, 0.06) 0 1px, transparent 1px 10px);
+  background-image: linear-gradient(rgba(20, 30, 55, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(20, 30, 55, 0.08) 1px, transparent 1px);
+  background-size: 10px 10px;
 }
 
 .object-axes {
@@ -177,11 +190,8 @@ body {
   width: 88%;
   height: 87%;
   pointer-events: none;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-  -o-object-fit: fill;
-     object-fit: fill;
+  user-select: none;
+  object-fit: fill;
 }
 
 .object-axis-z {
@@ -249,9 +259,9 @@ body {
   left: 50px;
   z-index: 5;
   display: flex;
+  gap: 24px;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 24px;
   pointer-events: none;
 }
 
@@ -277,6 +287,7 @@ body {
 .object-items {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   list-style: none;
   transform-style: preserve-3d;
 }
@@ -292,7 +303,11 @@ body {
 .object-item .object-link {
   display: block;
   text-decoration: none;
+  pointer-events: auto;
   -webkit-user-drag: none;
+}
+.object-item:hover, .object-item:focus-within {
+  z-index: 20;
 }
 .object-item img {
   display: block;

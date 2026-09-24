@@ -317,7 +317,7 @@ function updateCount() {
   const n = itemBodies.filter(
     (b) => b.plugin.placedIn && b.plugin.placedIn === b.plugin.item.cat,
   ).length;
-  const done = n === itemBodies.length;
+  const done = itemBodies.length > 0 && n === itemBodies.length;
   if (countEl) {
     countEl.innerHTML = `제대로 담은 준비물&nbsp;&nbsp;${n} / ${itemBodies.length}`;
   }
@@ -326,6 +326,57 @@ function updateCount() {
     hintEl.textContent = done
       ? "완성! 모든 준비물을 제자리에 담았어요"
       : "위에서 쏟아지는 준비물을 드래그해서 알맞은 칸에 넣어보세요";
+  }
+  if (done) celebrate();
+}
+
+// ---------------------------------------------
+// Finish: confetti + the "준비완료" modal
+// ---------------------------------------------
+let celebrated = false;
+
+function celebrate() {
+  if (celebrated) return;
+  celebrated = true;
+
+  if (typeof confetti === "function") {
+    const shot = (x) =>
+      confetti({
+        particleCount: 90,
+        spread: 78,
+        startVelocity: 58,
+        scalar: 1.1,
+        origin: { x, y: 1 },
+      });
+    shot(0.14);
+    shot(0.86);
+    setTimeout(() => {
+      shot(0.24);
+      shot(0.76);
+    }, 220);
+    setTimeout(
+      () =>
+        confetti({
+          particleCount: 150,
+          spread: 130,
+          startVelocity: 46,
+          origin: { y: 0.62 },
+        }),
+      460,
+    );
+  }
+
+  const modal = document.getElementById("doneModal");
+  if (modal) {
+    modal.hidden = false;
+    const again = document.getElementById("doneAgain");
+    const home = document.getElementById("doneHome");
+    if (again) again.addEventListener("click", () => location.reload());
+    if (home) {
+      home.addEventListener("click", () => {
+        location.href = "../../index.html";
+      });
+    }
   }
 }
 

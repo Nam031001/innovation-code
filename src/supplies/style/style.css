@@ -234,3 +234,66 @@ body {
 .supplies-hint.is-done {
   color: #1b9e3e;
 }
+
+.supplies-done {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.55);
+  animation: supplies-done-fade 0.3s ease both;
+}
+.supplies-done[hidden] {
+  display: none;
+}
+
+.supplies-done-card {
+  position: relative;
+  width: min(760px, 92vw);
+  animation: supplies-done-pop 0.42s cubic-bezier(0.34, 1.5, 0.64, 1) both;
+}
+
+.supplies-done-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.45);
+}
+
+.supplies-done-btn {
+  position: absolute;
+  top: 69%;
+  height: 21%;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+.supplies-done-btn--again {
+  left: 3.5%;
+  width: 44%;
+}
+.supplies-done-btn--home {
+  right: 3.5%;
+  width: 44%;
+}
+
+@keyframes supplies-done-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes supplies-done-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .supplies-done,
+  .supplies-done-card {
+    animation: none;
+  }
+}

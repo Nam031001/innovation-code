@@ -18,24 +18,24 @@
         </button>
         <ul class="topbar-menu-list" role="menu">
           <li role="none" style="--i: 0">
-            <a role="menuitem" href="../library/index.html">라이브러리</a>
-          </li>
-          <li role="none" style="--i: 1">
             <a role="menuitem" href="../history/index.html">
               호외요 호외(민주시위 모음)
             </a>
           </li>
-          <li role="none" style="--i: 2">
+          <li role="none" style="--i: 1">
             <a role="menuitem" href="../object/index.html">도구 아카이브</a>
           </li>
-          <li role="none" style="--i: 3">
-            <a role="menuitem" href="../future/index.html">미래의 시위</a>
+          <li role="none" style="--i: 2">
+            <a role="menuitem" href="../library/index.html">라이브러리</a>
           </li>
-          <li role="none" style="--i: 4">
+          <li role="none" style="--i: 3">
             <a role="menuitem" href="../mine/index.html">나만의 깃발 만들기</a>
           </li>
-          <li role="none" style="--i: 5">
+          <li role="none" style="--i: 4">
             <a role="menuitem" href="index.html">시위 준비물</a>
+          </li>
+          <li role="none" style="--i: 5">
+            <a role="menuitem" href="../future/index.html">미래의 시위</a>
           </li>
         </ul>
       </nav>
@@ -69,7 +69,33 @@
       </div>
     </main>
 
+    <!--
+      Shown once every supply is in its correct bin: a confetti burst
+      plus this modal. The two buttons are drawn into popup.png, so the
+      real <button>s are transparent hotspots laid over them —
+      left = "한 번 더 하기" (reload), right = "다른 이야기 둘러보기" (main page).
+    -->
+    <div class="supplies-done" id="doneModal" hidden>
+      <div class="supplies-done-card">
+        <img
+          class="supplies-done-img"
+          src="../../asset/supplies/popup.png"
+          alt="축하합니다! 준비완료!" />
+        <button
+          class="supplies-done-btn supplies-done-btn--again"
+          type="button"
+          id="doneAgain"
+          aria-label="한 번 더 하기"></button>
+        <button
+          class="supplies-done-btn supplies-done-btn--home"
+          type="button"
+          id="doneHome"
+          aria-label="다른 이야기 둘러보기"></button>
+      </div>
+    </div>
+
     <script src="./script/matter.min.js"></script>
+    <script src="./script/confetti.min.js"></script>
     <script src="./script/script.js"></script>
   </body>
 </html>

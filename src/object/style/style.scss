@@ -18,10 +18,21 @@
 }
 
 :where(
-  a[href], button, summary, label[for], select,
-  [role='button'], [role='menuitem'], [role='link'], [role='tab'],
-  input[type='button'], input[type='submit'], input[type='reset'],
-  input[type='checkbox'], input[type='radio'], input[type='file']
+  a[href],
+  button,
+  summary,
+  label[for],
+  select,
+  [role='button'],
+  [role='menuitem'],
+  [role='link'],
+  [role='tab'],
+  input[type='button'],
+  input[type='submit'],
+  input[type='reset'],
+  input[type='checkbox'],
+  input[type='radio'],
+  input[type='file']
 ) {
   cursor: url('../../../asset/cursor/pointer.png'), none;
 }
@@ -81,8 +92,8 @@ body {
   // nothing); the negative margin keeps the icon visually in place.
   width: 92px;
   height: 46px;
-  margin-left: -24px;
   padding: 0;
+  margin-left: -24px;
   cursor: url('../../../asset/cursor/pointer.png'), none;
   background: none;
   border: none;
@@ -217,6 +228,14 @@ body {
   width: min(100%, calc((100dvh - 86px - 68px) * 1.96));
   aspect-ratio: 1.96;
 
+  // The plane's own box sits at Z = 0 of this 3D space, so with
+  // pointer-events on it would hit-test in front of any tool pushed to a
+  // negative --d ("behind" the paper) and those tools could never be
+  // clicked. Let the pointer fall straight through the plane; the
+  // pan/zoom surface (.object) is behind it and each tool's <a> re-arms
+  // pointer-events for itself.
+  pointer-events: none;
+
   // pan → zoom → orbit, driven by script.js. preserve-3d so the tools'
   // own --d depth reads under the scene perspective (no `container-type`
   // here — it would flatten the 3D).
@@ -234,13 +253,10 @@ body {
     z-index: -1;
     pointer-events: none;
     content: '';
-    background:
-      repeating-linear-gradient(rgb(20 30 55 / 6%) 0 1px, transparent 1px 10px),
-      repeating-linear-gradient(
-        90deg,
-        rgb(20 30 55 / 6%) 0 1px,
-        transparent 1px 10px
-      );
+    background-image:
+      linear-gradient(rgb(20 30 55 / 8%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(20 30 55 / 8%) 1px, transparent 1px);
+    background-size: 10px 10px;
   }
 }
 
@@ -349,9 +365,9 @@ body {
   left: 50px;
   z-index: 5;
   display: flex;
+  gap: 24px;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 24px;
   pointer-events: none;
 }
 
@@ -380,6 +396,14 @@ body {
 .object-items {
   position: absolute;
   inset: 0;
+
+  // The <ul> spans the whole plane at Z = 0; the <li> boxes have their
+  // own --d depth and a transparent gutter around the art. Left with
+  // pointer-events, either one becomes a solid hit-testing surface that
+  // swallows clicks meant for a tool sitting behind it (negative --d) or
+  // for a neighbour whose art peeks out from under its gutter. Only the
+  // <a> itself should catch the pointer.
+  pointer-events: none;
   list-style: none;
   transform-style: preserve-3d;
 }
@@ -397,10 +421,21 @@ body {
     rotateY(calc(-1 * var(--ry, 0deg)));
   transform-style: preserve-3d;
 
+  // Everything up the tree (.object-plane, .object-items, this <li>) has
+  // pointer-events off so nothing occludes a tool sitting at a negative
+  // --d; the <a> is the one thing that catches the pointer.
   .object-link {
     display: block;
     text-decoration: none;
+    pointer-events: auto;
     -webkit-user-drag: none;
+  }
+
+  // Raise a hovered / focused tool over its coplanar neighbours (no
+  // depth change — the tool must not visibly jump toward the camera).
+  &:hover,
+  &:focus-within {
+    z-index: 20;
   }
 
   img {
