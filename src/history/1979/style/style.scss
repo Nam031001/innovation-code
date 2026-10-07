@@ -225,33 +225,31 @@ body {
 }
 
 .score-1 {
-  width: 22vh;
-  z-index: 5;
+  width: 20vh;
+  z-index: 2;
   margin-right: 40px;
   animation-delay: 0s;
 }
 
 .score-2 {
-  width: 20vh;
-  z-index: 4;
+  width: 19vh;
+  z-index: 3;
   margin-left: 46px;
   animation-delay: -1s;
 }
 
 .score-3 {
-  width: 20vh;
-  z-index: 3;
+  width: 26vh;
+  z-index: 4;
   margin-right: 34px;
   animation-delay: -2s;
-  width: 250px;
 }
 
 .score-4 {
-  width: 20vh;
-  z-index: 2;
+  width: 21vh;
+  z-index: 5;
   margin-left: 40px;
   animation-delay: -3s;
-  width: 200px;
 }
 
 .score-5 {

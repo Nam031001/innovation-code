@@ -102,10 +102,9 @@ body {
 .flags {
   position: relative;
   display: flex;
-  flex: 0 0 340px;
   flex-direction: column;
   align-items: center;
-  padding-top: 58px;
+  justify-content: flex-end;
   overflow: hidden;
 }
 
@@ -117,21 +116,21 @@ body {
 .flag-1 {
   z-index: 4;
   align-self: flex-end;
-  margin-right: 65px;
+  margin-right: 85px;
   margin-bottom: -171px;
 }
 
 .flag-2 {
   z-index: 5;
   align-self: flex-end;
-  margin-right: 55px;
+  margin-right: 75px;
   margin-bottom: -99px;
 }
 
 .flag-3 {
   z-index: 6;
   align-self: flex-end;
-  margin-right: 40px;
+  margin-right: 60px;
   margin-bottom: -95px;
 }
 

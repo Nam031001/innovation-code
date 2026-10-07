@@ -171,6 +171,17 @@ body {
   p + p {
     margin-top: 1.1em;
   }
+
+  // The write-up images are ~900px-wide source art, wider than the
+  // centre column gets on a lot of real "fullscreen" sizes (laptop
+  // panels included) once the fixed-width nav/plate columns take their
+  // share — unconstrained, the image spilled out over the top bar and
+  // the plate on the right instead of scaling down with the column.
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 // ---------------------------------------------
@@ -227,15 +238,32 @@ body {
   grid-row: 2;
   grid-column: 1 / -1;
   align-self: end;
+
+  // Shrink the link's own box to its text (it used to blockify to the
+  // full grid-column width via `1 / -1`, leaving a large invisible hit
+  // area past the visible label that the reference popup's card could
+  // sit on top of and silently eat clicks on).
+  width: fit-content;
   font-family: $display;
   font-size: clamp(22px, 2.4vw, 30px);
-  color: $ink;
+  color: rgb(0 0 0 / 90%);
   text-decoration: none;
-  opacity: 0.9;
+  margin-bottom: 40px;
 
-  &:hover {
-    opacity: 1;
-  }
+  // This row sits close enough to the actual bottom of the viewport
+  // that the custom cursor image (pointer.png, ~65px tall, hotspot at
+  // its default top-left) can run out of room to draw the rest of
+  // itself below the pointer — and the global rule's `none` fallback
+  // means Chrome then shows nothing at all instead of a clipped version
+  // (confirmed by nudging the element away from the edge in DevTools,
+  // which brought the cursor straight back). The custom icon is still
+  // what shows normally here; only when it can't be drawn does this
+  // fall through to the native pointer instead of disappearing.
+  cursor: url('../../../asset/cursor/pointer.png'), pointer;
+
+  // &:hover {
+  //   color: $ink;
+  // }
 }
 
 // ---------------------------------------------

@@ -332,3 +332,19 @@ body {
 // .menu.is-open .menu__toggle-icon {
 //   transform: rotate(90deg);
 // }
+
+.hover{
+  font-family: Tal-Black, sans-serif;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  line-height: 1.3;
+  color: #878787;
+  font-size: 30px;
+}
+
+.hero{
+  position: relative;
+}

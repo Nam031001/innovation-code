@@ -6,6 +6,12 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: TalCondensed;
+  src: url('../../../../font/TalCondensed-Black.woff2') format('woff2');
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -134,18 +140,17 @@ body {
 .candle {
   position: relative;
   display: flex;
-  flex: 0 0 440px;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 8px;
+  justify-content: flex-end;
   overflow: hidden;
+  
+
 }
 
 .candle-img {
   display: block;
   width: 350px;
   height: auto;
-  margin-top: -90px;
+  margin-bottom: -3vh;
 }
 
 // ---------------------------------------------
@@ -162,9 +167,9 @@ body {
 }
 
 .player-track {
-  padding: 10px 4px;
-  font-family: Tal-Black;
-  font-size: 14px;
+  padding-block: 10px;
+  font-family: TalCondensed, sans-serif;
+  font-size: 18px;
   font-weight: 700;
   color: #000;
   cursor: url('../../../../asset/cursor/pointer.png'), none;

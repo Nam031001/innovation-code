@@ -193,7 +193,7 @@ body {
   position: relative;
   display: grid;
   place-items: center;
-  height: calc(100dvh - 86px);
+  height: calc(100dvh - 110px);
 
   // Same page margin as the other title screens; the map fills the rest.
   padding: 34px 50px;
@@ -243,6 +243,13 @@ body {
     rotateY(var(--ry, 0deg));
   transform-style: preserve-3d;
   will-change: transform;
+
+  // Toggled by script.js for the idle-timeout reset only — pan/zoom/
+  // orbit stay untransitioned (instant) so dragging never lags behind
+  // the pointer.
+  &.is-homing {
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
 
   // Faint, dense graph-paper grid — the coordinate "paper" the map sits
   // on. Oversized so it still fills the frame when panned / zoomed out,

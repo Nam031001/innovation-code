@@ -284,7 +284,7 @@ body {
 
 .rule-nav-item {
   display: flex;
-  gap: 20px;
+  gap: 38px;
   align-items: center;
   padding: 28px 32px;
   font-family: "Noto Sans KR", sans-serif;
@@ -332,26 +332,26 @@ body {
 
 .rule-panel-no {
   font-family: Tal-Black-Condensed, sans-serif;
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 800;
   text-align: center;
 }
 
 .rule-panel-title {
   font-family: Tal-Black, sans-serif;
-  font-size: 34px;
+  font-size: 40px;
   line-height: 140%;
   text-align: center;
 }
 
 .rule-panel-quote {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
   text-align: center;
 }
 
 .rule-divider {
-  margin: 8px 0;
+  margin: 14px 0;
   font-weight: 700;
   text-align: center;
 }
@@ -363,22 +363,33 @@ body {
   margin-bottom: 24px;
   -o-object-fit: cover;
      object-fit: cover;
+  border: solid 6px #000;
 }
 
 .rule-panel-body p:not(.rule-divider) {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 300;
-  line-height: 1.6;
+  line-height: 1.55;
   text-align: center;
+  letter-spacing: -2%;
+  margin-bottom: 16px;
+  word-break: keep-all;
 }
 
 body.guide-page {
   overflow-y: auto;
 }
 
-.guide-top {
+.guide {
+  height: 93vh;
   display: flex;
-  gap: 380px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.guide-top {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   padding: 30px 34px;
 }
 
@@ -431,15 +442,16 @@ body.guide-page {
   max-width: 700px;
   margin-bottom: 28px;
   font-family: TalCondensed-Black, sans-serif;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 800;
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 .guide-list p {
   margin-bottom: 20px;
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: -2%;
 }
 .guide-list strong {
   font-weight: 800;
@@ -448,7 +460,6 @@ body.guide-page {
 .guide-pagenav {
   display: flex;
   gap: 22px;
-  padding: 0 34px;
   font-family: TalCondensed-Black, sans-serif;
 }
 
@@ -464,6 +475,9 @@ body.guide-page {
 .guide-photo {
   width: 100%;
   padding: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
 }
 .guide-photo img {
   display: block;

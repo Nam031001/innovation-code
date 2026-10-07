@@ -147,7 +147,7 @@ body {
   position: relative;
   display: grid;
   place-items: center;
-  height: calc(100dvh - 86px);
+  height: calc(100dvh - 110px);
   padding: 34px 50px;
   overflow: hidden;
   touch-action: none;
@@ -166,12 +166,16 @@ body {
 .object-plane {
   position: relative;
   top: 40px;
-  width: min(100%, (100dvh - 86px - 68px) * 1.96);
+  /* width: min(100%, (100dvh - 86px - 68px) * 1.96); */
+  width: 90vw;
   aspect-ratio: 1.96;
   pointer-events: none;
   transform: translate3d(var(--px, 0), var(--py, 0), 0) scale(var(--z, 1)) rotateY(var(--ry, 0deg));
   transform-style: preserve-3d;
   will-change: transform;
+}
+.object-plane.is-homing {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .object-plane::before {
   position: absolute;

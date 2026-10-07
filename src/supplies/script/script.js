@@ -43,20 +43,24 @@ const binRight = document.querySelector("#binRight");
 const hintEl = document.querySelector("#hint");
 const countEl = document.querySelector("#count");
 
-// `size` : 개별 크기 배수 (1 = 기본).
+// `size` : 개별 크기. 숫자(예: 0.8)면 아래 baseMax(화면 폭 기반 공통
+//          기준치)에 곱하는 배수 — 다른 물건들과 같이 화면에 맞춰 커지고
+//          작아짐. "8vw" / "12vh"처럼 문자열로 주면 baseMax를 거치지 않고
+//          화면 가로/세로의 그 비율로 직접 크기를 정함(물건마다 화면에
+//          비례하는 정도를 다르게 주고 싶을 때).
 // `crop` : PNG 안에서 실제 그림이 차지하는 비율 [가로, 세로]. 충돌 박스를
 //          그림에 맞춰 물건끼리 틈 없이 쌓이게 함. 브라우저가 픽셀을 읽을
 //          수 있으면 자동 측정, 못 읽으면 이 값을 씀.
 const ITEMS = [
-  { name: "마스크", src: "../../asset/supplies/mask.png", cat: "left", size: 0.8, crop: [0.96, 0.82] },
-  { name: "운동화", src: "../../asset/supplies/sneakers.png", cat: "left", size: 1, crop: [0.98, 0.98] },
-  { name: "작은 생수", src: "../../asset/supplies/water_color%203.png", cat: "left", size: 0.9, crop: [0.96, 0.85] },
-  { name: "방한용품", src: "../../asset/supplies/hotpack.png", cat: "left", size: 0.7, crop: [1, 1] },
-  { name: "매트", src: "../../asset/supplies/mat.png", cat: "left", size: 1, crop: [1, 1] },
-  { name: "핸드폰 방수팩", src: "../../asset/supplies/phone.png", cat: "right", size: 1.1, crop: [0.91, 0.74] },
-  { name: "식염수", src: "../../asset/supplies/saline.png", cat: "right", size: 0.8, crop: [1, 1] },
-  { name: "우비", src: "../../asset/supplies/raincoat.png", cat: "right", size: 1.1, crop: [0.84, 0.7] },
-  { name: "고글", src: "../../asset/supplies/gogle_color.png", cat: "right", size: 0.9, crop: [0.98, 0.95] },
+  { name: "마스크", src: "../../asset/supplies/mask.png", cat: "left", size: "11.5vw", crop: [0.96, 0.82] },
+  { name: "운동화", src: "../../asset/supplies/sneakers.png", cat: "left", size: "12.5vw", crop: [0.98, 0.98] },
+  { name: "작은 생수", src: "../../asset/supplies/water_color%203.png", cat: "left", size: "14.5vw", crop: [0.96, 0.85] },
+  { name: "방한용품", src: "../../asset/supplies/hotpack.png", cat: "left", size: "10vw", crop: [1, 1] },
+  { name: "매트", src: "../../asset/supplies/mat.png", cat: "left", size: "13.5vw", crop: [1, 1] },
+  { name: "핸드폰 방수팩", src: "../../asset/supplies/phone.png", cat: "right", size: "15.5vw", crop: [0.91, 0.74] },
+  { name: "식염수", src: "../../asset/supplies/saline.png", cat: "right", size: "11.5vw", crop: [1, 1] },
+  { name: "우비", src: "../../asset/supplies/raincoat.png", cat: "right", size: "15.5vw", crop: [0.84, 0.7] },
+  { name: "고글", src: "../../asset/supplies/gogle_color.png", cat: "right", size: "11.5vw", crop: [0.98, 0.95] },
 ];
 
 const engine = Engine.create();
@@ -220,6 +224,24 @@ function measureContent(img, crop) {
   }
 }
 
+// Resolves an ITEMS entry's `size` into a target max-dimension in px.
+// A plain number scales `baseMax` (the shared, clamped, width-based
+// default every item uses unless told otherwise). A "Nvw"/"Nvh" string
+// instead sizes straight off the scene's current width/height, so that
+// one item can track the viewport more or less aggressively than the
+// shared baseline.
+const SIZE_VW_VH = /^(-?\d+(?:\.\d+)?)\s*(vw|vh)$/i;
+function resolveItemMax(size, baseMax, sceneW, sceneH) {
+  if (typeof size === "string") {
+    const match = SIZE_VW_VH.exec(size.trim());
+    if (match) {
+      const pct = parseFloat(match[1]) / 100;
+      return (match[2].toLowerCase() === "vw" ? sceneW : sceneH) * pct;
+    }
+  }
+  return baseMax * (size ?? 1);
+}
+
 async function buildItems() {
   const images = await Promise.all(ITEMS.map((it) => loadImage(it.src)));
   // 모든 물건 공통 기본 크기(가로·세로 중 큰 쪽 픽셀). 전체를 키우려면 여기.
@@ -244,7 +266,8 @@ async function buildItems() {
     const m = measureContent(img, item.crop);
     const contentW = nw * m.fw;
     const contentH = nh * m.fh;
-    const scale = (baseMax * (item.size ?? 1)) / Math.max(contentW, contentH);
+    const targetMax = resolveItemMax(item.size, baseMax, scene.clientWidth, scene.clientHeight);
+    const scale = targetMax / Math.max(contentW, contentH);
     const cw = contentW * scale;
     const ch = contentH * scale;
 

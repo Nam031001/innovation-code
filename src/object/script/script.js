@@ -53,6 +53,37 @@ if (scene && world) {
   };
   render();
 
+  // ---- idle reset: back to the home view after a minute untouched ----
+  // Animated (world picks up the .is-homing transition below) so it
+  // reads as the map settling back, not a jump cut. Any interaction
+  // cancels a scheduled reset and, if one was mid-flight, stops it
+  // exactly where it was so a fresh drag never fights the animation.
+  const IDLE_MS = 60000;
+  let idleTimer = null;
+
+  const goHome = (animate) => {
+    if (animate) {
+      world.classList.add("is-homing");
+      world.addEventListener(
+        "transitionend",
+        () => world.classList.remove("is-homing"),
+        { once: true },
+      );
+    }
+    px = HOME.px;
+    py = HOME.py;
+    z = HOME.z;
+    ry = HOME.ry;
+    render();
+  };
+
+  const scheduleIdleReset = () => {
+    world.classList.remove("is-homing");
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => goHome(true), IDLE_MS);
+  };
+  scheduleIdleReset();
+
   // ---- drag: pan (left) or orbit (right / shift+left) ----
   // `armed` is the intent set on pointerdown; `mode` only turns on once
   // the pointer has moved past DRAG_SLOP. Capturing the pointer on every
@@ -67,6 +98,7 @@ if (scene && world) {
   let travelled = 0;
 
   scene.addEventListener("pointerdown", (event) => {
+    scheduleIdleReset();
     if (event.button === 2 || (event.button === 0 && event.shiftKey)) {
       armed = "rotate";
       event.preventDefault();
@@ -107,6 +139,7 @@ if (scene && world) {
       px += dx;
       py += dy;
     }
+    scheduleIdleReset();
     render();
   });
 
@@ -157,6 +190,7 @@ if (scene && world) {
     "wheel",
     (event) => {
       event.preventDefault();
+      scheduleIdleReset();
       zoomAt(event.clientX, event.clientY, Math.exp(-event.deltaY * 0.0016));
     },
     { passive: false },
@@ -165,10 +199,7 @@ if (scene && world) {
   // Double-click empty space to snap back home.
   scene.addEventListener("dblclick", (event) => {
     if (event.target.closest(".object-link")) return;
-    px = HOME.px;
-    py = HOME.py;
-    z = HOME.z;
-    ry = HOME.ry;
-    render();
+    scheduleIdleReset();
+    goHome(false);
   });
 }

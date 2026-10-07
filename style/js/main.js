@@ -10,8 +10,8 @@ const toggle = document.querySelector(".menu__toggle");
 const scribble = document.querySelector(".hero__scribble");
 const hotspot = document.querySelector(".hero__hotspot");
 
-const SCRIBBLE_SRC = "asset/scribble.gif";
-const SCRIBBLE_HOVER_SRC = "asset/GifPeople.png";
+const SCRIBBLE_SRC = "asset/scribble.webp";
+const SCRIBBLE_HOVER_SRC = "asset/GifPeople.webp";
 
 hotspot.addEventListener("mouseenter", () => {
   scribble.src = SCRIBBLE_HOVER_SRC;

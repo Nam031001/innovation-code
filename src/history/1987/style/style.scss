@@ -133,8 +133,8 @@ body {
 // ---------------------------------------------
 .tapes {
   position: relative;
-  bottom: -33vh;
   display: flex;
+  justify-content: flex-end;
   flex-direction: column;
   align-items: center;
   padding-top: 18px;
