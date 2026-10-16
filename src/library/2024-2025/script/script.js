@@ -23,7 +23,7 @@ document.addEventListener("click", (event) => {
 // ---------------------------------------------
 // Photo grid
 // ---------------------------------------------
-const PHOTO = "../../../asset/history/newspaper/yoon.png";
+const PHOTO = "../../../asset/history/newspaper/yoon.webp";
 const CAPTION = "승리의 연회를 여는 시민들";
 const TEXT =
   "2024년 12월, 다시 광장에 모인 시민들은 촛불 대신 응원봉을 들었다. 세대를 넘어선 연대의 불빛은 2025년 봄까지 계속되었다.";

@@ -78,7 +78,8 @@ const render = Render.create({
   },
 });
 Render.run(render);
-Runner.run(Runner.create(), engine);
+const runner = Runner.create();
+Runner.run(runner, engine);
 
 // ---------------------------------------------
 // Static geometry: outer bounds + the two bins.
@@ -392,6 +393,12 @@ function celebrate() {
   const modal = document.getElementById("doneModal");
   if (modal) {
     modal.hidden = false;
+    // Nothing moves behind the modal anymore — once the pieces have had time
+    // to settle, stop the physics + render loops so an unattended kiosk idles.
+    setTimeout(() => {
+      Runner.stop(runner);
+      Render.stop(render);
+    }, 3000);
     const again = document.getElementById("doneAgain");
     const home = document.getElementById("doneHome");
     if (again) again.addEventListener("click", () => location.reload());

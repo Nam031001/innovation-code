@@ -1,4 +1,4 @@
-@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap';
+@import url("../../../font/notosans/notosans.css");
 * {
   box-sizing: border-box;
   padding: 0;
@@ -485,5 +485,5 @@ body.guide-page {
   aspect-ratio: 32/9;
   -o-object-fit: cover;
      object-fit: cover;
-  filter: grayscale(1) contrast(1.1);
+  border: #000 solid 5px;
 }

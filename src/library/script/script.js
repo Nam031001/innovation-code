@@ -30,9 +30,9 @@ const years = [
   { label: "1960", href: "../history/1960/index.html", caption: "1960년, 승리의 연회를 여는 시민들", photo: "../../asset/history/newspaper/419.png" },
   { label: "1979", href: "../history/1979/index.html", caption: "1979년, 부마민주항쟁의 시민들", photo: "../../asset/history/newspaper/buma.png" },
   { label: "1980", href: "../history/1980/index.html", caption: "1980년, 5·18 광주의 시민들", photo: "../../asset/history/newspaper/518.png" },
-  { label: "1987", href: "../history/1987/index.html", caption: "1987년, 6월 항쟁의 시민들", photo: "../../asset/history/newspaper/6.png" },
+  { label: "1987", href: "../history/1987/index.html", caption: "1987년, 6월 항쟁의 시민들", photo: "../../asset/history/newspaper/6.webp" },
   { label: "2016", href: "../history/2016/index.html", caption: "2016년, 촛불을 든 시민들", photo: "../../asset/history/newspaper/park.png" },
-  { label: "2024-2025", href: "../history/2024/index.html", caption: "2024-2025년, 응원봉을 든 시민들", photo: "../../asset/history/newspaper/yoon.png" },
+  { label: "2024-2025", href: "../history/2024/index.html", caption: "2024-2025년, 응원봉을 든 시민들", photo: "../../asset/history/newspaper/yoon.webp" },
 ];
 
 const ITEM_COUNT = 100;
@@ -186,8 +186,10 @@ items.forEach((item, index) => {
 // ---------------------------------------------
 // Identity — the oval sits perfectly upright (its axis vertical); the
 // idle spin and drag only ever add yaw about that vertical axis, so the
-// silhouette stays a straight, level ellipse.
-let sceneRotation = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+// silhouette stays a straight, level ellipse. Since it is only ever yaw,
+// keep a single wrapped angle instead of multiplying matrices every frame —
+// repeated mat3Mul slowly accumulates float error over a long-running kiosk.
+let sceneYaw = 0;
 const autoRotateSpeed = 0.0018;
 let isDragging = false;
 let dragMoved = false;
@@ -201,13 +203,13 @@ let focusStartRect = null;
 let focusStartIndex = -1;
 
 function applySceneTransform() {
-  scene.style.transform = mat3ToMatrix3d(sceneRotation, [0, 0, 0]);
+  scene.style.transform = mat3ToMatrix3d(mat3RotateY(sceneYaw), [0, 0, 0]);
 }
 
 function tick() {
   requestAnimationFrame(tick);
   if (isDragging || focusedIndex !== -1) return;
-  sceneRotation = mat3Mul(mat3RotateY(autoRotateSpeed), sceneRotation);
+  sceneYaw = (sceneYaw + autoRotateSpeed) % (Math.PI * 2);
   applySceneTransform();
 }
 applySceneTransform();
@@ -233,7 +235,7 @@ window.addEventListener("pointermove", (event) => {
   if (Math.abs(deltaX) + Math.abs(deltaY) > 3) dragMoved = true;
 
   // Yaw only — dragging spins the sphere left/right, never up/down.
-  sceneRotation = mat3Mul(mat3RotateY(deltaX * 0.006), sceneRotation);
+  sceneYaw = (sceneYaw + deltaX * 0.006) % (Math.PI * 2);
   lastPointerX = event.clientX;
   lastPointerY = event.clientY;
   applySceneTransform();

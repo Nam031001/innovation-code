@@ -23,7 +23,7 @@ document.addEventListener("click", (event) => {
 // ---------------------------------------------
 // Photo grid
 // ---------------------------------------------
-const PHOTO = "../../../asset/history/newspaper/6.png";
+const PHOTO = "../../../asset/history/newspaper/6.webp";
 const CAPTION = "승리의 연회를 여는 시민들";
 const TEXT =
   "1987년 6월, 전국의 거리를 가득 메운 시민들의 함성은 결국 대통령 직선제 개헌을 이끌어냈다. 광장에 모인 이들은 서로의 어깨를 두드리며 오랜 싸움의 끝을 자축했다.";

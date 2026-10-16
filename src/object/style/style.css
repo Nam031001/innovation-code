@@ -1,4 +1,4 @@
-@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap';
+@import url("../../../font/notosans/notosans.css");
 * {
   box-sizing: border-box;
   padding: 0;
@@ -166,8 +166,7 @@ body {
 .object-plane {
   position: relative;
   top: 40px;
-  /* width: min(100%, (100dvh - 86px - 68px) * 1.96); */
-  width: 90vw;
+  width: min(100%, (100dvh - 86px - 68px) * 1.96);
   aspect-ratio: 1.96;
   pointer-events: none;
   transform: translate3d(var(--px, 0), var(--py, 0), 0) scale(var(--z, 1)) rotateY(var(--ry, 0deg));
@@ -194,8 +193,11 @@ body {
   width: 88%;
   height: 87%;
   pointer-events: none;
-  user-select: none;
-  object-fit: fill;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  -o-object-fit: fill;
+     object-fit: fill;
 }
 
 .object-axis-z {

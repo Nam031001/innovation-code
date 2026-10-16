@@ -1,4 +1,4 @@
-@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap';
+@import url("../../../../font/notosans/notosans.css");
 
 @font-face {
   font-family: Tal-Black;
@@ -306,7 +306,7 @@ body {
   overflow: hidden;
   color: #161208;
   background:
-    url('../../../../asset/history/newspaper/paperTexture.png') center/cover,
+    url('../../../../asset/history/newspaper/paperTexture.webp') center/cover,
     #dbcdaa;
   box-shadow: 0 20px 60px rgb(0 0 0 / 55%);
   background-blend-mode: color-burn;

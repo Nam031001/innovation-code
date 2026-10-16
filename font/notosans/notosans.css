@@ -1,0 +1,7 @@
+/* Noto Sans KR — self-hosted subset (site text + KS X 1001 Hangul) so the
+   exhibition build works without network access. */
+@font-face { font-family: "Noto Sans KR"; font-style: normal; font-weight: 300; font-display: swap; src: url("subset/NotoSansKR-Light.woff2") format("woff2"); }
+@font-face { font-family: "Noto Sans KR"; font-style: normal; font-weight: 400; font-display: swap; src: url("subset/NotoSansKR-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Noto Sans KR"; font-style: normal; font-weight: 600; font-display: swap; src: url("subset/NotoSansKR-SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Noto Sans KR"; font-style: normal; font-weight: 700; font-display: swap; src: url("subset/NotoSansKR-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Noto Sans KR"; font-style: normal; font-weight: 800; font-display: swap; src: url("subset/NotoSansKR-ExtraBold.woff2") format("woff2"); }

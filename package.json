@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build:sw": "node scripts/build-sw.js",
     "build:css": "sass style/css/main.scss:style/css/main.css src:src --no-source-map",
     "watch:css": "sass --watch style/css/main.scss:style/css/main.css src:src --no-source-map"
   },

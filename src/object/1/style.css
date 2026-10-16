@@ -8,7 +8,7 @@
   src: url("../../../font/TalCondensed-Black.woff2") format("woff2");
 }
 body {
-  background-image: url(../../../asset/object/오브젝트배경문양.png);
+  background-image: url(../../../asset/object/오브젝트배경문양.png);
 }
 
 .topbar {
