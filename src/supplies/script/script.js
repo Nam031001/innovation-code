@@ -325,18 +325,17 @@ function zoneAt(x, y) {
     [binRight, "right"],
   ]) {
     const b = sceneRect(el);
-    // Horizontally inside the bin, and anywhere from a little above the
-    // rim (items can settle stacked past the top edge) down to the
-    // floor. The tall side walls mean nothing sits at this x without
-    // actually being in the bin.
-    if (x >= b.x && x <= b.x + b.w && y >= b.y - 48 && y <= b.y + b.h + 24) return cat;
+    // Horizontally inside the bin and no lower than its floor. No upper
+    // limit: an item at rest over the bin is either inside it or piled on
+    // what's inside it (a full bin stacks well past the rim), and only
+    // resting items are ever scored, so nothing is counted mid-air.
+    if (x >= b.x && x <= b.x + b.w && y <= b.y + b.h + 24) return cat;
   }
   return null;
 }
 
-// Placement is only ever changed by the user: picking an item up
-// clears where it was, dropping it records the bin it was let go over
-// (if any). Physics jostling never moves the score on its own.
+// Picking an item up clears where it was; once it has stayed at rest
+// for a moment, wherever it ended up is recorded (see placementTimer).
 function updateCount() {
   const n = itemBodies.filter(
     (b) => b.plugin.placedIn && b.plugin.placedIn === b.plugin.item.cat,
@@ -415,35 +414,32 @@ Events.on(mouseConstraint, "startdrag", ({ body }) => {
   updateCount();
 });
 
-Events.on(mouseConstraint, "enddrag", ({ body }) => {
-  if (!body || !body.plugin) return;
-
-  // Score it right away from where it was released...
-  body.plugin.placedIn = zoneAt(body.position.x, body.position.y);
-  updateCount();
-
-  // ...but an item is often let go in the air just above a bin (you
-  // lift it over the wall and drop it in). Follow it until it comes to
-  // rest and re-check, so it registers on the first drop instead of
-  // needing a second pick-up.
-  const target = body;
-  const start = Date.now();
-  const settle = () => {
-    if (mouseConstraint.body === target) return; // re-grabbed — a new enddrag will handle it
-    const atRest =
-      target.speed < 0.6 && Math.abs(target.angularSpeed) < 0.08;
-    if (atRest || Date.now() - start > 2500) {
-      const zone = zoneAt(target.position.x, target.position.y);
-      if (zone !== target.plugin.placedIn) {
-        target.plugin.placedIn = zone;
-        updateCount();
-      }
-      return;
+// Watch every item that isn't held, and score it only after it has been
+// still for REST_TICKS checks in a row. A single "is it moving?" sample
+// right after release is unreliable — at the top of a bounce the speed is
+// ~0 while the item is still in the air, which used to record a miss and
+// stop checking, so a correct drop needed a second pick-up to count.
+const REST_TICKS = 3;
+const placementTimer = setInterval(() => {
+  if (celebrated) return clearInterval(placementTimer);
+  let changed = false;
+  for (const b of itemBodies) {
+    const p = b.plugin;
+    if (mouseConstraint.body === b) {
+      p.restTicks = 0;
+      continue;
     }
-    setTimeout(settle, 120);
-  };
-  setTimeout(settle, 120);
-});
+    const atRest = b.speed < 0.8 && Math.abs(b.angularSpeed) < 0.1;
+    p.restTicks = atRest ? (p.restTicks || 0) + 1 : 0;
+    if (p.restTicks < REST_TICKS) continue;
+    const zone = zoneAt(b.position.x, b.position.y);
+    if (zone !== p.placedIn) {
+      p.placedIn = zone;
+      changed = true;
+    }
+  }
+  if (changed) updateCount();
+}, 150);
 
 // ---------------------------------------------
 // Keep the renderer and geometry synced to the viewport
