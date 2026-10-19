@@ -49,7 +49,7 @@ body {
   justify-content: center;
   height: 86px;
   padding: 0 32px;
-  border-bottom: 8px solid #000;
+  border-bottom: 6px solid #000;
 }
 
 .topbar-menu {
@@ -106,13 +106,22 @@ body {
 .topbar-menu-list a {
   display: inline-block;
   padding: 6px 10px;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: #f9f9f9;
   white-space: nowrap;
   text-decoration: none;
   background: #161616;
   border: 2px solid #f9f9f9;
+}
+
+.topbar-menu-list::before {
+  position: absolute;
+  top: -46px;
+  right: -16px;
+  bottom: -16px;
+  left: -24px;
+  content: "";
 }
 
 .topbar-menu-toggle:hover ~ .topbar-menu-list,
@@ -148,7 +157,7 @@ body {
   padding: clamp(16px, 3vh, 48px) 32px;
   margin: 0 auto;
   font-family: Tal-Black, sans-serif;
-  background: url("../../../asset/future/background.png");
+  background: url("../../../asset/future/background.png") center/contain no-repeat;
 }
 
 .mine-title {
@@ -164,31 +173,32 @@ body {
   flex: 1;
   width: 100%;
   min-height: 0;
+  container-type: size;
 }
 
 .mine-flag {
   --flap-shift: 0s;
   position: absolute;
-  top: 55%;
-  height: 88vh;
+  top: calc(100% - 70.4cqh + 14vh);
+  height: 80cqh;
   aspect-ratio: 0.8;
   transform: translate(-50%, -50%);
   animation: mine-flag-sway 6s ease-in-out infinite;
 }
 .mine-flag:nth-child(1) {
-  left: 25%;
+  left: calc(50% - 54.4cqh);
   z-index: 1;
   animation-duration: 6.4s;
 }
 .mine-flag:nth-child(2) {
-  left: 44%;
+  left: calc(50% - 7.8cqh);
   z-index: 2;
   --flap-shift: -0.05s;
   animation-duration: 5.6s;
   animation-delay: -2.1s;
 }
 .mine-flag:nth-child(3) {
-  left: 62%;
+  left: calc(50% + 36.5cqh);
   z-index: 3;
   --flap-shift: -0.1s;
   animation-duration: 6.9s;
@@ -198,12 +208,13 @@ body {
 .mine-flag__frame {
   position: absolute;
   inset: 0;
-  width: 140%;
+  left: -24.2%;
+  width: 170%;
   height: 150%;
   -o-object-fit: cover;
      object-fit: cover;
-  -o-object-position: 62% center;
-     object-position: 62% center;
+  -o-object-position: 57% center;
+     object-position: 57% center;
   opacity: 0;
   animation: mine-flag-flap 0.6s steps(1) infinite;
 }
@@ -252,9 +263,9 @@ body {
   bottom: 0%;
   left: 0;
   z-index: 4;
-  width: min(30%, 420px);
+  width: min(30%, 500px);
   padding: 18px 22px;
-  font-size: clamp(12px, 1.1vw, 18px);
+  font-size: clamp(12px, 1.1vw, 22px);
   line-height: 1.4;
   background: #fff;
   border: 4px solid #e0e0e0;
@@ -264,10 +275,8 @@ body {
 }
 .mine-steps strong {
   font-weight: 800;
+  font-size: clamp(12px, 1.1vw, 22px);
 }
 .mine-steps img {
   width: 50%;
-}
-.mine-steps strong {
-  font-size: 16px;
 }

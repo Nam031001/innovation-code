@@ -69,6 +69,20 @@ if (popupOpen && popup) {
   });
 }
 
+// The card sits on top of the write-up and has nothing to scroll itself,
+// so a wheel over it would otherwise go nowhere. Hand it to the write-up
+// column instead, so the text keeps scrolling while the popup is open.
+const docMain = document.querySelector(".doc-main");
+if (popupCard && docMain) {
+  popupCard.addEventListener(
+    "wheel",
+    (event) => {
+      docMain.scrollBy({ top: event.deltaY, left: 0 });
+    },
+    { passive: true },
+  );
+}
+
 // Drag the card around by its title bar, like a real window.
 if (popupCard && popupDrag) {
   let originX = 0;

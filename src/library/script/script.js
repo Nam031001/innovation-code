@@ -21,21 +21,90 @@ document.addEventListener("click", (event) => {
 });
 
 // ---------------------------------------------
-// Year data: each sphere photo + the write-up
-// shown in the detail panel. Thumbnails cycle
-// through one black-and-white photo per year
-// (the sphere greyscales them anyway).
+// Photo data: every photo in asset/library, as
+// web-sized copies (asset/library/web — thumb for
+// the sphere, full for the detail panel). Only
+// photos whose event is certain carry a caption
+// and a link to that year's page.
 // ---------------------------------------------
-const years = [
-  { label: "1960", href: "../history/1960/index.html", caption: "1960년, 승리의 연회를 여는 시민들", photo: "../../asset/history/newspaper/419.png" },
-  { label: "1979", href: "../history/1979/index.html", caption: "1979년, 부마민주항쟁의 시민들", photo: "../../asset/history/newspaper/buma.png" },
-  { label: "1980", href: "../history/1980/index.html", caption: "1980년, 5·18 광주의 시민들", photo: "../../asset/history/newspaper/518.png" },
-  { label: "1987", href: "../history/1987/index.html", caption: "1987년, 6월 항쟁의 시민들", photo: "../../asset/history/newspaper/6.webp" },
-  { label: "2016", href: "../history/2016/index.html", caption: "2016년, 촛불을 든 시민들", photo: "../../asset/history/newspaper/park.png" },
-  { label: "2024-2025", href: "../history/2024/index.html", caption: "2024-2025년, 응원봉을 든 시민들", photo: "../../asset/history/newspaper/yoon.webp" },
+const PHOTO_DIR = "../../asset/library/web";
+const photos = [
+  { file: "image-86.webp", caption: "", href: null },
+  { file: "20250404_104250.webp", caption: "2025년 4월 4일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "image-66.webp", caption: "", href: null },
+  { file: "image-81.webp", caption: "", href: null },
+  { file: "image-100.webp", caption: "", href: null },
+  { file: "image-96.webp", caption: "", href: null },
+  { file: "image-48.webp", caption: "", href: null },
+  { file: "20250111_165916.webp", caption: "2025년 1월 11일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "20250111_165937.webp", caption: "2025년 1월 11일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "image-68.webp", caption: "", href: null },
+  { file: "419-students.webp", caption: "1960년, 4·19 혁명의 시민들", href: "../history/1960/index.html" },
+  { file: "20241207_212636.webp", caption: "2024년 12월 7일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "image-87.webp", caption: "", href: null },
+  { file: "20250404_112312.webp", caption: "2025년 4월 4일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "image-95.webp", caption: "", href: null },
+  { file: "image-89.webp", caption: "", href: null },
+  { file: "image-67.webp", caption: "", href: null },
+  { file: "20241214_183723.webp", caption: "2024년 12월 14일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "20250111_163425.webp", caption: "2025년 1월 11일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "park-geunhye.webp", caption: "2016년, 촛불을 든 시민들", href: "../history/2016/index.html" },
+  { file: "20241214_172152.webp", caption: "2024년 12월 14일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "image-92.webp", caption: "", href: null },
+  { file: "image-99.webp", caption: "", href: null },
+  { file: "image-88.webp", caption: "", href: null },
+  { file: "image-84.webp", caption: "", href: null },
+  { file: "image-50.webp", caption: "", href: null },
+  { file: "image-90.webp", caption: "", href: null },
+  { file: "image-47.webp", caption: "", href: null },
+  { file: "image-63.webp", caption: "", href: null },
+  { file: "image-85.webp", caption: "", href: null },
+  { file: "20250111_180430.webp", caption: "2025년 1월 11일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "image-71.webp", caption: "", href: null },
+  { file: "image-74.webp", caption: "", href: null },
+  { file: "image-43.webp", caption: "", href: null },
+  { file: "image-94.webp", caption: "", href: null },
+  { file: "image-80.webp", caption: "", href: null },
+  { file: "image-36.webp", caption: "", href: null },
+  { file: "20250215_182855.webp", caption: "2025년 2월 15일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "image-98.webp", caption: "", href: null },
+  { file: "buma.webp", caption: "1979년, 부마민주항쟁의 시민들", href: "../history/1979/index.html" },
+  { file: "20241214_182148.webp", caption: "2024년 12월 14일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "image-15.webp", caption: "", href: null },
+  { file: "20241214_204656.webp", caption: "2024년 12월 14일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "20241214_182153.webp", caption: "2024년 12월 14일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "20250111_174315.webp", caption: "2025년 1월 11일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "20241214_170930.webp", caption: "2024년 12월 14일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "419.webp", caption: "1960년, 4·19 혁명의 시민들", href: "../history/1960/index.html" },
+  { file: "image-70.webp", caption: "", href: null },
+  { file: "20250111_184903.webp", caption: "2025년 1월 11일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "image-97.webp", caption: "", href: null },
+  { file: "20250215_181928.webp", caption: "2025년 2월 15일, 광장의 시민들", href: "../history/2024/index.html" },
+  { file: "image-79.webp", caption: "", href: null },
+  { file: "gwangju-square.webp", caption: "1980년, 5·18 광주의 시민들", href: "../history/1980/index.html" },
+  { file: "image-82.webp", caption: "", href: null },
+  { file: "image-35.webp", caption: "", href: null },
+  { file: "image-91.webp", caption: "", href: null },
+  { file: "image-46.webp", caption: "", href: null },
+  { file: "image-64.webp", caption: "", href: null },
+  { file: "image-69.webp", caption: "", href: null },
+  { file: "image-62.webp", caption: "", href: null },
+  { file: "image-45.webp", caption: "", href: null },
+  { file: "image-49.webp", caption: "", href: null },
+  { file: "image-93.webp", caption: "", href: null },
+  { file: "image-78.webp", caption: "", href: null },
+  { file: "image-75.webp", caption: "", href: null },
+  { file: "image-83.webp", caption: "", href: null },
+  { file: "image-65.webp", caption: "", href: null },
 ];
 
-const ITEM_COUNT = 100;
+// The sphere has more slots than photos, so the first
+// ITEM_COUNT - photos.length photos appear a second time (never a
+// third). Slot i shows photos[i % photos.length], which puts the two
+// copies of a photo far apart on the sphere. Prev/next walks the photo
+// list, not the slots, so a repeated photo never comes up again until
+// every photo has been seen.
+const ITEM_COUNT = Math.max(photos.length, Math.min(100, photos.length * 2));
 
 // ---------------------------------------------
 // Minimal 3x3 matrix / vector helpers (row-major).
@@ -151,7 +220,8 @@ viewport.style.perspective = `${RADIUS_X * 7}px`;
 const unitPoints = fibonacciUnitSpherePoints(ITEM_COUNT);
 
 const items = unitPoints.map((unit, index) => {
-  const year = years[index % years.length];
+  const photoIndex = index % photos.length;
+  const photo = photos[photoIndex];
   const position = [unit[0] * RADIUS_X, unit[1] * RADIUS_Y, unit[2] * RADIUS_X];
   // Outward normal of an ellipsoid (semi-axes RADIUS_X, RADIUS_Y, RADIUS_X)
   // at this surface point — not just the plain unit-sphere direction —
@@ -162,10 +232,12 @@ const items = unitPoints.map((unit, index) => {
   const el = document.createElement("div");
   el.className = "sphere-item";
   el.style.transform = mat3ToMatrix3d(basis, position);
-  el.innerHTML = `<img src="${year.photo}" alt="${year.caption}" />`;
+  // sphere/ holds the thumbnails pre-converted to greyscale, so 100 spinning
+  // 3D layers don't each run a CSS filter every frame.
+  el.innerHTML = `<img src="${PHOTO_DIR}/sphere/${photo.file}" alt="${photo.caption}" decoding="async" />`;
   scene.appendChild(el);
 
-  return { el, year };
+  return { el, photoIndex };
 });
 
 items.forEach((item, index) => {
@@ -265,12 +337,49 @@ function setBlurred(exceptIndex) {
   });
 }
 
+let fullLoader = null;
+let focusToken = 0;
+
 function showDetailContent(index) {
-  const { year } = items[index];
-  detailPhoto.src = year.photo;
-  detailPhoto.alt = year.caption;
-  detailCaption.textContent = year.caption;
-  detailLink.href = year.href;
+  const photo = photos[items[index].photoIndex];
+  // Show the small colour thumbnail at once, then swap in the full-size copy
+  // once it is downloaded *and decoded* off the main thread, so the swap
+  // never stalls a frame. Only one full-size load is ever in flight: moving
+  // on cancels the previous one instead of letting them pile up in memory
+  // over a long day of prev/next.
+  const fullSrc = `${PHOTO_DIR}/full/${photo.file}`;
+  detailPhoto.src = `${PHOTO_DIR}/thumb/${photo.file}`;
+  if (fullLoader) fullLoader.src = "";
+  const loader = new Image();
+  fullLoader = loader;
+  loader.decoding = "async";
+  loader.src = fullSrc;
+  loader
+    .decode()
+    .then(() => {
+      if (fullLoader === loader && focusedIndex === index) detailPhoto.src = fullSrc;
+    })
+    .catch(() => {});
+  detailPhoto.alt = photo.caption;
+  detailCaption.textContent = photo.caption;
+  // Photos without a known event get no caption and no year-page link.
+  if (photo.href) detailLink.href = photo.href;
+  else detailLink.removeAttribute("href");
+  detailLink.hidden = !photo.href;
+}
+
+// Prev/next step through the photo list, so each photo shows once per
+// lap even though some appear twice on the sphere. Prefer the slot the
+// panel was opened from, so closing still flies back to that thumbnail.
+function slotForPhoto(photoIndex) {
+  if (focusStartIndex !== -1 && items[focusStartIndex].photoIndex === photoIndex) return focusStartIndex;
+  return photoIndex;
+}
+
+function stepDetail(direction) {
+  const current = items[focusedIndex].photoIndex;
+  const next = (current + direction + photos.length) % photos.length;
+  switchDetail(slotForPhoto(next));
 }
 
 // Size the detail photo to the source image's own aspect ratio, fitted
@@ -339,6 +448,13 @@ function focusItem(index) {
         `transform ${ZOOM_DURATION}ms cubic-bezier(0.5, 0, 0.5, 1), opacity ${ZOOM_DURATION}ms ease`;
       viewport.style.transform = `scale(${ZOOM_SCALE})`;
       viewport.style.opacity = "0";
+
+      // Once the sphere has faded out, stop rendering it: otherwise its 99
+      // blurred 3D layers keep costing GPU time behind the open panel.
+      const token = ++focusToken;
+      setTimeout(() => {
+        if (token === focusToken && focusedIndex !== -1) viewport.style.visibility = "hidden";
+      }, ZOOM_DURATION);
     });
   });
 }
@@ -361,6 +477,10 @@ function unfocus() {
   if (focusedIndex === -1) return;
   const closingIndex = focusedIndex;
   focusedIndex = -1;
+  focusToken += 1;
+  viewport.style.visibility = "";
+  if (fullLoader) fullLoader.src = "";
+  fullLoader = null;
 
   detail.classList.remove("is-visible");
   items.forEach((item) => item.el.classList.remove("is-blurred", "is-focused-item"));
@@ -407,13 +527,13 @@ function unfocus() {
 detailPrev.addEventListener("click", (event) => {
   event.stopPropagation();
   if (focusedIndex === -1) return;
-  switchDetail((focusedIndex - 1 + items.length) % items.length);
+  stepDetail(-1);
 });
 
 detailNext.addEventListener("click", (event) => {
   event.stopPropagation();
   if (focusedIndex === -1) return;
-  switchDetail((focusedIndex + 1) % items.length);
+  stepDetail(1);
 });
 
 detailClose.addEventListener("click", (event) => {

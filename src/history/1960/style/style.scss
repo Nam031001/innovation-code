@@ -64,7 +64,7 @@ body {
   justify-content: center;
   height: 86px;
   padding: 0 32px;
-  border-bottom: 8px solid #fff;
+  border-bottom: 6px solid #fff;
 }
 
 .topbar-back {
@@ -105,6 +105,8 @@ body {
 // article text scrolls; nothing else does.
 // ---------------------------------------------
 .year {
+  // Lets .newspaper size itself off this column's height (cqh).
+  container-type: size;
   position: relative;
   display: flex;
   flex: 1;
@@ -229,25 +231,35 @@ body {
 // Newspaper page
 // ---------------------------------------------
 .newspaper {
+  // Every year shares one width: the one at which the shortest scan
+  // (2016, 1011x1113) exactly fills the column height. Short papers fit
+  // without scrolling, longer ones scroll; never narrower than 1012px.
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
   min-width: 0;
-  max-width: 1012px;
+  max-width: max(1012px, 90.84cqh);
 }
 
 .newspaper-page {
+  // Only as tall as the scan (capped at the column height, where it
+  // scrolls), so a short paper ends cleanly instead of showing empty
+  // paper texture below it on tall screens.
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 1320px;
-  height: 100%;
+  align-self: flex-start;
+  max-height: 100%;
   overflow: hidden;
   color: #161208;
   background:
     url('../../../../asset/history/newspaper/paperTexture.webp') center/cover,
-    #dbcdaa;
+    // Neutral grey taken from the scan's own margins (was a tan #dbcdaa).
+    // The scan covers this whole panel once loaded, so the paper only
+    // ever shows while 1960.png is still loading — tan flashed yellow.
+    #d0d0d0;
   box-shadow: 0 20px 60px rgb(0 0 0 / 55%);
   background-blend-mode: color-burn;
 }

@@ -134,7 +134,7 @@ body {
   a {
     display: inline-block;
     padding: 6px 10px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
     color: #f9f9f9;
     white-space: nowrap;
@@ -142,6 +142,18 @@ body {
     background: #161616;
     border: 2px solid #f9f9f9;
   }
+}
+
+// Invisible bridge over the button row and the strip left of the column,
+// so a diagonal move from the button to an item never leaves the menu.
+// Inherits pointer-events from the list, so it only exists while open.
+.topbar-menu-list::before {
+  position: absolute;
+  top: -46px;
+  right: -16px;
+  bottom: -16px;
+  left: -24px;
+  content: "";
 }
 
 .topbar-menu-toggle:hover ~ .topbar-menu-list,
@@ -274,8 +286,8 @@ body {
   height: 100%;
   object-fit: cover;
   border: 1px solid #000;
-  filter: grayscale(1) contrast(1.05);
-  transition: filter 0.3s ease;
+  // No CSS filter here: the greyscale is baked into the sphere/ thumbnails
+  // (asset/library/web), which keeps the spinning sphere cheap to draw.
 }
 
 .sphere-item.is-blurred {
@@ -289,10 +301,6 @@ body {
 
 .sphere-item.is-focused-item {
   z-index: 1;
-}
-
-.sphere-item.is-focused-item img {
-  filter: grayscale(0) contrast(1.05);
 }
 
 // ---------------------------------------------

@@ -18,6 +18,24 @@ const trackEls = document.querySelectorAll(".player-track");
 
 let current = 0;
 
+// Each playable element carries its own song in data-song (a path into
+// /music). Clicking the element that is playing stops it; clicking another
+// switches the single <audio> over to that element's song.
+let currentEl = null;
+
+function playSong(el) {
+  const src = el.dataset.song;
+  if (!src) return;
+  const url = new URL(src, document.baseURI).href;
+  if (el === currentEl && !audio.paused) {
+    audio.pause();
+    return;
+  }
+  if (audio.src !== url) audio.src = url;
+  currentEl = el;
+  audio.play();
+}
+
 function selectTrack(index) {
   current = index;
   trackEls.forEach((el, i) => el.classList.toggle("is-active", i === current));
@@ -26,8 +44,7 @@ function selectTrack(index) {
 trackEls.forEach((el, i) => {
   const activate = () => {
     selectTrack(i);
-    if (audio.paused) audio.play();
-    else audio.pause();
+    playSong(el);
   };
   el.addEventListener("click", activate);
   el.addEventListener("keydown", (event) => {

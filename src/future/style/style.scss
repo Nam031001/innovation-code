@@ -50,7 +50,8 @@ body {
   overflow: hidden;
   font-family: 'Noto Sans KR', sans-serif;
   color: #000;
-  background: url('../../../asset/future/background.png');
+  // One copy pinned to the viewport instead of tiling on wide screens.
+  background: url('../../../asset/future/background.png') center / contain no-repeat fixed;
   -ms-overflow-style: none;
 }
 
@@ -143,7 +144,7 @@ body {
   a {
     display: inline-block;
     padding: 6px 10px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
     color: #f9f9f9;
     white-space: nowrap;
@@ -151,6 +152,18 @@ body {
     background: #161616;
     border: 2px solid #f9f9f9;
   }
+}
+
+// Invisible bridge over the button row and the strip left of the column,
+// so a diagonal move from the button to an item never leaves the menu.
+// Inherits pointer-events from the list, so it only exists while open.
+.topbar-menu-list::before {
+  position: absolute;
+  top: -46px;
+  right: -16px;
+  bottom: -16px;
+  left: -24px;
+  content: "";
 }
 
 .topbar-menu-toggle:hover ~ .topbar-menu-list,
@@ -289,14 +302,14 @@ body {
 .future-art-frame,
 .future-art-photo {
   position: absolute;
-  top: 25%;
+  top: 50%;
   left: 50%;
-  width: 90%;
+  width: 100%;
   transform: translate(-50%, -50%);
 }
 
 .future-art-photo {
-  width: 45%;
+  width: 30%;
 }
 
 // ---------------------------------------------
@@ -501,20 +514,20 @@ body.guide-page {
 }
 
 .guide-intro {
-  max-width: 700px;
   margin-bottom: 28px;
   font-family: TalCondensed-Black, sans-serif;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 800;
   line-height: 1.4;
 }
 
 .guide-list {
   p {
-    margin-bottom: 20px;
-    font-size: 18px;
+    margin-bottom: 22px;
+    font-size: 20px;
     line-height: 1.6;
     letter-spacing: -2%;
+    max-width: 1300px;
   }
 
   strong {
@@ -549,6 +562,6 @@ body.guide-page {
     width: 100%;
     aspect-ratio: 32 / 9;
     object-fit: cover;
-    filter: grayscale(1) contrast(1.1);
+    border: 5px solid #000;
   }
 }

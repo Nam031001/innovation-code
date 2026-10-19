@@ -29,21 +29,23 @@
         src="../../../music/national-anthem.mp3"></audio>
 
       <aside class="flags">
+        <!-- 노래 자리: 각 요소의 data-song에 music 폴더의 곡 파일 경로를 넣으세요. 화면에 보이는 곡 이름은 .flag-song 안의(와 aria-label의) 글자를 바꾸면 됩니다. -->
+        <p class="play-hint">깃발을 클릭하면<br />음악이 재생/정지됩니다</p>
         <div class="flag flag-1">
           <span class="flag-song">애국가</span>
-          <button class="flag-btn" type="button" aria-label="애국가 재생">
+          <button class="flag-btn" type="button" data-song="../../../music/national-anthem.mp3" aria-label="애국가 재생">
             <img src="../../../asset/history/playlist/깃발01.png" alt="" />
           </button>
         </div>
         <div class="flag flag-2">
           <span class="flag-song">애국가</span>
-          <button class="flag-btn" type="button" aria-label="애국가 재생">
+          <button class="flag-btn" type="button" data-song="../../../music/national-anthem.mp3" aria-label="애국가 재생">
             <img src="../../../asset/history/playlist/깃발02.png" alt="" />
           </button>
         </div>
         <div class="flag flag-3">
           <span class="flag-song">애국가</span>
-          <button class="flag-btn" type="button" aria-label="애국가 재생">
+          <button class="flag-btn" type="button" data-song="../../../music/national-anthem.mp3" aria-label="애국가 재생">
             <img src="../../../asset/history/playlist/깃발03.png" alt="" />
           </button>
         </div>
@@ -84,6 +86,7 @@
     </div>
 
     <script src="./script/script.js"></script>
+    <script src="../script/ticker.js"></script>
     <script src="../../../style/js/kiosk.js"></script>
   </body>
 </html>

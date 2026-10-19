@@ -16,9 +16,31 @@ const audio = document.querySelector("#audio");
 const scores = document.querySelector(".scores");
 const scoresBtn = document.querySelector(".scores-btn");
 
-scoresBtn.addEventListener("click", () => {
-  if (audio.paused) audio.play();
-  else audio.pause();
+// Each playable element carries its own song in data-song (a path into
+// /music). Clicking the element that is playing stops it; clicking another
+// switches the single <audio> over to that element's song.
+let currentEl = null;
+
+function playSong(el) {
+  const src = el.dataset.song;
+  if (!src) return;
+  const url = new URL(src, document.baseURI).href;
+  if (el === currentEl && !audio.paused) {
+    audio.pause();
+    return;
+  }
+  if (audio.src !== url) audio.src = url;
+  currentEl = el;
+  audio.play();
+}
+
+// The four sheets share one button; whichever sheet was clicked picks the
+// song. A click between sheets toggles the last song (or the first sheet).
+scoresBtn.addEventListener("click", (event) => {
+  const score = event.target.closest(".score");
+  if (score) return playSong(score);
+  if (!audio.paused) audio.pause();
+  else playSong(currentEl || scoresBtn.querySelector(".score"));
 });
 
 audio.addEventListener("play", () => {

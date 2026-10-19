@@ -145,7 +145,7 @@ body {
   a {
     display: inline-block;
     padding: 6px 10px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
     color: #f9f9f9;
     white-space: nowrap;
@@ -153,6 +153,18 @@ body {
     background: #161616;
     border: 2px solid #f9f9f9;
   }
+}
+
+// Invisible bridge over the button row and the strip left of the column,
+// so a diagonal move from the button to an item never leaves the menu.
+// Inherits pointer-events from the list, so it only exists while open.
+.topbar-menu-list::before {
+  position: absolute;
+  top: -46px;
+  right: -16px;
+  bottom: -16px;
+  left: -24px;
+  content: "";
 }
 
 .topbar-menu-toggle:hover ~ .topbar-menu-list,
@@ -314,7 +326,7 @@ body {
 .object-axis-label {
   position: absolute;
   font-family: Tal-Black, 'Noto Sans KR', sans-serif;
-  font-size: clamp(13px, 1.35vw, 20px);
+  font-size: clamp(13px, 1.35vw, 30px);
   font-weight: 800;
   color: #1c1c1c;
   white-space: nowrap;
@@ -339,21 +351,21 @@ body {
 
   // 저항성 / 위협성 — resting just above the horizontal line at its ends.
   &--left {
-    top: 51%;
-    left: 1%;
+    top: 50%;
+    left: 2%;
     transform: translateY(-100%) var(--unyaw);
   }
 
   &--right {
-    top: 51%;
-    right: 1%;
+    top: 50%;
+    right: 2%;
     transform: translateY(-100%) var(--unyaw);
   }
 
   // 깊이 — tucked into the gap just above the z axis arrowhead.
   &--depth {
     top: 58%;
-    left: 35%;
+    left: 38%;
     color: rgb(20 30 55 / 62%);
     transform: translate(-50%, -50%) var(--unyaw);
   }
@@ -418,8 +430,12 @@ body {
 .object-item {
   position: absolute;
   top: var(--y);
-  left: var(--x);
-  width: var(--w);
+  // Pulled 15% in toward the centre line for wider side margins.
+  left: calc(50% + (var(--x) - 50%) * 0.85);
+
+  // Every tool drawn at 80% of its authored --w; it stays centred on
+  // its --x/--y because of the translate(-50%, -50%) below.
+  width: calc(var(--w) * 0.8);
 
   // --d pushes the tool through depth (parallax under the scene
   // perspective); the trailing rotateY billboards it back to face the

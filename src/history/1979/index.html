@@ -29,34 +29,35 @@
         src="../../../music/national-anthem.mp3"></audio>
 
       <aside class="scores">
+        <p class="scores-hint">악보를 클릭하면<br />음악이 재생/정지됩니다</p>
+        <!-- 노래 자리: 각 악보(.score)의 data-song에 music 폴더의 곡 파일 경로를 넣으세요. 화면에 보이는 곡 이름은 .score-name 안의 글자를 바꾸면 됩니다. -->
         <button
           class="scores-btn"
           type="button"
           aria-label="음악 재생 / 정지"
           aria-pressed="false">
-          <!-- 곡명은 임시값입니다. .score-name 안의 텍스트를 실제 곡 제목으로 교체하세요. -->
-          <span class="score score-1">
+          <span class="score score-1" data-song="../../../music/national-anthem.mp3">
             <img
               class="score-img"
               src="../../../asset/history/playlist/악보1.png"
               alt="" />
             <span class="score-name">1. 애국가</span>
           </span>
-          <span class="score score-2">
+          <span class="score score-2" data-song="../../../music/가곡-선구자.mp3">
             <img
               class="score-img"
               src="../../../asset/history/playlist/악보2.png"
               alt="" />
             <span class="score-name">2. 정의가</span>
           </span>
-          <span class="score score-3">
+          <span class="score score-3" data-song="../../../music/national-anthem.mp3">
             <img
               class="score-img"
               src="../../../asset/history/playlist/악보3.png"
               alt="" />
             <span class="score-name">3. 우리 승리하리라</span>
           </span>
-          <span class="score score-4">
+          <span class="score score-4" data-song="../../../music/national-anthem.mp3">
             <img
               class="score-img"
               src="../../../asset/history/playlist/악보4.png"
@@ -103,6 +104,7 @@
     </div>
 
     <script src="./script/script.js"></script>
+    <script src="../script/ticker.js"></script>
     <script src="../../../style/js/kiosk.js"></script>
   </body>
 </html>

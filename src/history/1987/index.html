@@ -29,8 +29,11 @@
         src="../../../music/national-anthem.mp3"></audio>
 
       <aside class="tapes">
+        <!-- 노래 자리: 각 요소의 data-song에 music 폴더의 곡 파일 경로를 넣으세요. 화면에 보이는 곡 이름은 .tape-song 안의(와 aria-label의) 글자를 바꾸면 됩니다. -->
+        <p class="play-hint">카세트테이프를 클릭하면<br />음악이 재생/정지됩니다</p>
         <button
           class="tape tape-1 is-playable"
+          data-song="../../../music/national-anthem.mp3"
           type="button"
           aria-label="임을 위한 행진곡 재생"
           aria-pressed="false">
@@ -39,6 +42,7 @@
         </button>
         <button
           class="tape tape-2 is-playable"
+          data-song="../../../music/national-anthem.mp3"
           type="button"
           aria-label="타는 목마름으로 재생"
           aria-pressed="false">
@@ -47,6 +51,7 @@
         </button>
         <button
           class="tape tape-3 is-playable"
+          data-song="../../../music/national-anthem.mp3"
           type="button"
           aria-label="농민가 재생"
           aria-pressed="false">
@@ -55,6 +60,7 @@
         </button>
         <button
           class="tape tape-4 is-playable"
+          data-song="../../../music/national-anthem.mp3"
           type="button"
           aria-label="동지여 내가 있다 재생"
           aria-pressed="false">
@@ -63,6 +69,7 @@
         </button>
         <button
           class="tape tape-5 is-playable"
+          data-song="../../../music/national-anthem.mp3"
           type="button"
           aria-label="그날이 오면 재생"
           aria-pressed="false">
@@ -71,6 +78,7 @@
         </button>
         <button
           class="tape tape-6 is-playable"
+          data-song="../../../music/national-anthem.mp3"
           type="button"
           aria-label="아침이슬 재생"
           aria-pressed="false">
@@ -79,6 +87,7 @@
         </button>
         <button
           class="tape tape-7 is-playable"
+          data-song="../../../music/national-anthem.mp3"
           type="button"
           aria-label="광주출전가 재생"
           aria-pressed="false">
@@ -87,6 +96,7 @@
         </button>
         <button
           class="tape tape-8 is-playable"
+          data-song="../../../music/national-anthem.mp3"
           type="button"
           aria-label="솔아 솔아 푸르른 솔아 재생"
           aria-pressed="false">
@@ -133,6 +143,7 @@
     </div>
 
     <script src="./script/script.js"></script>
+    <script src="../script/ticker.js"></script>
     <script src="../../../style/js/kiosk.js"></script>
   </body>
 </html>

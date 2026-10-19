@@ -103,13 +103,22 @@ body {
 .topbar-menu-list a {
   display: inline-block;
   padding: 6px 10px;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: #f9f9f9;
   white-space: nowrap;
   text-decoration: none;
   background: #161616;
   border: 2px solid #f9f9f9;
+}
+
+.topbar-menu-list::before {
+  position: absolute;
+  top: -46px;
+  right: -16px;
+  bottom: -16px;
+  left: -24px;
+  content: "";
 }
 
 .topbar-menu-toggle:hover ~ .topbar-menu-list,
@@ -213,8 +222,6 @@ body {
   -o-object-fit: cover;
      object-fit: cover;
   border: 1px solid #000;
-  filter: grayscale(1) contrast(1.05);
-  transition: filter 0.3s ease;
 }
 
 .sphere-item.is-blurred {
@@ -226,10 +233,6 @@ body {
 
 .sphere-item.is-focused-item {
   z-index: 1;
-}
-
-.sphere-item.is-focused-item img {
-  filter: grayscale(0) contrast(1.05);
 }
 
 .detail {
