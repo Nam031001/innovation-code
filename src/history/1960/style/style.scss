@@ -232,14 +232,14 @@ body {
 // ---------------------------------------------
 .newspaper {
   // Every year shares one width: the one at which the shortest scan
-  // (2016, 1011x1113) exactly fills the column height. Short papers fit
+  // (2016, 2022x2336) exactly fills the column height. Short papers fit
   // without scrolling, longer ones scroll; never narrower than 1012px.
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
   min-width: 0;
-  max-width: max(1012px, 90.84cqh);
+  max-width: max(1012px, 86.56cqh);
 }
 
 .newspaper-page {

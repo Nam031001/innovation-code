@@ -150,7 +150,12 @@ body {
 
 .candle-img {
   display: block;
-  width: 350px;
+  // Original 350px width, height from the art's own 360:1065 ratio, so
+  // the candle is never stretched; sits on the bottom (no flex stretch).
+  // On short screens it narrows just enough to fit the column height
+  // (100cqh = .year, plus the 3vh it hangs below).
+  align-self: flex-end;
+  width: min(350px, calc((100cqh + 3vh) * 0.338));
   height: auto;
   margin-bottom: -3vh;
 }
@@ -193,14 +198,14 @@ body {
 // ---------------------------------------------
 .newspaper {
   // Every year shares one width: the one at which the shortest scan
-  // (2016, 1011x1113) exactly fills the column height. Short papers fit
+  // (2016, 2022x2336) exactly fills the column height. Short papers fit
   // without scrolling, longer ones scroll; never narrower than 1012px.
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
   min-width: 0;
-  max-width: max(1012px, 90.84cqh);
+  max-width: max(1012px, 86.56cqh);
 }
 
 .newspaper-page {
@@ -297,7 +302,14 @@ body {
 // column so the artwork below keeps its layout. Hidden while playing.
 .play-hint {
   position: absolute;
-  top: 14px;
+  // Just above the flame tip with a 16px gap: the candle is
+  // min(1035.5px, 100cqh + 3vh) tall, hangs 3vh below the column, and its
+  // art starts 10.61% down (transparent above the flame). On short screens
+  // the candle fills the column, so the hint stops at the top.
+  bottom: min(
+    calc(min(1035.5px, 100cqh + 3vh) * 0.8939 - 3vh + 16px),
+    calc(100cqh - 109px)
+  );
   left: 50%;
   z-index: 6;
   padding: 12px 18px;

@@ -5,8 +5,12 @@
   else window.addEventListener("load", done);
 })();
 
+// history.back() does nothing when this page was opened on its own (new
+// tab, typed address, preview, kiosk restart), so go to the list instead.
 document.querySelector(".topbar-back").addEventListener("click", () => {
-  history.back();
+  const cameFromSite = document.referrer.startsWith(location.origin);
+  if (cameFromSite && history.length > 1) history.back();
+  else location.href = "../index.html";
 });
 
 // ---------------------------------------------

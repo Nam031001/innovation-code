@@ -361,11 +361,14 @@ function showDetailContent(index) {
     })
     .catch(() => {});
   detailPhoto.alt = photo.caption;
-  detailCaption.textContent = photo.caption;
+  // The caption block can be commented out in the HTML; skip it then.
+  if (detailCaption) detailCaption.textContent = photo.caption;
   // Photos without a known event get no caption and no year-page link.
-  if (photo.href) detailLink.href = photo.href;
-  else detailLink.removeAttribute("href");
-  detailLink.hidden = !photo.href;
+  if (detailLink) {
+    if (photo.href) detailLink.href = photo.href;
+    else detailLink.removeAttribute("href");
+    detailLink.hidden = !photo.href;
+  }
 }
 
 // Prev/next step through the photo list, so each photo shows once per

@@ -114,14 +114,15 @@ body {
 
 .candle-img {
   display: block;
-  width: 350px;
+  align-self: flex-end;
+  width: min(350px, (100cqh + 3vh) * 0.338);
   height: auto;
   margin-bottom: -3vh;
 }
 
 .player-list {
   position: absolute;
-  bottom: 0;
+  bottom: 1vh;
   left: 50%;
   z-index: 4;
   width: 260px;
@@ -130,18 +131,18 @@ body {
 }
 
 .player-track {
-  padding-block: 10px;
+  padding-block: 14px;
   font-family: TalCondensed, sans-serif;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
   color: #000;
   cursor: url("../../../../asset/cursor/pointer.png"), none;
   border-bottom: 2px solid #000;
   transition: background 0.15s ease;
 }
-.player-track:first-child {
-  border-top: 1px solid rgba(255, 255, 255, 0.22);
-}
+/* .player-track:first-child {
+  border-top: 1px solid #000; xxx
+} */
 .player-track:hover {
   color: #fff;
   background: #000;
@@ -153,7 +154,7 @@ body {
   align-items: center;
   justify-content: center;
   min-width: 0;
-  max-width: max(1012px, 90.84cqh);
+  max-width: max(1012px, 86.56cqh);
 }
 
 .newspaper-page {
@@ -230,7 +231,10 @@ body {
 
 .play-hint {
   position: absolute;
-  top: 14px;
+  bottom: min(
+    calc(min(1035.5px, 100cqh + 3vh) * 0.8939 - 3vh + 16px),
+    calc(100cqh - 109px)
+  );
   left: 50%;
   z-index: 6;
   padding: 12px 18px;

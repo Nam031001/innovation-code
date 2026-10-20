@@ -25,7 +25,7 @@ const all = walk(root);
 const rel = (f) => path.relative(root, f).split(path.sep).join("/").normalize("NFC");
 const code = all.filter((f) => CODE.test(f) && rel(f) !== "sw.js");
 // Every quoted/url() path ending in a media or font extension.
-const REF = /["'(]([^"'()<>\n]+?\.(?:png|webp|jpe?g|gif|svg|woff2?|ttf|otf|mp3|mp4|webm|wav|ogg))["')?#]/gi;
+const REF = /["'(]([^"'()<>\n]+?\.(?:png|webp|jpe?g|gif|svg|woff2?|ttf|otf|mp3|m4a|aac|mp4|webm|wav|ogg))["')?#]/gi;
 const refs = new Set();
 for (const f of code) {
   for (const m of fs.readFileSync(f, "utf8").matchAll(REF)) {
@@ -45,7 +45,13 @@ const used = assets.filter((f) => {
   return false;
 });
 
-const urls = [...code.map(rel), ...used.map(rel)].sort().map((u) => encodeURI(u));
+// Download order for the kiosk precache: pages/CSS/JS, then images and
+// fonts, then audio last, so on a weak connection every screen works before
+// the large songs finish arriving.
+const rank = (u) => (CODE.test(u) ? 0 : /\.(mp3|m4a|aac|mp4|webm|wav|ogg)$/i.test(u) ? 2 : 1);
+const urls = [...code.map(rel), ...used.map(rel)]
+  .sort((a, b) => rank(a) - rank(b) || (a < b ? -1 : a > b ? 1 : 0))
+  .map((u) => encodeURI(u));
 const hash = crypto.createHash("sha1");
 for (const u of urls) hash.update(u + fs.statSync(path.join(root, decodeURI(u))).mtimeMs);
 const version = hash.digest("hex").slice(0, 10);

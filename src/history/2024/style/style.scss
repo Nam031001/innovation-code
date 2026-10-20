@@ -161,23 +161,25 @@ body {
 // left the top flag stranded. Each margin is tuned to its own art so
 // the cloths step down the cascade at an even pitch.
 .flag-1 {
+  // Every flag sits 2.85vh further left than first drawn, so the bottom
+  // flag's pole tip just slips behind the truck.
   z-index: 4;
   align-self: flex-end;
-  margin-right: 85px;
+  margin-right: calc(85px + 2.85vh);
   margin-bottom: -171px;
 }
 
 .flag-2 {
   z-index: 5;
   align-self: flex-end;
-  margin-right: 75px;
+  margin-right: calc(75px + 2.85vh);
   margin-bottom: -99px;
 }
 
 .flag-3 {
   z-index: 6;
   align-self: flex-end;
-  margin-right: 60px;
+  margin-right: calc(60px + 2.85vh);
   margin-bottom: -95px;
 }
 
@@ -304,14 +306,14 @@ body {
 // ---------------------------------------------
 .newspaper {
   // Every year shares one width: the one at which the shortest scan
-  // (2016, 1011x1113) exactly fills the column height. Short papers fit
+  // (2016, 2022x2336) exactly fills the column height. Short papers fit
   // without scrolling, longer ones scroll; never narrower than 1012px.
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
   min-width: 0;
-  max-width: max(1012px, 90.84cqh);
+  max-width: max(1012px, 86.56cqh);
 }
 
 .newspaper-page {
@@ -402,13 +404,12 @@ body {
 }
 
 
-// Click hint, same sign as 1960/1979; floats over the top of the
-// column so the artwork below keeps its layout. Hidden while playing.
+// Click hint, same sign as 1960/1979. Sits in the flow right above the
+// top flag (16px gap), so it follows the flags. Hidden while playing.
 .play-hint {
-  position: absolute;
-  top: 14px;
-  left: 50%;
+  position: relative;
   z-index: 6;
+  margin-bottom: 16px;
   padding: 12px 18px;
   font-family: Tal-Black, sans-serif;
   font-size: 24px;
@@ -420,7 +421,6 @@ body {
   pointer-events: none;
   background: #fff;
   border: 3px solid #000;
-  transform: translateX(-50%);
   transition: opacity 0.3s ease;
 }
 

@@ -117,21 +117,21 @@ body {
 .flag-1 {
   z-index: 4;
   align-self: flex-end;
-  margin-right: 85px;
+  margin-right: calc(85px + 2.85vh);
   margin-bottom: -171px;
 }
 
 .flag-2 {
   z-index: 5;
   align-self: flex-end;
-  margin-right: 75px;
+  margin-right: calc(75px + 2.85vh);
   margin-bottom: -99px;
 }
 
 .flag-3 {
   z-index: 6;
   align-self: flex-end;
-  margin-right: 60px;
+  margin-right: calc(60px + 2.85vh);
   margin-bottom: -95px;
 }
 
@@ -146,7 +146,7 @@ body {
   left: 50%;
   z-index: 10;
   padding: 6px 14px;
-  font-size: 18px;
+  font-size: 22px;
   font-family: Tal-Black;
   color: #fff;
   white-space: nowrap;
@@ -238,7 +238,7 @@ body {
   align-items: center;
   justify-content: center;
   min-width: 0;
-  max-width: max(1012px, 90.84cqh);
+  max-width: max(1012px, 86.56cqh);
 }
 
 .newspaper-page {
@@ -314,10 +314,9 @@ body {
 }
 
 .play-hint {
-  position: absolute;
-  top: 14px;
-  left: 50%;
+  position: relative;
   z-index: 6;
+  margin-bottom: 16px;
   padding: 12px 18px;
   font-family: Tal-Black, sans-serif;
   font-size: 24px;
@@ -329,7 +328,6 @@ body {
   pointer-events: none;
   background: #fff;
   border: 3px solid #000;
-  transform: translateX(-50%);
   transition: opacity 0.3s ease;
 }
 

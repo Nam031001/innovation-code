@@ -5,8 +5,12 @@
   else window.addEventListener("load", done);
 })();
 
+// history.back() does nothing when this page was opened on its own (new
+// tab, typed address, preview, kiosk restart), so go to the list instead.
 document.querySelector(".topbar-back").addEventListener("click", () => {
-  history.back();
+  const cameFromSite = document.referrer.startsWith(location.origin);
+  if (cameFromSite && history.length > 1) history.back();
+  else location.href = "../index.html";
 });
 
 // ---------------------------------------------
@@ -19,8 +23,8 @@ const trackEls = document.querySelectorAll(".player-track");
 let current = 0;
 
 // Each playable element carries its own song in data-song (a path into
-// /music). Clicking the element that is playing stops it; clicking another
-// switches the single <audio> over to that element's song.
+// /music). Only clicking the element that is playing stops it; clicking any
+// other element switches the single <audio> over to that element's song.
 let currentEl = null;
 
 function playSong(el) {
@@ -31,7 +35,12 @@ function playSong(el) {
     audio.pause();
     return;
   }
-  if (audio.src !== url) audio.src = url;
+  if (el !== currentEl) {
+    // A different element always starts its own song from the top, even
+    // when it shares the file with the element that was playing.
+    if (audio.src !== url) audio.src = url;
+    audio.currentTime = 0;
+  }
   currentEl = el;
   audio.play();
 }
