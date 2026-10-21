@@ -203,15 +203,18 @@ body {
   transition: filter 0.2s ease;
 }
 
+// Image title (asset/title), same 102px-tall box as the old 60px
+// bordered text it replaces.
 .library-title-text {
-  padding: 14px 28px;
   margin-inline: 50px;
   margin-top: 30px;
-  font-family: Tal-Black, sans-serif;
+  line-height: 0;
 
-  // font-size: clamp(26px, 3.2vw, 42px);
-  font-size: 60px;
-  border: 6px solid #000;
+  img {
+    display: block;
+    width: auto;
+    height: 102px;
+  }
 }
 
 // ---------------------------------------------
