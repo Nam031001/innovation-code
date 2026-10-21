@@ -193,23 +193,16 @@ body {
   align-items: center;
   justify-content: center;
   width: 25%;
-  height: 55%;
-  border: 6px solid #e6e6e2;
-  border-radius: 5px;
+  height: 60%;
+  border: 4px solid #e6e6e2;
+  border-radius: 6px;
 }
-
-#bin2{
-  width: 70%;
-}
-
 .bin--left {
   left: clamp(16px, 3vw, 44px);
 }
 .bin--right {
   right: clamp(16px, 3vw, 44px);
 }
-
-
 
 .bin-label {
   padding: 0 12px;

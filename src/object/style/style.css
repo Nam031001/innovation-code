@@ -202,8 +202,11 @@ body {
   width: 88%;
   height: 87%;
   pointer-events: none;
-  user-select: none;
-  object-fit: fill;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  -o-object-fit: fill;
+     object-fit: fill;
 }
 
 .object-axis-z {
