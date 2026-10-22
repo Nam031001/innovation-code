@@ -1,41 +1,32 @@
-// Exhibition helpers, loaded on every page.
+// Exhibition helpers, loaded on every page. Always on, no setup needed.
 //
-// 1. Offline cache: registers sw.js so pages already visited keep working
-//    when the venue Wi-Fi drops.
-// 2. Kiosk mode (exhibition PC only): open any page once with `?kiosk=1`
-//    and this browser remembers it. In kiosk mode the service worker
-//    downloads the whole site up front, and after IDLE_MS without input
-//    the page returns to the start screen, which also clears memory the
-//    previous visitor's session built up. `?kiosk=0` turns it off again.
-//    Visitors browsing on their own phones are never affected.
+// 1. Offline cache: registers sw.js and has it download the whole site up
+//    front, so every page keeps working when the venue Wi-Fi drops.
+// 2. Idle reset: after IDLE_MS without input the page returns to the start
+//    screen, which also clears memory the previous visitor's session built
+//    up. It waits while audio or video is playing.
 (function () {
-  var IDLE_MS = 3 * 60 * 1000;
+  var IDLE_MS = 2 * 60 * 1000;
 
   var scriptUrl = document.currentScript && document.currentScript.src;
   if (!scriptUrl) return;
   var siteRoot = new URL("../../", scriptUrl);
 
-  var kiosk = false;
+  // Old kiosk on/off switch (?kiosk=1 / ?kiosk=0) is gone; drop its leftover.
   try {
-    var flag = new URLSearchParams(location.search).get("kiosk");
-    if (flag === "1") localStorage.setItem("kiosk", "1");
-    if (flag === "0") localStorage.removeItem("kiosk");
-    kiosk = localStorage.getItem("kiosk") === "1";
+    localStorage.removeItem("kiosk");
   } catch (e) {}
 
   if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
     navigator.serviceWorker
       .register(new URL("sw.js", siteRoot).href)
       .then(function () {
-        if (!kiosk) return;
         return navigator.serviceWorker.ready.then(function (reg) {
           if (reg.active) reg.active.postMessage("precache-all");
         });
       })
       .catch(function () {});
   }
-
-  if (!kiosk) return;
 
   var home = new URL("index.html", siteRoot).href;
   var timer;
